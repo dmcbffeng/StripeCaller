@@ -1,7 +1,7 @@
 # StripeCaller
 
 ### Summary
-
+  The python package for calling stripes from Hi-C/Micro-C contact maps.
 
 
 ### Installation
