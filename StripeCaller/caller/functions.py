@@ -72,11 +72,12 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(5, 100), window_siz
         # NEED A LOWER BOUND FOR EXPECTED VAL!
         ###################
         lower_b = 0
+        upper_mlogp = 10
         _exp = max(neighbor_mean, lower_b)
 
         Poiss = poisson(_exp)
         p_val = 1 - Poiss.cdf(line_min)
-        new_mat[y] = - np.log10(p_val)
+        new_mat[y] = min(- np.log10(p_val), upper_mlogp) if p_val > 0 else upper_mlogp
     return new_mat
 
 
