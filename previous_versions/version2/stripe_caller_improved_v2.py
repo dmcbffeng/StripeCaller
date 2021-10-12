@@ -4,6 +4,12 @@ import numpy as np
 from scipy.signal import find_peaks
 from scipy.stats import kruskal, poisson
 
+def subsetNpMatrix(matrix, row_bounds, column_bounds):
+    rows = np.array([x for x in range(row_bounds[0],row_bounds[1]) if x < matrix.shape[0]])
+    cols = np.array([y for y in range(column_bounds[0],column_bounds[1]) if y < matrix.shape[1]])
+    subset = (matrix.ravel()[(cols + (rows * matrix.shape[1]).reshape((-1,1))).ravel()]).reshape(rows.size, cols.size)
+    return subset
+
 
 def hic2txt(hic_file, ch, resolution=1000, output='temp.txt'):
     """
@@ -152,10 +158,25 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(20, 40), window_siz
         if j < window_size + half or j >= mat.shape[1] - window_size - half:
             continue
         y = j - distance_range[0]
-        line_min = min(np.mean(mat[x1:x2, j-window_size-half:j-half]),
-                       np.mean(mat[x1:x2, j+1+half:j+window_size+half+1]))
-        neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
-                            np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
+#
+        _under_neighbor = subsetNpMatrix(mat, (x1,x2),(j - window_size - half,j-half))
+        _over_neighbor = subsetNpMatrix(mat, (x1,x2),(j+1+half,j+window_size+half+1))
+#
+        line_min = min(np.mean(_under_neighbor),
+                       np.mean(_over_neighbor))
+#         line_min = min(np.mean(mat[x1:x2, j-window_size-half:j-half]),
+#                        np.mean(mat[x1:x2, j+1+half:j+window_size+half+1]))
+#
+#             [mat[x1:x2, j - window_size - half:j + window_size + half + 1]]
+#         )
+#
+        _under_neighbor = subsetNpMatrix(mat, (idx-window_size,x1),(j-window_size-half,j+window_size+half+1))
+        _over_neighbor = subsetNpMatrix(mat, (x2+1,idx+window_size),(j-window_size-half,j+window_size+half+1))
+#
+        neighbor_mean = max(np.mean(_under_neighbor),
+                            np.mean(_over_neighbor))
+#         neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
+#                             np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
         new_mat[y] = line_min - neighbor_mean
     return new_mat
 
@@ -174,11 +195,18 @@ def enrichment_score2(mat, idx, line_width=1, distance_range=(5, 100), window_si
         # line_min = np.median(np.concatenate(
         #     [mat[x1:x2, j-window_size-half:j-half], mat[x1:x2, j+1+half:j+window_size+half+1]]
         # ))
-        line_min = np.median(
-            [mat[x1:x2, j - window_size - half:j + window_size + half + 1]]
-        )
-        neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
-                            np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
+        _min_temp = subsetNpMatrix(mat, (x1,x2),(j - window_size - half,j + window_size + half + 1))
+#
+        line_min = np.median([_min_temp])
+#             [mat[x1:x2, j - window_size - half:j + window_size + half + 1]]
+#         )
+        _inner_neighbor = subsetNpMatrix(mat, (idx-window_size,x1),(j - window_size - half,j + window_size + half + 1))
+        _outer_neighbor = subsetNpMatrix(mat, (x2+1,idx+window_size+1),(j - window_size - half,j + window_size + half + 1))
+#
+        neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
+#
+#         neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
+#                             np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
         # print(line_min, neighbor_mean)
         # new_mat[y] = line_min / (neighbor_mean + 1e-9) - 1
         lower_b = 0
@@ -323,7 +351,7 @@ def stripe_caller_all(
         min_length=30000, closeness=50000,
         stripe_width=1, merge=1, window_size=8
 ):
-    ch_sizes = load_chrom_sizes('hg38')
+    ch_sizes = load_chrom_sizes('GRCh38.p13.chromsize')
 
     f = open(output_file, 'w')
     f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
@@ -356,7 +384,11 @@ def stripe_caller_all(
     f.close()
 
 
+
+
 if __name__ == '__main__':
+    import time
+
     # HFF threshold: 50
     # hESC threshold: 40
     # chromosomes = [f'chr{i}' for i in list(range(1, 23)) + ['X']]
@@ -364,13 +396,16 @@ if __name__ == '__main__':
 
     hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/microC/HFF/raw/HFFc6.hic'
     thr = 0.01
+#     start_time = time.time()
     stripe_caller_all(
         hic_file=hic_file,
         chromosomes=chromosomes,
         output_file='HFF_MicroC_stripes_chr1.bedpe',
         threshold=thr
     )
+#     print("microC/HFF/raw/HFFc6.hic took:\n--- %s seconds ---" % (time.time() - start_time))
 
+#     start_time = time.time()
     hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/microC/hESC/raw/H1-hESC.hic'
     thr = 0.01
     stripe_caller_all(
@@ -379,7 +414,10 @@ if __name__ == '__main__':
         output_file='H1_MicroC_stripes_chr1.bedpe',
         threshold=thr
     )
+#     print("microC/hESC/raw/H1-hESC.hic took:\n--- %s seconds ---" % (time.time() - start_time))
 
+    
+#     start_time = time.time()
     hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic'
     thr = 0.01
     stripe_caller_all(
@@ -391,8 +429,4 @@ if __name__ == '__main__':
         min_length=1000000, closeness=1000000,
         stripe_width=1, merge=1, window_size=8
     )
-
-
-
-
-
+#     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
