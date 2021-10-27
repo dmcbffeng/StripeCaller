@@ -6,11 +6,12 @@ from scipy.stats import kruskal, poisson
 import matplotlib.pyplot as plt
 from AVL_tree import AVLTree
 
-
 stats_log = []
 _calculated_values = {}
 _poisson_stats = {}
 
+from multiprocessing import Pool, cpu_count
+from functools import partial
 
 def subsetNpMatrix(matrix, row_bounds, column_bounds):
     rows = np.array([x for x in range(row_bounds[0], row_bounds[1]) if x < matrix.shape[0]])
@@ -116,7 +117,7 @@ def pick_max_positions2(mat, distance_range=(10, 160), line_width=1, window_size
     st, ed = distance_range
     stats = np.sum(mat[:, st:ed], axis=1)
     all_pos = []
-
+#
     all_peaks, _ = find_peaks(stats, distance=window_size * 2)
     for idx in all_peaks:
         check = enrichment_score(mat, idx, line_width, (st, ed), window_size)
@@ -129,7 +130,7 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(20, 40), window_siz
     # st, ed = max(distance_range[0], window_size), min(distance_range[1], mat.shape[1] - window_size)
     half = int(line_width // 2)
     x1, x2 = idx - half, idx - half + line_width
-
+#
     new_mat = np.zeros((distance_range[1] - distance_range[0],))
     for j in range(distance_range[0], distance_range[1]):
         if j < window_size + half or j >= mat.shape[1] - window_size - half:
@@ -159,12 +160,12 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(20, 40), window_siz
         new_mat[y] = line_min - neighbor_mean
     return new_mat
 
-
-def enrichment_score2(mat, idx, line_width=1, distance_range=(5, 100), window_size=10):
+def enrichment_score2(mat, line_width, distance_range, window_size, idx):
+# def enrichment_score2(mat, idx, line_width=1, distance_range=(5, 100), window_size=10):
     # st, ed = max(distance_range[0], window_size), min(distance_range[1], mat.shape[1] - window_size)
     half = int(line_width // 2)
     x1, x2 = idx - half, idx - half + line_width
-
+#
     new_mat = np.zeros((distance_range[1] - distance_range[0],))
     for j in range(distance_range[0], distance_range[1]):
         # print(j)
@@ -193,10 +194,10 @@ def enrichment_score2(mat, idx, line_width=1, distance_range=(5, 100), window_si
         lower_b = 0  # This should be (1 / KR_norm_factors)
         _exp = max(neighbor_mean, lower_b)
         _obs = int(line_min)
-
+#
         global _calculated_values, _poisson_stats, stats_log
         tolerance = 0.02
-
+#
         # check if obs is calculated before
         if _obs in _calculated_values:
             (_upper, _lower) = _calculated_values[_obs].search(_exp)
@@ -225,7 +226,7 @@ def enrichment_score2(mat, idx, line_width=1, distance_range=(5, 100), window_si
                 mlog_p_val = -1
             _poisson_stats[(_exp_idx, _obs)] = mlog_p_val
             stats_log.append([_exp, _obs, mlog_p_val])
-
+#
         new_mat[y] = mlog_p_val
     new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
     return new_mat
@@ -256,7 +257,7 @@ def merge_positions(lst, merge_range):
         tail = max([elm[3] for elm in small_lst])
         score = max([elm[4] for elm in small_lst])
         return [st, ed, head, tail, score]
-
+#
     new_lst = []
     temp = []
     for i, (idx, head, tail, score) in enumerate(lst):
@@ -271,17 +272,23 @@ def merge_positions(lst, merge_range):
     return new_lst
 
 
+def phased_max_slice_arr(idx, arr_parallel):
+    head, tail, _max = find_max_slice(arr_parallel)
+    return (idx, head, tail, _max)
+
 def _stripe_caller(mat, max_range=150000, resolution=1000,
                    min_length=30000, closeness=50000,
-                   stripe_width=1, merge=1, window_size=8, threshold=0.01):
+                   stripe_width=1, merge=1, window_size=8, threshold=0.01,
+                   N=False):
     assert max_range % resolution == 0
     assert min_length % resolution == 0
-
+#
     # Step 2: for different distance ranges pick the "local maximum" positions
     print(' Finding local maximum for different contact distances...')
     positions = {}
     # Split the max range into small distance ranges
     for dis in range(0, max_range - min_length + 1, min_length):
+        ## parallelization here, too?
         _min = dis
         if dis + 2 * min_length > max_range:
             _max = max_range
@@ -297,27 +304,38 @@ def _stripe_caller(mat, max_range=150000, resolution=1000,
                 positions[p] = []
             positions[p].append(distance_range)
     print('  Total:', len(positions))
-
+#
     # Step 3: find the accurate range of stripe
     print(' Finding the spanning range for each stripe...')
     all_positions = []
     lst = sorted(positions.keys())
-    for i, idx in enumerate(lst):
-        # print(i, idx)
-        if idx <= window_size or idx >= mat.shape[0] - window_size:
-            continue
-        arr = enrichment_score2(mat, idx, line_width=stripe_width,
-                                distance_range=(0, max_range // resolution),
-                                window_size=window_size)
-        arr = arr + np.log10(threshold)
-        head, tail, _max = find_max_slice(arr)
-        all_positions.append((idx, head, tail, _max))
-
+#
+    if N:  #parallel if #CPUs set
+        lst = [idx for idx in list(sorted(positions.keys())) if not idx <= window_size or not idx >= mat.shape[0]-window_size]
+        func = partial(enrichment_score2, mat, stripe_width, (0, max_range // resolution), window_size)
+        with Pool(N) as pool:
+            arr = pool.map(func, lst)
+        arr += np.log10(threshold)        
+        with Pool(N) as pool:
+            all_positions=(pool.starmap(phased_max_slice_arr, zip(lst, arr)))
+    #
+    else:
+        for i, idx in enumerate(lst):
+            # print(i, idx)
+            ## place parallelization here
+            if idx <= window_size or idx >= mat.shape[0] - window_size:
+                continue
+            arr = enrichment_score2(mat, idx, line_width=stripe_width,
+                                    distance_range=(0, max_range // resolution),
+                                    window_size=window_size)
+            arr = arr + np.log10(threshold)
+            head, tail, _max = find_max_slice(arr)
+            all_positions.append((idx, head, tail, _max))
+#
     # Step 4: Merging
     print(' Merging...')
     all_positions = merge_positions(all_positions, merge)
-    print(len(all_positions))
-
+#
     print(' Filtering by distance and length ...')
     new_positions = []
     for elm in all_positions:
@@ -329,7 +347,7 @@ def _stripe_caller(mat, max_range=150000, resolution=1000,
             # print(False)
             pass
     print(len(new_positions))
-
+#
     # Step 5: Statistical test
     results = []
     print(' Statistical Tests...')
@@ -350,38 +368,41 @@ def stripe_caller_all(
         threshold=50.,
         max_range=150000, resolution=1000,
         min_length=30000, closeness=50000,
-        stripe_width=1, merge=1, window_size=8
+        stripe_width=1, merge=1, window_size=8,
+        N=False
 ):
     ch_sizes = load_chrom_sizes('hg38')
-
+#
     f = open(output_file, 'w')
     f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
-
+#
     for ch in chromosomes:
         if ch == 'chr14':
             continue
-
+#
         print(f'Calling for {ch}...')
         hic2txt(hic_file, ch, resolution=resolution, output='temp.txt')
-
+#
         # horizontal
         mat = txt2horizontal('temp.txt', length=ch_sizes[ch], max_range=max_range + min_length, resolution=resolution)
         results = _stripe_caller(mat, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
+                                 N=N)
         for (st, ed, hd, tl, sc) in results:
             f.write(f'{ch}\t{st * resolution}\t{ed * resolution}\t{ch}\t{max((st + hd), ed) * resolution}\t{(ed + tl) * resolution}\t{sc}\n')
-
+#
         # vertical
         mat = txt2vertical('temp.txt', length=ch_sizes[ch], max_range=max_range + min_length, resolution=resolution)
         results = _stripe_caller(mat, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
+                                 N=N)
         for (st, ed, hd, tl, sc) in results:
             f.write(f'{ch}\t{(st - tl) * resolution}\t{min((ed - hd),st) * resolution}\t{ch}\t{st * resolution}\t{ed * resolution}\t{sc}\n')
-
+#
     f.close()
 
 
@@ -399,22 +420,29 @@ def visualize_stats_log(stats_log, name):
 
 if __name__ == '__main__':
     import time
-
+    import argparse
     # chromosomes = [f'chr{i}' for i in list(range(1, 23)) + ['X']]
     chromosomes = ['chr1']
 
-    # hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/microC/HFF/raw/HFFc6.hic'
-    # thr = 0.01
-    # start_time = time.time()
-    # stripe_caller_all(
-    #     hic_file=hic_file,
-    #     chromosomes=chromosomes,
-    #     output_file='HFF_MicroC_stripes_chr1.bedpe',
-    #     threshold=thr
-    # )
-    # print("microC/HFF/raw/HFFc6.hic took:\n--- %s seconds ---" % (time.time() - start_time))
-    # # 843 seconds
-    # visualize_stats_log(stats_log, 'HFF_MicroC_chr1_stats_log.png')
+    hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/microC/HFF/raw/HFFc6.hic'
+    thr = 0.01
+
+    parser = argparse.ArgumentParser(description='stripecaller CPU arguements')
+    parser.add_argument("--N", help='CPU_cores', dest='N', type=int, default=0)
+    args = parser.parse_args()
+
+    start_time = time.time()
+    stripe_caller_all(
+       hic_file=hic_file,
+       chromosomes=chromosomes,
+       output_file='HFF_MicroC_stripes_chr1.bedpe',
+       threshold=thr,
+       N=args.N
+    )
+    print("microC/HFF/raw/HFFc6.hic took:\n--- %s seconds ---" % (time.time() - start_time))
+    # original: 843 seconds
+    # pooled: 509.35 seconds --nodes=1 --ntasks=1 --cpus-per-task=16 --mem-per-cpu=8GB
+    #visualize_stats_log(stats_log, 'HFF_MicroC_chr1_stats_log.png')
 
 
     # #     start_time = time.time()
@@ -438,9 +466,12 @@ if __name__ == '__main__':
         threshold=thr,
         max_range=5000000, resolution=25000,
         min_length=1000000, closeness=1000000,
-        stripe_width=1, merge=1, window_size=8
+        stripe_width=1, merge=1, window_size=8,
+        N=args.N
     )
     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
     # 87 seconds
-    visualize_stats_log(stats_log, 'GM_chr1_stats_log.png')
+    # pooled: 72.24 seconds --nodes=1 --ntasks=1 --cpus-per-task=16 --mem-per-cpu=8GB
+    #visualize_stats_log(stats_log, 'GM_chr1_stats_log.png')
+
 
