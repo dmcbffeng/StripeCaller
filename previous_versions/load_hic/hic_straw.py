@@ -74,9 +74,11 @@ def readHeader(req, chr1, chr2, posilist):
         print("Version {0} no longer supported".format(str(version)))
         return -1
     # print('HiC version:', version)
+    # HiC version: 8
 
     master = struct.unpack('<q', req.read(8))[0]
     # print('Master: ', master)
+    # Master:  22465729707
 
     genome = b""
     c = req.read(1)
@@ -84,6 +86,7 @@ def readHeader(req, chr1, chr2, posilist):
         genome += c
         c = req.read(1)
     # print('Genome: ', genome.decode('utf-8'))
+    # Genome:  /var/lib/cwl/stgaf4b8b89-d7e9-4c14-8683-d22fc778af87/4DNFI823LSII.chrom.sizes
 
     # read and throw away attribute dictionary (stats+graphs)
     nattributes = struct.unpack('<i', req.read(4))[0]
@@ -92,7 +95,10 @@ def readHeader(req, chr1, chr2, posilist):
         # print('Attributes:', key, ': ', end='')
         value = __readcstr(req)
         # print(value)
+        # Attributes: software : Juicer Tools Version 1.8.9
     nChrs = struct.unpack('<i', req.read(4))[0]
+    # print('nChrs:', nChrs)
+    # nChrs: 25
     found1 = False
     found2 = False
     for i in range(0, nChrs):
@@ -100,9 +106,9 @@ def readHeader(req, chr1, chr2, posilist):
       if not name.startswith('chr'):
           name = 'chr' + name
       length = struct.unpack('<i', req.read(4))[0]
+      # print(name, ': ', length)
 
       if name == chr1:
-          # print(name, ': ', length)
           found1 = True
           chr1ind = i
           if (posilist[0] == -100):
@@ -140,10 +146,12 @@ def readFooter(req, c1, c2, norm, unit, resolution):
     c2NormEntry = dict()
     nBytes = struct.unpack('<i', req.read(4))[0]
     # print('Footer nBytes: ', nBytes)
+    # Footer nBytes:  3748802
 
     key = str(c1) + "_" + str(c2)
     nEntries = struct.unpack('<i', req.read(4))[0]
     # print('Footer nEntries: ', nEntries)
+    # Footer nEntries:  301
 
     found = False
     for i in range(nEntries):
@@ -153,6 +161,10 @@ def readFooter(req, c1, c2, norm, unit, resolution):
         # print('Footer fpos: ', fpos)
         sizeinbytes = struct.unpack('<i', req.read(4))[0]
         # print('Footer size in bytes: ', sizeinbytes)
+        # Example:
+        # Footer:  1_1
+        # Footer fpos:  456275
+        # Footer size in bytes:  568343
         if stri == key:
             myFilePos = fpos
             found = True
@@ -163,29 +175,65 @@ def readFooter(req, c1, c2, norm, unit, resolution):
         return [myFilePos, 0, 0]
 
     nExpectedValues = struct.unpack('<i', req.read(4))[0]
+    # print('nExpectedValues:', nExpectedValues)
+    # nExpectedValues: 13
     for i in range(nExpectedValues):
         str_ = __readcstr(req)
         binSize = struct.unpack('<i', req.read(4))[0]
         nValues = struct.unpack('<i', req.read(4))[0]
+        # print('str_/nValues', str_, nValues) # Expected values in different distances in different resolutions
+        # str_/nValues BP 24
+        # str_/nValues BP 49
+        # str_/nValues BP 99
+        # str_/nValues BP 248
+        # str_/nValues BP 497
+        # str_/nValues BP 995
+        # str_/nValues BP 2489
+        # str_/nValues BP 4979
+        # str_/nValues BP 9958
+        # str_/nValues BP 24895
+        # str_/nValues BP 49791
+        # str_/nValues BP 124478
+        # str_/nValues BP 248956
         for j in range(nValues):
             v = struct.unpack('<d',req.read(8))[0]
         nNormalizationFactors = struct.unpack('<i',req.read(4))[0]
+        # print('nNormalizationFactors:', nNormalizationFactors)  # all 24!
         for j in range(nNormalizationFactors):
             chrIdx = struct.unpack('<i',req.read(4))[0]
             v = struct.unpack('<d',req.read(8))[0]
+            # print(chrIdx, v)
+            # 1 0.9747565532069367
+            # 2 0.9995429636825206
+            # ...
     nExpectedValues = struct.unpack('<i',req.read(4))[0]
+    # print('nExpectedValues:', nExpectedValues)
+    # nExpectedValues: 39
     for i in range(nExpectedValues):
         str_ = __readcstr(req)
+        # print(str_, end=' ')
         str_ = __readcstr(req)
+        # print(str_, end=' ')
         binSize = struct.unpack('<i',req.read(4))[0]
         nValues = struct.unpack('<i',req.read(4))[0]
+        # print(binSize, nValues)
+        # VC BP 10000000 24
+        # KR BP 1000 248956
         for j in range(nValues):
             v = struct.unpack('<d',req.read(8))[0]
         nNormalizationFactors = struct.unpack('<i',req.read(4))[0]
+        # print('nNormalizationFactors:', nNormalizationFactors)
+        # nNormalizationFactors: 24
         for j in range(nNormalizationFactors):
             chrIdx = struct.unpack('<i',req.read(4))[0]
             v = struct.unpack('<d',req.read(8))[0]
+            # print(chrIdx, v)
+            # 1 0.9670892210382163
+            # 2 1.0062913625941745
+            # ...
     nEntries = struct.unpack('<i',req.read(4))[0]
+    # print('nEntries:', nEntries)
+    # nEntries: 936
     found1 = False
     found2 = False
     for i in range(nEntries):
@@ -195,6 +243,10 @@ def readFooter(req, c1, c2, norm, unit, resolution):
         resolution1 = struct.unpack('<i',req.read(4))[0]
         filePosition = struct.unpack('<q',req.read(8))[0]
         sizeInBytes = struct.unpack('<i',req.read(4))[0]
+        # if i < 50:
+            # print(normtype, chrIdx, unit1, resolution1, filePosition, sizeInBytes)
+            # VC 1 BP 10000000 22480735168 212
+            # VC_SQRT 1 BP 10000000 22480735380 212
         if (chrIdx==c1 and normtype==norm and unit1==unit and resolution1==resolution):
             c1NormEntry['position']=filePosition
             c1NormEntry['size']=sizeInBytes
@@ -283,12 +335,12 @@ def readMatrix(req, unit, binsize):
        list containing block bin count and block column count of matrix
     """
     c1 = struct.unpack('<i', req.read(4))[0]
-    #print('read matrix c1:', c1)
+    # print('read matrix c1:', c1)
     c2 = struct.unpack('<i', req.read(4))[0]
-    #print('read matrix c2:', c2)
+    # print('read matrix c2:', c2)
 
     nRes = struct.unpack('<i', req.read(4))[0]
-    #print('nRes: ', nRes)
+    # print('nRes: ', nRes)
 
     i = 0
     found = False
@@ -298,6 +350,18 @@ def readMatrix(req, unit, binsize):
     res = []
     while i < nRes and (not found):
         list1 = readMatrixZoomData(req, unit, binsize)
+        # print(i, list1)
+        # 0 [False, -1, -1, 10000000]
+        # 1 [False, -1, -1, 5000000]
+        # 2 [False, -1, -1, 2500000]
+        # 3 [False, -1, -1, 1000000]
+        # 4 [False, -1, -1, 500000]
+        # 5 [False, -1, -1, 250000]
+        # 6 [False, -1, -1, 100000]
+        # 7 [False, -1, -1, 50000]
+        # 8 [False, -1, -1, 25000]
+        # 9 [False, -1, -1, 10000]
+        # 10 [True, 996, 50, 5000]
         found = list1[0]
         if not found:
             res.append(list1[3])
@@ -308,6 +372,7 @@ def readMatrix(req, unit, binsize):
     if not found:
         raise ValueError('Error finding block data. Resolution should be in: {}'.format(res))
     return [blockBinCount, blockColumnCount]
+
 
 def getBlockNumbersForRegionFromBinPosition(regionIndices, blockBinCount, blockColumnCount, intra):
     """ Gets the block numbers we will need for a specific region; used when
@@ -510,7 +575,11 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
     chr1_arra = chr1loc.split(":")
     chr2_arra = chr2loc.split(":")
     chr1 = chr1_arra[0]
+    if not chr1.startswith('chr'):
+        chr1 = 'chr' + chr1
     chr2 = chr2_arra[0]
+    if not chr2.startswith('chr'):
+        chr2 = 'chr' + chr2
     if len(chr1_arra) == 3:
         c1pos1 = chr1_arra[1]
         c1pos2 = chr1_arra[2]
@@ -519,9 +588,9 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
         c2pos2 = chr2_arra[2]
 
     list1 = readHeader(req, chr1, chr2, [c1pos1, c1pos2, c2pos1, c2pos2])
-    # print(chr1loc, chr2loc)
-    # print(req, chr1, chr2, [c1pos1, c1pos2, c2pos1, c2pos2])
-    # print(list1)
+    # [master, chr1ind, chr2ind, posilist[0], posilist[1], posilist[2], posilist[3]]
+    # [22465729707, 1, 1, '1110000', '1125000', '1110000', '1125000']
+    # [master, chr1_index_in_hic, chr2_index_in_hic]
 
     master = list1[0]
     chr1ind = list1[1]
@@ -559,6 +628,13 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
         regionIndices.append(int(c2pos1/binsize))
         regionIndices.append(int(c2pos2/binsize))
 
+    # Record the coordinates
+    # (if the chr order is "chr2-chr1", the coordinates would also be flipped, "chr1:st:ed" would always be the former one.)
+    # print(origRegionIndices)
+    # [10000, 25000, 10000, 25000]
+    # print(regionIndices)
+    # [2, 5, 2, 5]
+
     # Get footer: from master to end of file
     if (infile.startswith("http")):
         headers = {'range': 'bytes={0}-{1}'.format(master, totalbytes), 'x-amz-meta-requester': 'straw'}
@@ -578,6 +654,8 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
     myFilePos = list1[0]
     c1NormEntry = list1[1]
     c2NormEntry = list1[2]
+    # print(list1)
+    # [456275, {'position': 22494719208, 'size': 398404}, {'position': 22494719208, 'size': 398404}]
 
     if norm != "NONE":
         if infile.startswith("http"):
@@ -612,9 +690,12 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
         req.seek(myFilePos)
         list1 = readMatrix(req, unit, binsize)
         # print(list1)
+        # [996, 50]
     blockBinCount = list1[0]
     blockColumnCount = list1[1]
     blockNumbers = getBlockNumbersForRegionFromBinPosition(regionIndices, blockBinCount, blockColumnCount, c1 == c2)
+    # print(blockNumbers)
+    # {0}
 
     yActual = []
     xActual = []
@@ -643,6 +724,7 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
             else:
                 req.seek(idx['position'])
             records = readBlock(req, idx['size'])
+        # print(i_set, len(records))
 
         for j in range(len(records)):
             rec = records[j]
@@ -651,6 +733,13 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
             # y = rec['binY'] * binsize
             y = rec['binY']
             c = rec['counts']
+            # if j <= 10:
+            #     print(rec)
+            # {'binX': 3, 'binY': 3, 'counts': 9}
+            # {'binX': 9, 'binY': 10, 'counts': 1}
+            # {'binX': 10, 'binY': 10, 'counts': 21}
+            # {'binX': 9, 'binY': 11, 'counts': 2}
+
             if (norm != "NONE"):
                 a = c1Norm[rec['binX']]*c2Norm[rec['binY']]
                 if (a!=0.0):
