@@ -3,6 +3,16 @@ from scipy.signal import find_peaks
 from scipy.stats import poisson
 
 
+def hic_loader(
+        file_name, chr, file_format
+):
+    """
+    Load HiC contact maps from .hic/.mcool or other formats and store into xxx
+    :return:
+    """
+    pass
+
+
 def strata2horizontal(strata):
     hmat = np.zeros((len(strata[0]), len(strata)))
     for i in range(len(strata)):

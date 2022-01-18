@@ -510,7 +510,11 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
     chr1_arra = chr1loc.split(":")
     chr2_arra = chr2loc.split(":")
     chr1 = chr1_arra[0]
+    if not chr1.startswith('chr'):
+        chr1 = 'chr' + chr1
     chr2 = chr2_arra[0]
+    if not chr2.startswith('chr'):
+        chr2 = 'chr' + chr2
     if len(chr1_arra) == 3:
         c1pos1 = chr1_arra[1]
         c1pos2 = chr1_arra[2]
