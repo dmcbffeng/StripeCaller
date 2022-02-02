@@ -178,7 +178,8 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
         (x1 - 2 * window_size, x2 + 2 * window_size),
         (distance_range[0], distance_range[1])
     )
-    save_temp_mat('temp', 'original', stripe_region)
+    if args.diagFlag:
+        save_temp_mat('temp', 'original', stripe_region)
     ########################################
 
     new_mat = np.zeros((distance_range[1] - distance_range[0],))
@@ -257,7 +258,8 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
     new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
 
     ########################################
-    save_temp_mat('temp', 'enrichment', new_mat)
+    if args.diagFlag:
+        save_temp_mat('temp', 'enrichment', new_mat)
     ########################################
 
     return new_mat
@@ -358,10 +360,10 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
     #
     # Step 4: Merging
     print(' Merging...')
-    print(f"pos to merge: {all_positions}")
+    # print(f"pos to merge: {all_positions}")
     all_positions = merge_positions(all_positions, merge)
     #
-    print(f"all_positions {all_positions}")
+    # print(f"all_positions {all_positions}")
     print(' Filtering by distance and length ...')
     new_positions = []
     for elm in all_positions:
@@ -391,7 +393,7 @@ def stripe_caller_all(
         hic_file,
         chromosomes,
         output_file,
-        threshold=50., nstrata=50,
+        threshold=50., nstrata=50, step=1800,
         max_range=150000, resolution=1000,
         min_length=30000, closeness=50000,
         stripe_width=1, merge=1, window_size=8,
@@ -407,23 +409,31 @@ def stripe_caller_all(
             continue
         #
         print(f'Calling for {ch}...')
-        hic2txt(hic_file, ch, resolution=resolution, output='temp.txt')
+        # hic2txt(hic_file, ch, resolution=resolution, output='temp.txt')
         #
+
+#         est_binnings = ch_sizes[ch]//resolution
+#         ideal_strata = est_binnings//(0.8*est_binnings)
+        
         mat = txt2mat("temp.txt", length=ch_sizes[ch], max_range=max_range + min_length, resolution=resolution)
+        assert (nstrata <= mat.shape[0]//1250), "nstrata too large, would blank most of contact freq matrix"
         mat = blank_diagonal2(mat, nstrata)
         #
         v_Peaks = {}
         h_Peaks = {}
 
         # tile over the chromosome...
+        if not os.path.isdir("checked_step"):
+            os.mkdir("checked_step")
 
-        for ind in range(1800, mat.shape[1], 1800):
+        for ind in range(step, mat.shape[1], step):
             upper = ind
-            lower = ind - 1800
+            lower = ind - step
             mat_slice = mat[lower:upper, lower:upper]
-            print(lower, upper)
-            step = 600
-            hM, hW, vM, vW = getPeakAndWidths(mat_slice, step)
+            # print(lower, upper)
+            hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
+            if args.diagFlag:
+                check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
             hM += lower
             vM += lower
             for i in range(len(hM)):
@@ -468,6 +478,16 @@ def visualize_stats_log(stats_log, name):
     plt.savefig(name)
     plt.close()
 
+def check_image_test(mat, lower,upper,step, name, vM, hM):
+    plt.imshow(mat.todense())
+    plt.xticks(np.arange(0,upper-lower+1,step),np.arange(lower,upper+1,step))
+    plt.yticks(np.arange(0,upper-lower+1,step),np.arange(lower,upper+1,step))
+    xmin, xmax = 0,mat.shape[0]
+    plt.hlines(y=list(hM),xmin=xmin, xmax=xmax, color='r', linewidth=0.3, zorder=2)
+    plt.vlines(x=list(vM),ymin=xmin, ymax=xmax, color='b', linewidth=0.3, zorder=3)
+    plt.savefig(name)
+    plt.close()
+
 
 if __name__ == '__main__':
     import time
@@ -481,8 +501,11 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='stripecaller CPU arguements')
     parser.add_argument("--N", help='CPU_cores', dest='N', type=int, default=0)
+    parser.add_argument("-sigma", help='sigma for 1d Gaussian filter', dest='sigma', type=int, default=12)
+    parser.add_argument("-rel_height",help='relative height beneath peak for width detection', dest='rel_height',type=int, default=0.3)
+    parser.add_argument("-diagnostic", help='image_outputs', dest='diagFlag',type=bool, default=0)
     args = parser.parse_args()
-    print(args.N)
+    print(args.N, args.sigma, args.rel_height)
 
     # start_time = time.time()
     # stripe_caller_all(
@@ -526,7 +549,7 @@ if __name__ == '__main__':
         hic_file=hic_file,
         chromosomes=chromosomes,
         output_file='GM12878_HiC_stripes_chr1.bedpe',
-        threshold=thr, nstrata=50,
+        threshold=thr, nstrata=1, step = 80,
         max_range=17500000, resolution=25000,
         min_length=1000000, closeness=1000000,
         stripe_width=1, merge=1, window_size=8,
