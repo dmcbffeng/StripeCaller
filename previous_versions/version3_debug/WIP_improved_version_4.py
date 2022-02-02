@@ -550,6 +550,6 @@ if __name__ == '__main__':
     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
 
 #--- 133.5365345478058 seconds --- N-cores=8
-#--- ...long--- single proc
+#--- 433.60688495635986 seconds ---single proc
 
 
