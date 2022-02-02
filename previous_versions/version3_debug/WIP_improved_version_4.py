@@ -327,18 +327,18 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
     # f = open(f'h_arr_chr1.txt', 'w')
 
     targeted_range = pack_tuple(0, max_range // resolution)
-    if N:  # parallel if #CPUs set
+    if args.N>1:  # parallel if #CPUs set
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
         wtd = [int(positions[idx]) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
 
-        with Pool(N) as pool:
+        with Pool(args.N) as pool:
             # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
             arr = pool.starmap(enrichment_score2, zip(repeat(mat), lst, wtd, repeat(targeted_range), repeat(window_size)))
         arr += np.log10(threshold)
 
-        with Pool(N) as pool:
+        with Pool(args.N) as pool:
             all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr)))
     #
     else:
@@ -395,11 +395,11 @@ def stripe_caller_all(
         hic_file,
         chromosomes,
         output_file,
-        threshold=50., nstrata=50, step=1800,
+        threshold=50., nstrata=0, step=1800,
         max_range=150000, resolution=1000,
         min_length=30000, closeness=50000,
         stripe_width=1, merge=1, window_size=8,
-        N=False
+        centromere_file=None
 ):
     ch_sizes = load_chrom_sizes('hg38')
     #
@@ -434,8 +434,10 @@ def stripe_caller_all(
             mat_slice = mat[lower:upper, lower:upper]
             # print(lower, upper)
             hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
+            ########################################
             if args.diagFlag:
                 check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
+            ########################################
             hM += lower
             vM += lower
             for i in range(len(hM)):
@@ -535,26 +537,19 @@ if __name__ == '__main__':
 
     start_time = time.time()
     hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic'
-    thr = 0.01
-    #     stripe_caller_all(
-    #         hic_file=hic_file,
-    #         chromosomes=chromosomes,
-    #         output_file='GM12878_HiC_stripes_chr1.bedpe',
-    #         threshold=thr, nstrata=50,
-    #         max_range=5000000, resolution=25000,
-    #         min_length=1000000, closeness=1000000,
-    #         stripe_width=1, merge=1, window_size=8,
-    #         N=args.N
-    #     )
-
+    thr = 0.15
     stripe_caller_all(
         hic_file=hic_file,
         chromosomes=chromosomes,
         output_file='GM12878_HiC_stripes_chr1.bedpe',
-        threshold=thr, nstrata=1, step = 80,
-        max_range=17500000, resolution=25000,
-        min_length=1000000, closeness=1000000,
-        stripe_width=1, merge=1, window_size=8,
-        N=args.N
+        threshold=thr,
+        max_range=2000000, resolution=5000,
+        min_length=300000, closeness=500000,
+        stripe_width=3, merge=3, window_size=10,
     )
     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
+
+#--- 133.5365345478058 seconds --- N-cores=8
+#--- ...long--- single proc
+
+
