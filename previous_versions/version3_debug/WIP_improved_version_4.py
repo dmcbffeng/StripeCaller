@@ -13,7 +13,7 @@ _poisson_stats = {}
 
 from multiprocessing import Pool, cpu_count
 from functools import partial
-
+from itertools import repeat
 
 def subsetNpMatrix(matrix, row_bounds, column_bounds):
     rows = np.array([x for x in range(row_bounds[0], row_bounds[1]) if 0 <= int(x) < matrix.shape[0]])
@@ -325,15 +325,17 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
     all_positions = []
     #
     # f = open(f'h_arr_chr1.txt', 'w')
+
+    targeted_range = pack_tuple(0, max_range // resolution)
     if N:  # parallel if #CPUs set
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
-        wtd = [positions[idx] for idx in list(sorted(positions.keys())) if
+        wtd = [int(positions[idx]) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
 
-        func = partial(enrichment_score2, mat, wtd, targeted_range, window_size)
         with Pool(N) as pool:
-            arr = pool.map(func, lst)
+            # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
+            arr = pool.starmap(enrichment_score2, zip(repeat(mat), lst, wtd, repeat(targeted_range), repeat(window_size)))
         arr += np.log10(threshold)
 
         with Pool(N) as pool:
@@ -349,7 +351,7 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
             if idx <= window_size or idx >= mat.shape[0] - window_size:
                 continue
             # print(idx, lst[i], wtd[i])
-            targeted_range = pack_tuple(0, max_range // resolution)
+            # targeted_range = pack_tuple(0, max_range // resolution)
             arr = enrichment_score2(mat, idx, int(wtd[i]), \
                                     distance_range=targeted_range, \
                                     window_size=window_size)
@@ -505,7 +507,7 @@ if __name__ == '__main__':
     parser.add_argument("-rel_height",help='relative height beneath peak for width detection', dest='rel_height',type=int, default=0.3)
     parser.add_argument("-diagnostic", help='image_outputs', dest='diagFlag',type=bool, default=0)
     args = parser.parse_args()
-    print(args.N, args.sigma, args.rel_height)
+    print(args)
 
     # start_time = time.time()
     # stripe_caller_all(
