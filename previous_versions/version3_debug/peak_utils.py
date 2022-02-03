@@ -22,6 +22,7 @@ def blank_diagonal2(matr, strata = False):
     csr = lil.tocsr()
     return csr
 
+
 def getPeakAndWidths(matrix_in, gap=600, sigma=12, rel_height=0.3):
 #    
     HMAT = [matrix_in[i,i:i+gap].mean() for i in range(0,matrix_in.shape[0])]

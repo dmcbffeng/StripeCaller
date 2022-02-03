@@ -358,6 +358,11 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
 
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
+
+            ########################################
+            save_temp_mat('temp', 'head_tail', np.array([head, tail, _max]))
+            ########################################
+
             all_positions.append((idx, head, tail, _max))
     #
     # Step 4: Merging
