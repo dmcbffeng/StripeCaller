@@ -406,6 +406,17 @@ def stripe_caller_all(
     f = open(output_file, 'w')
     f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
     #
+
+    centro = {}
+    if centromere_file is not None:
+        for line in open(centromere_file):
+            [ch, st, ed] = line.strip().split()[:3]
+            st, ed = int(st), int(ed)
+            assert ch.startswith('chr')
+            if ch not in centro:
+                centro[ch] = []
+            centro[ch].append((st, ed))
+
     for ch in chromosomes:
         if ch == 'chr14':
             continue
@@ -434,10 +445,8 @@ def stripe_caller_all(
             mat_slice = mat[lower:upper, lower:upper]
             # print(lower, upper)
             hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
-            ########################################
             if args.diagFlag:
                 check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
-            ########################################
             hM += lower
             vM += lower
             for i in range(len(hM)):
@@ -452,10 +461,15 @@ def stripe_caller_all(
         results = _stripe_caller(mat, h_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
-                                 N=N)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
         for (st, ed, hd, tl, sc) in results:
-            f.write(f'{ch}\t{st * resolution}\t{ed * resolution}\t{ch}\t{max((st + hd), ed) * resolution}\t{(ed + tl) * resolution}\t{sc}\n')
+            in_centro = False
+            if ch in centro:
+                for (centro_st, centro_ed) in centro[ch]:
+                    if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
+                        in_centro = True
+            if not in_centro:
+                f.write(f'{ch}\t{st * resolution}\t{ed * resolution}\t{ch}\t{max((st + hd), ed) * resolution}\t{(ed + tl) * resolution}\t{np.power(10, -sc)}\n')
         #         print(results)
         #
         # vertical
@@ -463,11 +477,16 @@ def stripe_caller_all(
         results = _stripe_caller(mat, v_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
-                                 N=N)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
         for (st, ed, hd, tl, sc) in results:
-            f.write(f'{ch}\t{(st - tl) * resolution}\t{min((ed - hd), st) * resolution}\t{ch}\t{st * resolution}\t{ed * resolution}\t{sc}\n')
-    #
+            in_centro = False
+            if ch in centro:
+                for (centro_st, centro_ed) in centro[ch]:
+                    if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
+                        in_centro = True
+            if not in_centro:
+                f.write(f'{ch}\t{max(0, (st - tl)) * resolution}\t{min((ed - hd), st) * resolution}\t{ch}\t{st * resolution}\t{ed * resolution}\t{np.power(10, -sc)}\n')
+   
     f.close()
 
 
@@ -546,10 +565,9 @@ if __name__ == '__main__':
         max_range=2000000, resolution=5000,
         min_length=300000, closeness=500000,
         stripe_width=3, merge=3, window_size=10,
+        centromere_file='removed_regions.bed'
     )
     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
 
-#--- 133.5365345478058 seconds --- N-cores=8
-#--- 433.60688495635986 seconds ---single proc
 
 
