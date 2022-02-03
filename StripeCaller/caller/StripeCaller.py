@@ -45,6 +45,8 @@ def _stripe_caller(mat, max_range=150000, resolution=1000,
 
     # Step 4: Merging
     print(' Merging...')
+    if not all_positions:
+        raise ValueError("No statistically significant candidate stripes found(enrichment_score()). Try different args: stripe_width, max_range, resolution, window_size")
     all_positions = merge_positions(all_positions, merge)
     print(len(all_positions))
 
