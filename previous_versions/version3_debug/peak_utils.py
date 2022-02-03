@@ -5,7 +5,7 @@ from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from multiprocessing import Process, Manager
 
-def blank_diagonal2(matr, strata = 50):
+def blank_diagonal2(matr, strata = False):
     """
     in: edgelist, strata (n entries off main diagonal to zero)
     out:matrix with n blanked diagonal
@@ -43,24 +43,28 @@ def getPeakAndWidths(matrix_in, gap=600, sigma=12, rel_height=0.3):
 #    
     return hMax, hwidths, vMax, vwidths
 
-
-def matrix2peaks(mat,stride=2500,step=600):
-    hM_res = list()
-    hW_res = list()
-    vM_res = list()
-    vW_res = list()
-    for i in range(1,mat.shape[0],stride):
-        lower = i-1
-        upper = i+stride-1
-        if upper > mat.shape[0]:
-            upper = mat.shape[0]
-        Z_tester = mat[lower:upper,lower:upper]
-        hM,hW,vM,vW = getPeakAndWidths(Z_tester, step)
-        hM += lower
-        vM += lower
-        hM_res.extend(hM)
-        vM_res.extend(vM)
-        hW_res.extend(hW)
-        vW_res.extend(vW)
-    return hM_res, hW_res, vM_res, vW_res
+# def matrix2peaks(mat, stride=2500, step=False, sigma=12, rel_height=0.3):
+#     hM_res = list()
+#     hW_res = list()
+#     vM_res = list()
+#     vW_res = list()
+#     for i in range(1,mat.shape[0],stride):
+#         lower = i-1
+#         upper = i+stride-1
+#         if upper > mat.shape[0]:
+#             upper = mat.shape[0]
+#         Z_tester = mat[lower:upper,lower:upper]
+#         if not step:
+#             step = Z_tester.shape[0]//12
+#         try:
+#             hM,hW,vM,vW = getPeakAndWidths(Z_tester, step, sigma, rel_height)
+#             hM += lower
+#             vM += lower
+#             hM_res.extend(hM)
+#             vM_res.extend(vM)
+#             hW_res.extend(hW)
+#             vW_res.extend(vW)
+#         except ValueError:
+#             continue
+#     return hM_res, hW_res, vM_res, vW_res
 

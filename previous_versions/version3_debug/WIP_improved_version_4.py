@@ -13,7 +13,7 @@ _poisson_stats = {}
 
 from multiprocessing import Pool, cpu_count
 from functools import partial
-
+from itertools import repeat
 
 def subsetNpMatrix(matrix, row_bounds, column_bounds):
     rows = np.array([x for x in range(row_bounds[0], row_bounds[1]) if 0 <= int(x) < matrix.shape[0]])
@@ -178,7 +178,8 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
         (x1 - 2 * window_size, x2 + 2 * window_size),
         (distance_range[0], distance_range[1])
     )
-    save_temp_mat('temp', 'original', stripe_region)
+    if args.diagFlag:
+        save_temp_mat('temp', 'original', stripe_region)
     ########################################
 
     new_mat = np.zeros((distance_range[1] - distance_range[0],))
@@ -257,7 +258,8 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
     new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
 
     ########################################
-    save_temp_mat('temp', 'enrichment', new_mat)
+    if args.diagFlag:
+        save_temp_mat('temp', 'enrichment', new_mat)
     ########################################
 
     return new_mat
@@ -323,18 +325,20 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
     all_positions = []
     #
     # f = open(f'h_arr_chr1.txt', 'w')
-    if N:  # parallel if #CPUs set
+
+    targeted_range = pack_tuple(0, max_range // resolution)
+    if args.N>1:  # parallel if #CPUs set
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
-        wtd = [positions[idx] for idx in list(sorted(positions.keys())) if
+        wtd = [int(positions[idx]) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
 
-        func = partial(enrichment_score2, mat, wtd, targeted_range, window_size)
-        with Pool(N) as pool:
-            arr = pool.map(func, lst)
+        with Pool(args.N) as pool:
+            # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
+            arr = pool.starmap(enrichment_score2, zip(repeat(mat), lst, wtd, repeat(targeted_range), repeat(window_size)))
         arr += np.log10(threshold)
 
-        with Pool(N) as pool:
+        with Pool(args.N) as pool:
             all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr)))
     #
     else:
@@ -347,7 +351,7 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
             if idx <= window_size or idx >= mat.shape[0] - window_size:
                 continue
             # print(idx, lst[i], wtd[i])
-            targeted_range = pack_tuple(0, max_range // resolution)
+            # targeted_range = pack_tuple(0, max_range // resolution)
             arr = enrichment_score2(mat, idx, int(wtd[i]), \
                                     distance_range=targeted_range, \
                                     window_size=window_size)
@@ -363,10 +367,10 @@ def _stripe_caller(mat, positions, max_range=150000, resolution=1000,
     #
     # Step 4: Merging
     print(' Merging...')
-    print(f"pos to merge: {all_positions}")
+    # print(f"pos to merge: {all_positions}")
     all_positions = merge_positions(all_positions, merge)
     #
-    print(f"all_positions {all_positions}")
+    # print(f"all_positions {all_positions}")
     print(' Filtering by distance and length ...')
     new_positions = []
     for elm in all_positions:
@@ -396,39 +400,58 @@ def stripe_caller_all(
         hic_file,
         chromosomes,
         output_file,
-        threshold=50., nstrata=50,
+        threshold=50., nstrata=0, step=1800,
         max_range=150000, resolution=1000,
         min_length=30000, closeness=50000,
         stripe_width=1, merge=1, window_size=8,
-        N=False
+        centromere_file=None
 ):
     ch_sizes = load_chrom_sizes('hg38')
     #
     f = open(output_file, 'w')
     f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
     #
+
+    centro = {}
+    if centromere_file is not None:
+        for line in open(centromere_file):
+            [ch, st, ed] = line.strip().split()[:3]
+            st, ed = int(st), int(ed)
+            assert ch.startswith('chr')
+            if ch not in centro:
+                centro[ch] = []
+            centro[ch].append((st, ed))
+
     for ch in chromosomes:
         if ch == 'chr14':
             continue
         #
         print(f'Calling for {ch}...')
-        hic2txt(hic_file, ch, resolution=resolution, output='temp.txt')
+        # hic2txt(hic_file, ch, resolution=resolution, output='temp.txt')
         #
+
+#         est_binnings = ch_sizes[ch]//resolution
+#         ideal_strata = est_binnings//(0.8*est_binnings)
+        
         mat = txt2mat("temp.txt", length=ch_sizes[ch], max_range=max_range + min_length, resolution=resolution)
+        assert (nstrata <= mat.shape[0]//1250), "nstrata too large, would blank most of contact freq matrix"
         mat = blank_diagonal2(mat, nstrata)
         #
         v_Peaks = {}
         h_Peaks = {}
 
         # tile over the chromosome...
+        if not os.path.isdir("checked_step"):
+            os.mkdir("checked_step")
 
-        for ind in range(1800, mat.shape[1], 1800):
+        for ind in range(step, mat.shape[1], step):
             upper = ind
-            lower = ind - 1800
+            lower = ind - step
             mat_slice = mat[lower:upper, lower:upper]
-            print(lower, upper)
-            step = 600
-            hM, hW, vM, vW = getPeakAndWidths(mat_slice, step)
+            # print(lower, upper)
+            hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
+            if args.diagFlag:
+                check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
             hM += lower
             vM += lower
             for i in range(len(hM)):
@@ -443,10 +466,15 @@ def stripe_caller_all(
         results = _stripe_caller(mat, h_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
-                                 N=N)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
         for (st, ed, hd, tl, sc) in results:
-            f.write(f'{ch}\t{st * resolution}\t{ed * resolution}\t{ch}\t{max((st + hd), ed) * resolution}\t{(ed + tl) * resolution}\t{sc}\n')
+            in_centro = False
+            if ch in centro:
+                for (centro_st, centro_ed) in centro[ch]:
+                    if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
+                        in_centro = True
+            if not in_centro:
+                f.write(f'{ch}\t{st * resolution}\t{ed * resolution}\t{ch}\t{max((st + hd), ed) * resolution}\t{(ed + tl) * resolution}\t{np.power(10, -sc)}\n')
         #         print(results)
         #
         # vertical
@@ -454,11 +482,16 @@ def stripe_caller_all(
         results = _stripe_caller(mat, v_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=closeness,
-                                 stripe_width=stripe_width, merge=merge, window_size=window_size,
-                                 N=N)
+                                 stripe_width=stripe_width, merge=merge, window_size=window_size)
         for (st, ed, hd, tl, sc) in results:
-            f.write(f'{ch}\t{(st - tl) * resolution}\t{min((ed - hd), st) * resolution}\t{ch}\t{st * resolution}\t{ed * resolution}\t{sc}\n')
-    #
+            in_centro = False
+            if ch in centro:
+                for (centro_st, centro_ed) in centro[ch]:
+                    if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
+                        in_centro = True
+            if not in_centro:
+                f.write(f'{ch}\t{max(0, (st - tl)) * resolution}\t{min((ed - hd), st) * resolution}\t{ch}\t{st * resolution}\t{ed * resolution}\t{np.power(10, -sc)}\n')
+   
     f.close()
 
 
@@ -470,6 +503,16 @@ def visualize_stats_log(stats_log, name):
     plt.ylabel('Observed')
     plt.colorbar()
     plt.title(f'{len(stats_log)} Poisson Tests')
+    plt.savefig(name)
+    plt.close()
+
+def check_image_test(mat, lower,upper,step, name, vM, hM):
+    plt.imshow(mat.todense())
+    plt.xticks(np.arange(0,upper-lower+1,step),np.arange(lower,upper+1,step))
+    plt.yticks(np.arange(0,upper-lower+1,step),np.arange(lower,upper+1,step))
+    xmin, xmax = 0,mat.shape[0]
+    plt.hlines(y=list(hM),xmin=xmin, xmax=xmax, color='r', linewidth=0.3, zorder=2)
+    plt.vlines(x=list(vM),ymin=xmin, ymax=xmax, color='b', linewidth=0.3, zorder=3)
     plt.savefig(name)
     plt.close()
 
@@ -486,8 +529,11 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='stripecaller CPU arguements')
     parser.add_argument("--N", help='CPU_cores', dest='N', type=int, default=0)
+    parser.add_argument("-sigma", help='sigma for 1d Gaussian filter', dest='sigma', type=int, default=12)
+    parser.add_argument("-rel_height",help='relative height beneath peak for width detection', dest='rel_height',type=int, default=0.3)
+    parser.add_argument("-diagnostic", help='image_outputs', dest='diagFlag',type=bool, default=0)
     args = parser.parse_args()
-    print(args.N)
+    print(args)
 
     # start_time = time.time()
     # stripe_caller_all(
@@ -515,26 +561,18 @@ if __name__ == '__main__':
 
     start_time = time.time()
     hic_file = '/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic'
-    thr = 0.01
-    #     stripe_caller_all(
-    #         hic_file=hic_file,
-    #         chromosomes=chromosomes,
-    #         output_file='GM12878_HiC_stripes_chr1.bedpe',
-    #         threshold=thr, nstrata=50,
-    #         max_range=5000000, resolution=25000,
-    #         min_length=1000000, closeness=1000000,
-    #         stripe_width=1, merge=1, window_size=8,
-    #         N=args.N
-    #     )
-
+    thr = 0.15
     stripe_caller_all(
         hic_file=hic_file,
         chromosomes=chromosomes,
         output_file='GM12878_HiC_stripes_chr1.bedpe',
-        threshold=thr, nstrata=50,
-        max_range=17500000, resolution=25000,
-        min_length=1000000, closeness=1000000,
-        stripe_width=1, merge=1, window_size=8,
-        N=args.N
+        threshold=thr,
+        max_range=2000000, resolution=5000,
+        min_length=300000, closeness=500000,
+        stripe_width=3, merge=3, window_size=10,
+        centromere_file='removed_regions.bed'
     )
     print("bulkHiC/GM12878/GM12878.hic took:\n--- %s seconds ---" % (time.time() - start_time))
+
+
+

@@ -134,7 +134,8 @@ def load_HiC(file, ref_genome, format=None,
     Return:
         Numpy.array: loaded contact map
     """
-    size = get_chromosome_lengths(ref_genome)[chromosome]
+    chroms, sizes = get_chromosome_lengths(ref_genome)
+    size = sizes[chromosome]
     format = format.lower()
     norm = norm.lower()
 
