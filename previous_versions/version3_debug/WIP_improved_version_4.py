@@ -444,11 +444,12 @@ def stripe_caller_all(
         if not os.path.isdir("checked_step"):
             os.mkdir("checked_step")
 
-        for ind in range(step, mat.shape[1], step):
+        ## peak finder
+        for ind in range(step, mat.shape[1]+step, step):
             upper = ind
             lower = ind - step
             mat_slice = mat[lower:upper, lower:upper]
-            # print(lower, upper)
+            print(lower, upper)
             hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
             if args.diagFlag:
                 check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
@@ -460,6 +461,24 @@ def stripe_caller_all(
             for i in range(len(vM)):
                 if vM[i] not in v_Peaks.keys():
                     v_Peaks[vM[i]] = vW[i]
+
+        for ind in range(step+step//2, mat.shape[1]+step-step//2, step):
+            upper = ind
+            lower = ind - step
+            mat_slice = mat[lower:upper, lower:upper]
+            print(lower, upper)
+            hM, hW, vM, vW = getPeakAndWidths(mat_slice, step//12, sigma=args.sigma, rel_height=args.rel_height)
+            if args.diagFlag:
+                check_image_test(mat_slice,lower,upper,step, f"./checked_step/{ind}_check_find", vM, hM)
+            hM += lower
+            vM += lower
+            for i in range(len(hM)):
+                if hM[i] not in h_Peaks.keys():
+                    h_Peaks[hM[i]] = hW[i]
+            for i in range(len(vM)):
+                if vM[i] not in v_Peaks.keys():
+                    v_Peaks[vM[i]] = vW[i]
+        ##                    
 
         # horizontal
         mat = txt2horizontal('temp.txt', length=ch_sizes[ch], max_range=max_range + min_length, resolution=resolution)
