@@ -655,19 +655,41 @@ def straw(norm, infile, chr1loc, chr2loc, unit, binsize, is_synapse=False):
             # y = rec['binY'] * binsize
             y = rec['binY']
             c = rec['counts']
-            if (norm != "NONE"):
-                a = c1Norm[rec['binX']]*c2Norm[rec['binY']]
-                if (a!=0.0):
-                    c=(c/(c1Norm[rec['binX']]*c2Norm[rec['binY']]))
-                else:
-                    c="inf"
-            # if ((x>=origRegionIndices[0] and x<=origRegionIndices[1]
-            #      and y>=origRegionIndices[2] and y<=origRegionIndices[3])
-            #         or ((c1==c2) and y>=origRegionIndices[0] and y<=origRegionIndices[1]
-            #             and x>= origRegionIndices[2] and x<=origRegionIndices[3])):
+            # if (norm != "NONE"):
+            #     a = c1Norm[rec['binX']]*c2Norm[rec['binY']]
+            #     if (a!=0.0):
+            #         c=(c/(c1Norm[rec['binX']]*c2Norm[rec['binY']]))
+            #     else:
+            #         c="inf"
+            # if ((x>=regionIndices[0] and x<=regionIndices[1]
+            #      and y>=regionIndices[2] and y<=regionIndices[3])
+            #         or ((c1==c2) and y>=regionIndices[0] and y<=regionIndices[1]
+            #             and x>=regionIndices[2] and x<=regionIndices[3])):
             #     yield x, y, c
+
             if ((x>=regionIndices[0] and x<=regionIndices[1]
                  and y>=regionIndices[2] and y<=regionIndices[3])
                     or ((c1==c2) and y>=regionIndices[0] and y<=regionIndices[1]
                         and x>=regionIndices[2] and x<=regionIndices[3])):
-                yield x, y, c
+                normx, normy = 1., 1.
+                if (norm != "NONE"):
+                    normx, normy = c1Norm[rec['binX']], c2Norm[rec['binY']]
+                yield x, y, c, normx, normy
+
+
+if __name__ == '__main__':
+    iter = straw(
+        norm='KR',
+        infile=r'D:/GM12878.hic',
+        chr1loc='chr1:1000000:2500000',
+        chr2loc='chr1:1000000:2500000',
+        unit='BP',
+        binsize=5000,
+        is_synapse=False
+    )
+    for x, y, c, nx, ny in iter:
+        val = c / nx / ny if nx * ny != 0 else 'inf'
+        print(x, y, c, nx, ny, val)
+
+
+

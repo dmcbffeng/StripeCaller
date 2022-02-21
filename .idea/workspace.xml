@@ -2,156 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95f774e4-37dd-423c-8962-25b357ef77b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py" beforeDir="false" afterPath="$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_101.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_102.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_103.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_104.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_105.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_106.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_107.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_108.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_109.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_110.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_111.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_112.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_113.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_114.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_115.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_116.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_117.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_118.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_119.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_120.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_121.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_122.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_123.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_124.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_125.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_126.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_127.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_129.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_130.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_131.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_132.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_133.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_134.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_135.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_136.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_137.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_138.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_139.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_140.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_141.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_142.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_143.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_145.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_146.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_19.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_21.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_23.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_26.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_27.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_28.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_31.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_33.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_36.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_37.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_38.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_39.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_41.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_42.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_43.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_44.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_46.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_47.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_48.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_49.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_52.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_53.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_54.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_56.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_57.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_58.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_59.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_61.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_62.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_63.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_65.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_66.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_67.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_68.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_69.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_71.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_72.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_73.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_74.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_77.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_78.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_79.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_81.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_82.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_83.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_84.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_85.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_86.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_87.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_88.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_89.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_91.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_92.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_93.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_94.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_95.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_96.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_97.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_98.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/previous_versions/version3_debug/temp/fig_99.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -162,78 +16,15 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version2/stripe_caller_improved_v2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5806">
-              <caret line="180" column="18" selection-start-line="180" selection-start-column="18" selection-end-line="180" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/example/example_usage.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="542">
-                <caret line="59" selection-start-line="59" selection-end-line="59" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/note_Jan18.txt">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" column="110" selection-start-line="6" selection-start-column="110" selection-end-line="6" selection-end-column="110" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="430" column="45" selection-start-line="430" selection-start-column="29" selection-end-line="430" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_Fan_debug/stripe_caller_improved_v3.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="423" column="43" selection-start-line="423" selection-start-column="43" selection-end-line="423" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/vis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="625">
-              <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
+            <state relative-caret-position="449">
+              <caret line="226" lean-forward="true" selection-start-line="226" selection-end-line="226" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -242,24 +33,63 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/load_hic/try_load_HiC.py">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/utils/AVL_tree.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+            <state relative-caret-position="175">
+              <caret line="103" column="29" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3/results/GM_chr1_stats_log.png">
-          <provider selected="true" editor-type-id="images" />
+        <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
+              <folding>
+                <element signature="e#112#130#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/load_hic/hic_straw.py">
+        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18825">
-              <caret line="753" column="27" selection-start-line="753" selection-start-column="27" selection-end-line="753" selection-end-column="27" />
+            <state relative-caret-position="100">
+              <caret line="4" column="51" lean-forward="true" selection-start-line="3" selection-end-line="4" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="335">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2275">
+              <caret line="490" column="25" lean-forward="true" selection-start-line="490" selection-start-column="25" selection-end-line="490" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -295,10 +125,8 @@
         <option value="$PROJECT_DIR$/example/example_usage.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/__init__.py" />
         <option value="$PROJECT_DIR$/StripeCaller/__init__.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" />
         <option value="$PROJECT_DIR$/MANIFEST.in" />
         <option value="$PROJECT_DIR$/meta.yaml" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/stripe_caller_improved_v2.py" />
@@ -314,10 +142,13 @@
         <option value="$PROJECT_DIR$/previous_versions/version3/stripe_caller_improved_v3.py" />
         <option value="$PROJECT_DIR$/previous_versions/load_hic/try_load_HiC.py" />
         <option value="$PROJECT_DIR$/previous_versions/load_hic/hic_straw.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/functions.py" />
         <option value="$PROJECT_DIR$/previous_versions/version3_debug/note_Jan18.txt" />
         <option value="$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/mat_ops.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/functions.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
       </list>
     </option>
   </component>
@@ -333,7 +164,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -344,13 +174,12 @@
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
               <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
-              <item name="version3" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
@@ -361,18 +190,25 @@
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
-              <item name="version3_Fan_debug" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="caller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -396,7 +232,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.try_load_HiC">
+  <component name="RunManager" selected="Python.hic_straw (1)">
     <configuration name="AVL_tree" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="StripeCaller" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -418,7 +254,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="balance_tree" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="hic_straw (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="StripeCaller" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -426,11 +262,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/previous_versions/version3" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/StripeCaller/utils" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/previous_versions/version3/balance_tree.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -504,11 +340,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.hic_straw (1)" />
         <item itemvalue="Python.try_load_HiC" />
         <item itemvalue="Python.hic_straw" />
         <item itemvalue="Python.tst" />
         <item itemvalue="Python.AVL_tree" />
-        <item itemvalue="Python.balance_tree" />
       </list>
     </recent_temporary>
   </component>
@@ -529,12 +365,12 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18241903" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.36946464" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.48791894" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.15439093" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -549,27 +385,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/meta.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stripe_caller_improved_v2.py" />
     <entry file="file://$PROJECT_DIR$/temp_folder_2/GM12878_HiC_stripes_chr1.bedpe" />
     <entry file="file://$PROJECT_DIR$/temp_folder/H1_MicroC_stripes_chr1.bedpe" />
@@ -582,30 +397,10 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/previous_versions/version2/GM_chr1_stats_log.png" />
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3100">
-          <caret line="124" column="38" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="38" />
-          <folding>
-            <element signature="e#112#130#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -686,13 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/hic_straw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16700">
-          <caret line="668" column="29" selection-start-line="668" selection-start-column="29" selection-end-line="668" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/previous_versions/version3/stripe_caller_improved_v3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13325">
@@ -703,13 +491,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
+    <entry file="file://$PROJECT_DIR$/previous_versions/version2/stripe_caller_improved_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="4400">
+          <caret line="180" column="18" selection-start-line="180" selection-start-column="18" selection-end-line="180" selection-end-column="18" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1475">
+            <caret line="59" selection-start-line="59" selection-end-line="59" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -720,12 +518,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
+    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/vis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
+        <state>
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -747,51 +544,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="542">
-            <caret line="59" selection-start-line="59" selection-end-line="59" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/hic_straw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="690" column="52" lean-forward="true" selection-start-line="690" selection-start-column="8" selection-end-line="690" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version2/stripe_caller_improved_v2.py">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5806">
-          <caret line="180" column="18" selection-start-line="180" selection-start-column="18" selection-end-line="180" selection-end-column="18" />
+        <state relative-caret-position="360">
+          <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
+          <folding>
+            <element signature="e#112#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/AVL_tree.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/previous_versions/version3_Fan_debug/stripe_caller_improved_v3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="19" lean-forward="true" selection-start-line="10" selection-end-line="11" selection-end-column="19" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/vis.py">
+    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="100">
+          <caret line="4" column="51" lean-forward="true" selection-start-line="3" selection-end-line="4" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/example_usage.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="226" lean-forward="true" selection-start-line="226" selection-end-line="226" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="430" column="45" selection-start-line="430" selection-start-column="29" selection-end-line="430" selection-end-column="45" />
+        <state relative-caret-position="2275">
+          <caret line="490" column="25" lean-forward="true" selection-start-line="490" selection-start-column="25" selection-end-line="490" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version3_Fan_debug/stripe_caller_improved_v3.py">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="423" column="43" selection-start-line="423" selection-start-column="43" selection-end-line="423" selection-end-column="43" />
+        <state relative-caret-position="175">
+          <caret line="103" column="29" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>

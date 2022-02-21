@@ -168,10 +168,12 @@ def load_HiC(file, ref_genome, format=None,
     strata = [np.zeros((length - i,)) for i in range(n_strata)]
     norm_factors = np.ones((length,))
 
-    for p1, p2, val in gen:
-        pp1, pp2 = p1 // resolution, p2 // resolution
-        if abs(pp1 - pp2) < n_strata:
-            strata[abs(pp1 - pp2)][min(pp1, pp2)] += val
+    for p1, p2, c, nx, ny in gen:
+        if abs(p1 - p2) < n_strata:
+            val = c / nx / ny if nx * ny != 0 else 0
+            strata[abs(p1 - p2)][min(p1, p2)] += val
+            norm_factors[p1] = nx
+            norm_factors[p2] = ny
 
     return strata, norm_factors
 

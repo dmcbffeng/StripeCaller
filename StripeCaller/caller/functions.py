@@ -1,43 +1,74 @@
 import numpy as np
 from scipy.signal import find_peaks
 from scipy.stats import poisson
+from scipy import signal
+from scipy.ndimage.filters import gaussian_filter1d
+from .mat_ops import subsetNpMatrix
+from ..utils.AVL_tree import AVLTree
 
 
-def hic_loader(
-        file_name, chr, file_format
-):
-    """
-    Load HiC contact maps from .hic/.mcool or other formats and store into xxx
-    :return:
-    """
-    pass
+_calculated_values = {}
+_poisson_stats = {}
 
 
-def strata2horizontal(strata):
-    hmat = np.zeros((len(strata[0]), len(strata)))
-    for i in range(len(strata)):
-        hmat[:len(strata[i]), i] = strata[i]
-    return hmat
+def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
+    v_Peaks = {}
+    h_Peaks = {}
+
+    ## peak finder
+    for ind in range(step, mat.shape[1] + step, step):
+        upper = ind
+        lower = ind - step
+        print(lower, upper)
+        mat_slice = mat[lower:upper, lower:upper]
+        hM, hW, vM, vW = getPeakAndWidths(
+            mat_slice, step // 12, sigma=sigma, rel_height=rel_height
+        )
+        hM += lower
+        vM += lower
+        for i in range(len(hM)):
+            if hM[i] not in h_Peaks.keys():
+                h_Peaks[hM[i]] = hW[i]
+        for i in range(len(vM)):
+            if vM[i] not in v_Peaks.keys():
+                v_Peaks[vM[i]] = vW[i]
+
+    for ind in range(step + step // 2, mat.shape[1] + step - step // 2, step):
+        upper = ind
+        lower = ind - step
+        mat_slice = mat[lower:upper, lower:upper]
+        print(lower, upper)
+        hM, hW, vM, vW = getPeakAndWidths(mat_slice, step // 12, sigma=sigma, rel_height=rel_height)
+        hM += lower
+        vM += lower
+        for i in range(len(hM)):
+            if hM[i] not in h_Peaks.keys():
+                h_Peaks[hM[i]] = hW[i]
+        for i in range(len(vM)):
+            if vM[i] not in v_Peaks.keys():
+                v_Peaks[vM[i]] = vW[i]
+
+    return h_Peaks, v_Peaks
 
 
-def strata2vertical(strata):
-    vmat = np.zeros((len(strata[0]), len(strata)))
-    for i in range(len(strata)):
-        vmat[i:, i] = strata[i]
-    return vmat
+def getPeakAndWidths(matrix_in, gap=600, sigma=12., rel_height=0.3):
+    HMAT = [matrix_in[i,i:i+gap].mean() for i in range(0, matrix_in.shape[0])]
 
+    hFiltered = gaussian_filter1d(HMAT, sigma=sigma)
+    hMax = signal.argrelmax(hFiltered)[0]
+    # hMin = signal.argrelmin(hFiltered)[0]
+    hwidths = signal.peak_widths(hFiltered, peaks=hMax, rel_height=rel_height)[0]
 
-def pick_max_positions(mat, distance_range=(10, 160), line_width=1, window_size=10):
-    st, ed = distance_range
-    stats = np.sum(mat[:, st:ed], axis=1)
-    all_pos = []
+    VMAT = [matrix_in[:,i].mean() for i in range(0,gap)]
+    VMAT += [matrix_in[i-gap:i,i].mean() for i in range(gap,matrix_in.shape[0]-gap)]
+    VMAT += [matrix_in[:,i].mean() for i in range(matrix_in.shape[0]-gap,matrix_in.shape[0])]
 
-    all_peaks, _ = find_peaks(stats, distance=window_size * 2)
-    for idx in all_peaks:
-        check = enrichment_score_strict(mat, idx, line_width, (st, ed), window_size)
-        if np.sum(check) > 0:
-            all_pos.append(idx)
-    return all_pos
+    vFiltered = gaussian_filter1d(VMAT, sigma=sigma)
+    vMax = signal.argrelmax(vFiltered)[0]
+    # vMin = signal.argrelmin(vFiltered)[0]
+    vwidths = signal.peak_widths(vFiltered, peaks=vMax, rel_height=rel_height)[0]
+
+    return hMax, hwidths, vMax, vwidths
 
 
 def enrichment_score_strict(mat, idx, line_width=1, distance_range=(20, 40), window_size=10):
@@ -91,6 +122,88 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(5, 100), window_siz
     return new_mat
 
 
+def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size=10):
+    half = int(line_width // 2)
+    x1, x2 = idx - half, idx - half + line_width
+    if x1 == x2:
+        x2 += 1
+
+    new_mat = np.zeros((distance_range[1] - distance_range[0],))
+    for j in range(distance_range[0], distance_range[1]):
+        y = j - distance_range[0]
+        _min_temp = subsetNpMatrix(mat, (x1, x2), (j - window_size - half, j + window_size + half + 1))
+        if _min_temp == "Empty":
+            continue
+        line_min = np.median([_min_temp])
+        _inner_neighbor = subsetNpMatrix(mat, (idx - half - window_size, x1),
+                                         (j - window_size - half, j + window_size + half + 1))
+        _outer_neighbor = subsetNpMatrix(mat, (x2 + 1, idx + half + window_size + 1),
+                                         (j - window_size - half, j + window_size + half + 1))
+
+        if _outer_neighbor == "Empty" or _inner_neighbor == "Empty":
+            continue
+        neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
+
+        # There should be a lower bound for the expected value,
+        # otherwise situations like (exp=0.01 and obs=0.02) would also be significant
+        # Currently we can set this to 0 until KR norm factors can be loaded
+        lower_b = 0  # This should be (1 / KR_norm_factors) if we refer to JuiceTools HICCUPS
+        _exp = max(neighbor_mean, lower_b)
+        _obs = int(line_min)  # the same as floor function when line_min > 0
+
+        # _calculated_values: store all calculated exp-obs pairs in dictionary, in which keys are obs since
+        #     they are always integers. Each _calculated_values[obs] is a binary tree for quick searching,
+        #     and each tree leaf is a exp value corresponding to the obs value. Since exp values are float,
+        #     there is also an integer index attached for searching the exp-obs in dictionary _poisson_stats
+        #     (float cannot be dict keys).
+        # _poisson_stats: record all calculated result in a dict. It should be
+        #     _poisson_stats[(_exp, _obs)] = -log10(p). But _exp is a float and cannot be a dict key, we give
+        #     each _exp a unique index and use the index.
+        # stats_log: record all p value calculation. Just for benchmarking. Delete this when publishing.
+        global _calculated_values, _poisson_stats  # , stats_log
+        tolerance = 0.02
+
+        # check if obs is a value calculated before
+        if _obs in _calculated_values:
+            # Find the nearest _exp values which were calculated before
+            # One larger, one smaller
+            (_upper, _lower) = _calculated_values[_obs].search(_exp)
+            # If _upper is close enough to _exp, directly use the p value from (_upper-_obs) pair
+            if _upper is not None and (_upper.key - _exp) < tolerance * _exp:
+                _exp = _upper.key
+                _exp_idx = _upper.val  # The integer index for _upper (float cannot be dict keys!)
+                mlog_p_val = _poisson_stats[(_exp_idx, _obs)]
+            else:
+                # Else, calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
+                _exp_idx = _calculated_values[_obs].insert(_exp)  # insert to the binary tree and return an index
+                Poiss = poisson(_exp)
+                p_val = 1 - Poiss.cdf(_obs)
+                if 0 < p_val < 1:
+                    mlog_p_val = - np.log10(p_val)
+                else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
+                    mlog_p_val = -1
+                _poisson_stats[(_exp_idx, _obs)] = mlog_p_val
+                # stats_log.append([_exp, _obs, mlog_p_val])
+        else:  # If _obs is not used before, generate a new binary tree _calculated_values[_obs]
+            _calculated_values[_obs] = AVLTree()
+            _exp_idx = _calculated_values[_obs].insert(_exp)
+            # calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
+            Poiss = poisson(_exp)
+            p_val = 1 - Poiss.cdf(_obs)
+            if 0 < p_val < 1:
+                mlog_p_val = - np.log10(p_val)
+            else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
+                mlog_p_val = -1
+            _poisson_stats[(_exp_idx, _obs)] = mlog_p_val
+            # stats_log.append([_exp, _obs, mlog_p_val])
+
+        # Store enrichment score in new_mat
+        new_mat[y] = mlog_p_val
+    new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
+
+    return new_mat
+
+
 def find_max_slice(arr):
     _max, head, tail = 0, 0, 0
     _max_ending, h, t = 0, 0, 0
@@ -106,6 +219,11 @@ def find_max_slice(arr):
             head, tail, _max = h, t, _max_ending
         i += 1
     return head, tail, _max
+
+
+def phased_max_slice_arr(idx, arr_parallel):
+    head, tail, _max = find_max_slice(arr_parallel)
+    return (idx, head, tail, _max)
 
 
 def merge_positions(lst, merge_range):
