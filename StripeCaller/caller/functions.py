@@ -19,7 +19,7 @@ def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
     for ind in range(step, mat.shape[1] + step, step):
         upper = ind
         lower = ind - step
-        print(lower, upper)
+        # print(lower, upper)
         mat_slice = mat[lower:upper, lower:upper]
         hM, hW, vM, vW = getPeakAndWidths(
             mat_slice, step // 12, sigma=sigma, rel_height=rel_height
@@ -37,7 +37,7 @@ def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
         upper = ind
         lower = ind - step
         mat_slice = mat[lower:upper, lower:upper]
-        print(lower, upper)
+        # print(lower, upper)
         hM, hW, vM, vW = getPeakAndWidths(mat_slice, step // 12, sigma=sigma, rel_height=rel_height)
         hM += lower
         vM += lower
@@ -132,16 +132,17 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
     for j in range(distance_range[0], distance_range[1]):
         y = j - distance_range[0]
         _min_temp = subsetNpMatrix(mat, (x1, x2), (j - window_size - half, j + window_size + half + 1))
-        if _min_temp == "Empty":
-            continue
+        # if _min_temp == "Empty":
+        #     continue
         line_min = np.median([_min_temp])
+        # print(_min_temp, line_min)
         _inner_neighbor = subsetNpMatrix(mat, (idx - half - window_size, x1),
                                          (j - window_size - half, j + window_size + half + 1))
         _outer_neighbor = subsetNpMatrix(mat, (x2 + 1, idx + half + window_size + 1),
                                          (j - window_size - half, j + window_size + half + 1))
 
-        if _outer_neighbor == "Empty" or _inner_neighbor == "Empty":
-            continue
+        # if _outer_neighbor == "Empty" or _inner_neighbor == "Empty":
+        #     continue
         neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
 
         # There should be a lower bound for the expected value,

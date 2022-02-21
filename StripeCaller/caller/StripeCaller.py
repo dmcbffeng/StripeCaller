@@ -8,6 +8,9 @@ from functools import partial
 from itertools import repeat
 
 
+__version__ = '0.0.1'
+
+
 def _stripe_caller(
         mat, positions,
         max_range=150000, resolution=1000,
@@ -22,10 +25,8 @@ def _stripe_caller(
         return (*args,)
 
     all_positions = []
-    #
-    # f = open(f'h_arr_chr1.txt', 'w')
-
     targeted_range = pack_tuple(0, max_range // resolution)
+
     if N > 1:  # parallel if #CPUs set
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
@@ -50,8 +51,6 @@ def _stripe_caller(
         for i, idx in enumerate(lst):
             if idx <= window_size or idx >= mat.shape[0] - window_size:
                 continue
-            # print(idx, lst[i], wtd[i])
-            # targeted_range = pack_tuple(0, max_range // resolution)
             arr = enrichment_score2(mat, idx, int(wtd[i]),
                                     distance_range=targeted_range,
                                     window_size=window_size)
@@ -102,6 +101,8 @@ def stripe_caller_all(
         min_length=30000, min_distance=50000,
         merge=1, window_size=8,
         centromere_file=None,
+        N_threads=1,
+
         nstrata_blank=0, step=36, sigma=12., rel_height=0.3
 ):
     """
@@ -117,7 +118,6 @@ def stripe_caller_all(
         resolution (int): resolution
         min_length (int): minimum length of stripes
         min_distance (int): threshold for removing stripes too far away from the diagonal
-        stripe_width (int): stripe width (# of bins at the given resolution)
         merge (int): merge stripes which are close to each other (# of bins)
         window_size (int): size of the window for calculating enrichment score
 
@@ -149,23 +149,35 @@ def stripe_caller_all(
         print(f'Calling for {ch}...')
         strata, norm_factors = load_HiC(
             file=hic_file, ref_genome=reference_genome, format=_format,
-            chromosome=ch, resolution=resolution,
-            norm=norm, max_distance=max_range + min_length)
-        # TO DO: max distance!!!
+            chromosome=ch, resolution=resolution, norm=norm,
+            max_distance=max(max_range + min_length, resolution * step)
+        )
+        print(' Finish loading contact matrix...')
 
         # full mat for calling candidate stripes
+        print(' Finding candidate peaks:')
         mat = strata2triu(strata)
         mat = blank_diagonal(mat, nstrata_blank)
         h_Peaks, v_Peaks = get_stripe_and_widths(
             mat, step=step, sigma=sigma, rel_height=rel_height
         )
+        print('  H:', len(h_Peaks), ', V:', len(v_Peaks))
+        f2 = open('peaks.txt', 'w')
+        f2.write('H\n')
+        for h in h_Peaks:
+            f2.write(f'{h}\t{h_Peaks[h]}\n')
+        f2.write('V\n')
+        for v in v_Peaks:
+            f2.write(f'{v}\t{v_Peaks[v]}\n')
+        f2.close()
 
         # horizontal
+        print(' Horizontal:')
         mat = strata2horizontal(strata)
         results = _stripe_caller(mat, positions=h_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=min_distance,
-                                 merge=merge, window_size=window_size)
+                                 merge=merge, window_size=window_size, N=N_threads)
         for (st, ed, hd, tl, sc) in results:
             in_centro = False
             if ch in centro:
@@ -176,11 +188,12 @@ def stripe_caller_all(
                 f.write(f'{ch}\t{st*resolution}\t{ed*resolution}\t{ch}\t{max((st+hd), ed)*resolution}\t{(ed+tl)*resolution}\t{sc}\n')
 
         # vertical
+        print(' Vertical:')
         mat = strata2vertical(strata)
         results = _stripe_caller(mat, positions=v_Peaks, threshold=threshold,
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=min_distance,
-                                 merge=merge, window_size=window_size)
+                                 merge=merge, window_size=window_size, N=N_threads)
         for (st, ed, hd, tl, sc) in results:
             in_centro = False
             if ch in centro:

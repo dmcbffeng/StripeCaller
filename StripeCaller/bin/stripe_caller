@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+
+import os
+import sys
+from tqdm import tqdm as progressbar
+from StripeCaller.caller import cmd as commands
+
+import logging
+logger = logging.getLogger('')
+
+
+class Chess(object):
+    def __init__(self):
+        parser = commands.stripe_parser()
+
+        flag_increments = {
+            '-l': 2, '--log-file': 2,
+        }
+
+        option_ix = 1
+        while (option_ix < len(sys.argv) and
+               sys.argv[option_ix].startswith('-')):
+            if sys.argv[option_ix] in flag_increments:
+                option_ix += flag_increments[sys.argv[option_ix]]
+            else:
+                option_ix += 1
+
+        # parse_args defaults to [1:] for args, but you need to
+        # exclude the rest of the args too, or validation will fail
+        args = parser.parse_args(sys.argv[1:option_ix+1])
+
+        # configure logger
+        if args.verbosity == 1:
+            log_level = logging.WARN
+        elif args.verbosity == 2:
+            log_level = logging.INFO
+        elif args.verbosity > 2:
+            log_level = logging.DEBUG
+        else:
+            log_level = logging.INFO
+        logger.setLevel(log_level)
+
+        if args.log_file is None:
+            sh = logging.StreamHandler()
+            sh_formatter = logging.Formatter(
+                "%(asctime)s %(levelname)s %(message)s")
+            sh.setFormatter(sh_formatter)
+            sh.setLevel(log_level)
+            logger.addHandler(sh)
+        else:
+            log_file = os.path.expanduser(args.log_file)
+            fh = logging.FileHandler(log_file, mode='a')
+            formatter = logging.Formatter(
+                "%(asctime)s %(levelname)s %(message)s")
+            fh.setFormatter(formatter)
+            fh.setLevel(log_level)
+            logger.addHandler(fh)
+
+        if args.command is None or not hasattr(self, args.command):
+            print('Unrecognized command')
+            parser.print_help()
+            exit(1)
+
+        # echo parameters back to user
+        command = " ".join(sys.argv)
+        logger.info("Running '{}'".format(command))
+
+        import chess
+        import fanc
+        logger.info("CHESS version: {}".format(chess.__version__))
+        logger.info("FAN-C version: {}".format(fanc.__version__))
+
+        # use dispatch pattern to invoke method with same name
+        getattr(self, args.command)([sys.argv[0]] + sys.argv[option_ix:])
+
+        # echo parameters back to user
+        logger.info("Finished '{}'".format(" ".join(sys.argv)))
+
+    def oe(self, argv):
+        parser = commands.oe_parser()
+
+        args = parser.parse_args(argv[2:])
+
+        import gzip
+        from chess.oe import observed_expected
+        from chess.helpers import is_gzipped
+
+        output_regions, output_edges = observed_expected(
+            args.regions, args.input_matrix)
+        if is_gzipped(args.output_matrix):
+            with gzip.open(args.output_matrix, 'w') as o:
+                for source, sink, weight in output_edges:
+                    line = "{}\t{}\t{:.6e}\n".format(source, sink, weight)
+                    o.write(line.encode('utf-8'))
+        else:
+            with open(args.output_matrix, 'w') as o:
+                for source, sink, weight in output_edges:
+                    o.write("{}\t{}\t{:.6e}\n".format(source, sink, weight))
+
+
