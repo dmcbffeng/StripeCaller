@@ -1,6 +1,8 @@
-from ..utils.load_HiC import load_HiC
-from .functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths
-from .mat_ops import strata2vertical, strata2horizontal, strata2triu, blank_diagonal
+import sys
+sys.path.append("..")
+from utils.load_HiC import *
+from caller.functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths
+from caller.mat_ops import strata2vertical, strata2horizontal, strata2triu, blank_diagonal
 
 import numpy as np
 from multiprocessing import Pool, cpu_count

@@ -9,7 +9,6 @@ class MyParser(argparse.ArgumentParser):
         self.print_help()
         sys.exit(2)
 
-
 def stripe_parser():
     parser = MyParser(
             description='Call stripes',
@@ -27,7 +26,8 @@ def stripe_parser():
 
     parser.add_argument(
         '--chrs',
-        type=str,
+        nargs="+",
+        default = [],
         help='which chromosomes to calculate, seperated by comma')
 
     parser.add_argument(
@@ -77,5 +77,53 @@ def stripe_parser():
         default=1,
         help='size of the window for calculating enrichment score')
 
-    return parser
+    parser.add_argument(
+        '--centromere_file',
+        type=str,
+        default=None,
+        help='file for centromere region exclusion')
 
+    parser.add_argument(
+        '--nstrata_blank',
+        type=int,
+        default=0,
+        help='bins from main diagonal that are ignored for detection',
+        )
+
+    parser.add_argument(
+        '--step',
+        type=int,
+        default=400,
+        help='bin-window size on matrix, resolution and HiC or MicroC dependent'
+        )
+
+    parser.add_argument(
+        '--sigma',
+        type=float,
+        default=12,
+        help='Sigma for determining relative peaks in 1D edge detection'
+    )
+
+    parser.add_argument(
+        '--rel_height',
+        type=float,
+        default=0.3,
+        help='height relative to 1D peak width for stripe width detection'
+        )
+
+    parser.add_argument(
+        '--presets',
+        type=str,
+        default="",
+        choices=['hiC', 'miC'],
+        help='set preset to \"hiC\" for Hi-C or \"miC\" for micro-C for preset parameter args'
+        )
+
+    parser.add_argument(
+        '--N_threads',
+        type=int,
+        default=1,
+        help='choose number of CPU cores'
+        )
+
+    return parser
