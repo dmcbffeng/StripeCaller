@@ -25,3 +25,6 @@ if __name__ == '__main__':
         sigma=args.sigma,
         rel_height=args.rel_height
     )
+    
+
+#python example_usage.py --hic '/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic' --output "TEST.txt" --chr "chr1" --rg 'hg38' --max_range 2000000 --resolution 5000 --min_length 300000 --min_distance 500000 --merge 2 --window_size 8 --N_threads 26 --step 35 --sigma 1 --rel_height 0.3 --norm balanced --thr 0.15
