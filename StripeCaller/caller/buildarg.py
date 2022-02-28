@@ -9,6 +9,7 @@ class MyParser(argparse.ArgumentParser):
         self.print_help()
         sys.exit(2)
 
+
 def stripe_parser():
     parser = MyParser(
             description='Call stripes',
@@ -125,5 +126,15 @@ def stripe_parser():
         default=1,
         help='choose number of CPU cores'
         )
+    args, unknown = parser.parse_known_args()
 
-    return parser
+    print(' The following args are not recognized:', unknown)
+    return args
+
+
+def parser2caller(args):
+    pass
+
+
+
+

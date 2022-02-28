@@ -17,25 +17,22 @@ def get_requirements(path):
 
 install_requires = get_requirements('requirements.txt')
 
-
 setuptools.setup(
-    name="scHiCTools",
+    name="Quagga",
     version="0.0.3",
-    author="Fan Feng",
+    author="Fan Feng, Sean Patrick Moran",
     author_email="fanfeng@umich.edu",
-    description="A user-friendly package for processing single cell HiC data",
+    description="A user-friendly package for calling stripes from contact maps",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/liu-bioinfo-lab/scHiCTool",
+    url="https://github.com/dmcbffeng/StripeCaller",
     packages=setuptools.find_packages(),
     install_requires=install_requires,
-    include_package_data = True,
+    include_package_data=True,
+    scripts=['bin/stripe_caller'],  # call from command line
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    extras_require={
-        "interactive_scatter": ["plotly>=4.8.0"],
-    }
 )

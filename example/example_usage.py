@@ -3,6 +3,7 @@ sys.path.append("../StripeCaller/")
 from caller.StripeCaller import stripe_caller_all # stripe_caller
 from caller.buildarg import stripe_parser
 
+
 if __name__ == "__main__":
     args = stripe_parser().parse_args()
     if args.presets!="":

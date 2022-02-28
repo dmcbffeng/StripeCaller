@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="95f774e4-37dd-423c-8962-25b357ef77b9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/buildarg.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/buildarg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StripeCaller/caller/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/example_usage.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/example_usage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,10 +20,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/example_usage.py">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/buildarg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="483">
+              <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -30,11 +34,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5475">
-              <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+            <state relative-caret-position="2925">
+              <caret line="153" column="42" lean-forward="true" selection-start-line="153" selection-start-column="42" selection-end-line="153" selection-end-column="42" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
-                <marker date="1645429789877" expanded="true" signature="5298:5345" ph="..." />
+                <marker date="1646034061029" expanded="true" signature="5343:5390" ph="..." />
               </folding>
             </state>
           </provider>
@@ -43,20 +46,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="121" column="78" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="78" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-981">
+              <caret line="107" column="44" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/bin/stripe_caller">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+              <folding>
+                <element signature="e#23#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="168" column="37" selection-start-line="168" selection-start-column="37" selection-end-line="168" selection-end-column="37" />
+            <state relative-caret-position="325">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#112#130#0" expanded="true" />
               </folding>
@@ -65,43 +77,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/cmd.py">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cool.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2025">
-              <caret line="81" selection-start-line="81" selection-end-line="81" />
+            <state relative-caret-position="-611">
+              <caret line="203" column="26" lean-forward="true" selection-start-line="203" selection-start-column="26" selection-end-line="203" selection-end-column="26" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/bin/stripe_caller">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-              <folding>
-                <element signature="e#23#32#0" expanded="true" />
+                <element signature="e#74#146#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/__init__.py">
+        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="425">
+              <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -159,20 +150,23 @@
         <option value="$PROJECT_DIR$/StripeCaller/utils/hic_straw.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/mat_ops.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/__init__.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/functions.py" />
-        <option value="$PROJECT_DIR$/example/example_usage.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/cmd.py" />
         <option value="$PROJECT_DIR$/StripeCaller/bin/quagga.py" />
         <option value="$PROJECT_DIR$/StripeCaller/__init__.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/buildarg.py" />
+        <option value="$PROJECT_DIR$/example/example_usage.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/functions.py" />
+        <option value="$PROJECT_DIR$/todo.txt" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
         <option value="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" />
+        <option value="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
-    <option name="y" value="16" />
+    <option name="y" value="15" />
     <option name="width" value="1940" />
     <option name="height" value="1100" />
   </component>
@@ -197,7 +191,30 @@
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="caller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -371,7 +388,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.16572239" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -380,16 +397,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/previous_versions/version2/GM_chr1_stats_log.png" />
-    <entry file="file://$PROJECT_DIR$/build.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version2/HFF_MicroC_chr1_stats_log.png" />
-    <entry file="file://$PROJECT_DIR$/previous_versions/version2/v3.py" />
     <entry file="file://$PROJECT_DIR$/previous_versions/version3/balance_tree.py" />
     <entry file="file://$PROJECT_DIR$/previous_versions/version3/tst.py" />
     <entry file="file://$PROJECT_DIR$/previous_versions/version3/v3.py" />
@@ -454,16 +461,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cooler_api.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cool.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5000">
-          <caret line="203" column="28" selection-start-line="203" selection-start-column="28" selection-end-line="203" selection-end-column="28" />
-          <folding>
-            <element signature="e#74#146#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/previous_versions/version3/stripe_caller_improved_v3.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -548,13 +545,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
+    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="-226">
+          <caret line="437" column="22" lean-forward="true" selection-start-line="437" selection-start-column="22" selection-end-line="437" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/GM12878_chr1.bedpe">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/removed_regions.bed">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/cmd.py" />
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/peaks.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="31" column="60" selection-start-line="31" selection-start-column="60" selection-end-line="31" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -568,96 +609,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/peak_utils.py">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        <state relative-caret-position="425">
+          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/previous_versions/version3_debug/WIP_improved_version_4.py">
+    <entry file="file://$PROJECT_DIR$/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-226">
-          <caret line="437" column="22" lean-forward="true" selection-start-line="437" selection-start-column="22" selection-end-line="437" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="168" column="37" selection-start-line="168" selection-start-column="37" selection-end-line="168" selection-end-column="37" />
-          <folding>
-            <element signature="e#112#130#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="150">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5475">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+        <state relative-caret-position="2925">
+          <caret line="153" column="42" lean-forward="true" selection-start-line="153" selection-start-column="42" selection-end-line="153" selection-end-column="42" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1645429789877" expanded="true" signature="5298:5345" ph="..." />
+            <marker date="1646034061029" expanded="true" signature="5343:5390" ph="..." />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/GM12878_chr1.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/removed_regions.bed">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/peaks.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/example/example_usage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="1025">
+          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/buildarg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="121" column="78" selection-start-line="121" selection-start-column="27" selection-end-line="121" selection-end-column="78" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/cmd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2025">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
+        <state relative-caret-position="483">
+          <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/__init__.py">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/bin/stripe_caller">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="250">
+          <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/bin/stripe_caller">
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="-981">
+          <caret line="107" column="44" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-611">
+          <caret line="203" column="26" lean-forward="true" selection-start-line="203" selection-start-column="26" selection-end-line="203" selection-end-column="26" />
           <folding>
-            <element signature="e#23#32#0" expanded="true" />
+            <element signature="e#74#146#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#112#130#0" expanded="true" />
           </folding>
         </state>
       </provider>

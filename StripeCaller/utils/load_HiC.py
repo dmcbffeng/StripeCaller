@@ -147,7 +147,7 @@ def load_HiC(file, ref_genome, format=None,
         else:
             raise ValueError('Unrecognized norm: ' + norm)
     elif format in ['mcool', 'cool', '.cool', '.mcool']:
-        gen = dump(file, resolution=resolution, range=chromosome, range2=chromosome, header=header > 0)
+        gen = dump(file, resolution=resolution, range=chromosome, range2=chromosome)
 
     elif format in ['pairs', 'pair', '.pair', '.pairs']:
         if norm in ['kr', 'balanced', 'balance']:

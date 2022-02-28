@@ -124,7 +124,7 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(5, 100), window_siz
     return new_mat
 
 
-def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size=10):
+def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10):
     half = int(line_width // 2)
     x1, x2 = idx - half, idx - half + line_width
     if x1 == x2:
@@ -150,7 +150,7 @@ def enrichment_score2(mat, idx, line_width, distance_range=(20, 40), window_size
         # There should be a lower bound for the expected value,
         # otherwise situations like (exp=0.01 and obs=0.02) would also be significant
         # Currently we can set this to 0 until KR norm factors can be loaded
-        lower_b = 0  # This should be (1 / KR_norm_factors) if we refer to JuiceTools HICCUPS
+        lower_b = 1 / norm_factors[idx]  # This should be (1 / KR_norm_factors) if we refer to JuiceTools HICCUPS
         _exp = max(neighbor_mean, lower_b)
         _obs = int(line_min)  # the same as floor function when line_min > 0
 
