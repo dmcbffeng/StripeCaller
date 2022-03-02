@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
-import os
 import sys
 import argparse
 # from tqdm import tqdm as progressbar
-from StripeCaller.caller import buildarg as commands
 from StripeCaller.caller import stripe_caller
 
 import logging
@@ -43,6 +41,12 @@ def stripe_parser():
         '--output', dest="output_file",
         type=str,
         help='output bedpe path')
+
+    parser.add_argument(
+        '--centromere_file',
+        type=str,
+        default=None,
+        help='centromere bed files for removing some regions')
 
     parser.add_argument(
         '--norm',
@@ -135,7 +139,7 @@ def stripe_parser():
         )
 
     parser.add_argument(
-        '--N_threads',
+        '--N_cores',
         type=int,
         default=1,
         help='choose number of CPU cores'
@@ -157,17 +161,17 @@ def parser2caller(args):
                 chromosomes=args.chrs,
                 output_file=args.output_file,
                 norm=args.norm,
-                threshold=args.threshold,
-                max_range=args.max_range, resolution=args.resolution,
-                min_length=args.min_length, min_distance=args.min_distance,
-                merge=args.merge, window_size=args.window_size,
+                threshold=0.15,
+                max_range=2000000, resolution=5000,
+                min_length=300000, min_distance=300000,
+                merge=3, window_size=10,
                 centromere_file=args.centromere_file,
-                N_threads=args.N_threads,
+                N_threads=args.N_cores,
 
-                nstrata_blank=args.nstrata_blank,
-                step=args.step,
-                sigma=args.sigma,
-                rel_height=args.rel_height
+                nstrata_blank=1,
+                step=80,
+                sigma=2,
+                rel_height=0.3
             )
         elif args.presets == 'miC':
             # Modify this part!
@@ -177,17 +181,17 @@ def parser2caller(args):
                 chromosomes=args.chrs,
                 output_file=args.output_file,
                 norm=args.norm,
-                threshold=args.threshold,
-                max_range=args.max_range, resolution=args.resolution,
-                min_length=args.min_length, min_distance=args.min_distance,
-                merge=args.merge, window_size=args.window_size,
+                threshold=0.15,
+                max_range=250000, resolution=1000,
+                min_length=50000, min_distance=50000,
+                merge=3, window_size=8,
                 centromere_file=args.centromere_file,
-                N_threads=args.N_threads,
+                N_threads=args.N_cores,
 
-                nstrata_blank=args.nstrata_blank,
-                step=args.step,
-                sigma=args.sigma,
-                rel_height=args.rel_height
+                nstrata_blank=50,
+                step=600,
+                sigma=12,
+                rel_height=0.3
             )
     else:
         stripe_caller(
@@ -201,7 +205,7 @@ def parser2caller(args):
             min_length=args.min_length, min_distance=args.min_distance,
             merge=args.merge, window_size=args.window_size,
             centromere_file=args.centromere_file,
-            N_threads=args.N_threads,
+            N_threads=args.N_cores,
 
             nstrata_blank=args.nstrata_blank,
             step=args.step,
@@ -211,8 +215,8 @@ def parser2caller(args):
 
 
 if __name__ == '__main__':
+    print('console start!')
     parser2caller(
         stripe_parser()
     )
-
-
+    #  ./stripe_caller --hic /nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic --rg hg38 --chrs chr1 --output test.bedpe

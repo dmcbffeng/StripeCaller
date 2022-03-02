@@ -6,19 +6,19 @@ from caller.buildarg import stripe_parser
 
 if __name__ == "__main__":
     args = stripe_parser().parse_args()
-    if args.presets!="":
-        if args.presets=="miC":
+    if args.presets != "":
+        if args.presets == "miC":
             print("Using Micro-C presets:")
-            args.nstrata_blank=50
-            args.step=600
-            args.sigma=12
-            args.rel_height=0.3
+            args.nstrata_blank = 50
+            args.step = 600
+            args.sigma = 12
+            args.rel_height = 0.3
         else:
             print("Using hi-C presets:")
-            args.nstrata_blank=1
-            args.step=80
-            args.sigma=2
-            args.rel_height=0.3
+            args.nstrata_blank = 1
+            args.step = 80
+            args.sigma = 2
+            args.rel_height = 0.3
 
     print(vars(args))
     

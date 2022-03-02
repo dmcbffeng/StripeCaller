@@ -121,7 +121,7 @@ def stripe_parser():
         )
 
     parser.add_argument(
-        '--N_threads',
+        '--N_cores',
         type=int,
         default=1,
         help='choose number of CPU cores'

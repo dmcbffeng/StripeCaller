@@ -6,7 +6,7 @@ from .mat_ops import strata2vertical, strata2horizontal, strata2triu, blank_diag
 
 import numpy as np
 from multiprocessing import Pool, cpu_count
-from functools import partial
+# from functools import partial
 from itertools import repeat
 
 
@@ -18,7 +18,8 @@ def _stripe_caller(
         max_range=150000, resolution=1000,
         min_length=30000, closeness=50000,
         merge=1, window_size=8, threshold=0.01,
-        N=1, norm_factors=None
+        N=1,
+        norm_factors=None, stats_test_log=({}, {})
 ):
     assert max_range % resolution == 0
     assert min_length % resolution == 0
@@ -59,7 +60,7 @@ def _stripe_caller(
             arr = enrichment_score2(mat, idx, int(wtd[i]),
                                     distance_range=targeted_range,
                                     window_size=window_size,
-                                    norm_factors=norm_factors
+                                    norm_factors=norm_factors, stats_test_log=stats_test_log
                                     )
 
             arr = arr + np.log10(threshold)
@@ -69,7 +70,8 @@ def _stripe_caller(
     # Step 4: Merging
     print(' Merging...')
     if not all_positions:
-        raise ValueError("No statistically significant candidate stripes found(enrichment_score()). Try different args: stripe_width, max_range, resolution, window_size")
+        raise ValueError("No statistically significant candidate stripes found(enrichment_score()). "
+                         "Try different args: stripe_width, max_range, resolution, window_size")
     all_positions = merge_positions(all_positions, merge)
     print(len(all_positions))
 
@@ -151,6 +153,10 @@ def stripe_caller_all(
     f = open(output_file, 'w')
     f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
 
+    # Stats test record
+    _calculated_values = {}
+    _poisson_stats = {}
+
     for ch in chromosomes:
         print(f'Calling for {ch}...')
         strata, norm_factors = load_HiC(
@@ -184,7 +190,7 @@ def stripe_caller_all(
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=min_distance,
                                  merge=merge, window_size=window_size, N=N_threads,
-                                 norm_factors=norm_factors
+                                 norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
                                  )
         for (st, ed, hd, tl, sc) in results:
             in_centro = False
@@ -202,7 +208,7 @@ def stripe_caller_all(
                                  max_range=max_range, resolution=resolution,
                                  min_length=min_length, closeness=min_distance,
                                  merge=merge, window_size=window_size, N=N_threads,
-                                 norm_factors=norm_factors
+                                 norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
                                  )
         for (st, ed, hd, tl, sc) in results:
             in_centro = False

@@ -6,11 +6,11 @@ from scipy.stats import poisson
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from .mat_ops import subsetNpMatrix
-from utils.AVL_tree import AVLTree
+from ..utils.AVL_tree import AVLTree
 
 
-_calculated_values = {}
-_poisson_stats = {}
+# _calculated_values = {}
+# _poisson_stats = {}
 
 
 def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
@@ -124,7 +124,10 @@ def enrichment_score(mat, idx, line_width=1, distance_range=(5, 100), window_siz
     return new_mat
 
 
-def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10):
+def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
+                      stats_test_log=({}, {})):
+    _calculated_values, _poisson_stats = stats_test_log
+
     half = int(line_width // 2)
     x1, x2 = idx - half, idx - half + line_width
     if x1 == x2:
@@ -163,7 +166,8 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
         #     _poisson_stats[(_exp, _obs)] = -log10(p). But _exp is a float and cannot be a dict key, we give
         #     each _exp a unique index and use the index.
         # stats_log: record all p value calculation. Just for benchmarking. Delete this when publishing.
-        global _calculated_values, _poisson_stats  # , stats_log
+
+        # global _calculated_values, _poisson_stats  # , stats_log
         tolerance = 0.02
 
         # check if obs is a value calculated before
