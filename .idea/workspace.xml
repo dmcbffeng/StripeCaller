@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95f774e4-37dd-423c-8962-25b357ef77b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/example_usaga_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/example/example_usage_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/peaks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/example/peaks.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,20 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version5/StripeCaller.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2575">
-              <caret line="103" column="101" lean-forward="true" selection-start-line="103" selection-start-column="101" selection-end-line="103" selection-end-column="101" />
+            <state relative-caret-position="250">
+              <caret line="190" column="20" lean-forward="true" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -40,18 +28,6 @@
               <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="38" selection-end-column="55" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/previous_versions/version5/functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="143" column="71" selection-start-line="143" selection-start-column="47" selection-end-line="143" selection-end-column="71" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +54,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/example_usage_script.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
@@ -154,12 +130,12 @@
         <option value="$PROJECT_DIR$/example/example_usage.py" />
         <option value="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" />
         <option value="$PROJECT_DIR$/example/example_usaga_script.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
         <option value="$PROJECT_DIR$/example/example_usage_script.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/functions.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/load_HiC.py" />
         <option value="$PROJECT_DIR$/previous_versions/version3_Fan_debug/vis.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/StripeCaller.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
       </list>
     </option>
   </component>
@@ -186,23 +162,6 @@
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
-              <item name="version3_Fan_debug" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="previous_versions" type="462c0819:PsiDirectoryNode" />
-              <item name="version5" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
@@ -696,13 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/previous_versions/version5/functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -750,6 +702,13 @@
           <folding>
             <element signature="e#0#6#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="190" column="20" lean-forward="true" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
         </state>
       </provider>
     </entry>

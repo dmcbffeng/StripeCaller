@@ -49,7 +49,7 @@ def _stripe_caller(
             all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr)))
 
     else:
-        f2 = open(f'peaks_enrichment.txt', 'w')
+        # f2 = open(f'peaks_enrichment.txt', 'w')
 
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
@@ -69,8 +69,8 @@ def _stripe_caller(
             head, tail, _max = find_max_slice(arr)
             all_positions.append((idx, head, tail, _max))
 
-            f2.write(f'{i} {idx * resolution} {head} {tail} {_max}\n')
-        f2.close()
+        #     f2.write(f'{i} {idx * resolution} {head} {tail} {_max}\n')
+        # f2.close()
 
     # Step 4: Merging
     print(' Merging...')
@@ -181,14 +181,14 @@ def stripe_caller_all(
         )
         print('  H:', len(h_Peaks), ', V:', len(v_Peaks))
 
-        f2 = open(f'peaks_{ch}.txt', 'w')
-        f2.write('H\n')
-        for h in h_Peaks:
-            f2.write(f'{h * resolution}\t{h_Peaks[h]}\n')
-        f2.write('V\n')
-        for v in v_Peaks:
-            f2.write(f'{v * resolution}\t{v_Peaks[v]}\n')
-        f2.close()
+        # f2 = open(f'peaks_{ch}.txt', 'w')
+        # f2.write('H\n')
+        # for h in h_Peaks:
+        #     f2.write(f'{h * resolution}\t{h_Peaks[h]}\n')
+        # f2.write('V\n')
+        # for v in v_Peaks:
+        #     f2.write(f'{v * resolution}\t{v_Peaks[v]}\n')
+        # f2.close()
 
         # horizontal
         print(' Horizontal:')
