@@ -36,7 +36,7 @@ def _stripe_caller(
     if N > 1:  # parallel if #CPUs set
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
-        wtd = [int(positions[idx]) for idx in list(sorted(positions.keys())) if
+        wtd = [max(int(positions[idx]), 1) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
 
         with Pool(N) as pool:
@@ -49,9 +49,11 @@ def _stripe_caller(
             all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr)))
 
     else:
+        f2 = open(f'peaks_enrichment.txt', 'w')
+
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
-        wtd = [int(positions[idx]) for idx in list(sorted(positions.keys())) if
+        wtd = [max(int(positions[idx]), 1) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
         #         print(lst,wtd)
         for i, idx in enumerate(lst):
@@ -66,6 +68,9 @@ def _stripe_caller(
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
             all_positions.append((idx, head, tail, _max))
+
+            f2.write(f'{i} {idx * resolution} {head} {tail} {_max}\n')
+        f2.close()
 
     # Step 4: Merging
     print(' Merging...')
@@ -159,6 +164,7 @@ def stripe_caller_all(
 
     for ch in chromosomes:
         print(f'Calling for {ch}...')
+        print(' Loading contact matrix...')
         strata, norm_factors = load_HiC(
             file=hic_file, ref_genome=reference_genome, format=_format,
             chromosome=ch, resolution=resolution, norm=norm,
@@ -174,14 +180,15 @@ def stripe_caller_all(
             mat, step=step, sigma=sigma, rel_height=rel_height
         )
         print('  H:', len(h_Peaks), ', V:', len(v_Peaks))
-        # f2 = open('peaks.txt', 'w')
-        # f2.write('H\n')
-        # for h in h_Peaks:
-        #     f2.write(f'{h}\t{h_Peaks[h]}\n')
-        # f2.write('V\n')
-        # for v in v_Peaks:
-        #     f2.write(f'{v}\t{v_Peaks[v]}\n')
-        # f2.close()
+
+        f2 = open(f'peaks_{ch}.txt', 'w')
+        f2.write('H\n')
+        for h in h_Peaks:
+            f2.write(f'{h * resolution}\t{h_Peaks[h]}\n')
+        f2.write('V\n')
+        for v in v_Peaks:
+            f2.write(f'{v * resolution}\t{v_Peaks[v]}\n')
+        f2.close()
 
         # horizontal
         print(' Horizontal:')
@@ -219,5 +226,8 @@ def stripe_caller_all(
             if not in_centro:
                 f.write(f'{ch}\t{(st-tl)*resolution}\t{min((ed-hd), st)*resolution}\t{ch}\t{st*resolution}\t{ed*resolution}\t{sc}\n')
     f.close()
+
+    print(_poisson_stats.keys())
+    print(_calculated_values.keys())
 
 
