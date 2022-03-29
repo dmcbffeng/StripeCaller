@@ -298,14 +298,13 @@ def dump(cool_uri, resolution, table='pixels', columns=None, header=False, na_re
             )
             chunks = map(annotator, chunks)
 
-    first = True
-    if float_format is not None:
-        float_format = "%" + float_format
+    # first = True
+    # if float_format is not None:
+    #     float_format = "%" + float_format
 
     for chunk in chunks:
-        
         for idx, row in chunk.iterrows():
-            if row.loc['bin1_id']<=row.loc['bin2_id']:
+            if row.loc['bin1_id'] <= row.loc['bin2_id']:
                 yield row.loc['bin1_id'], row.loc['bin2_id'], row.loc['count']
             
             # break
@@ -329,4 +328,4 @@ def dump(cool_uri, resolution, table='pixels', columns=None, header=False, na_re
     #     f.flush()
 
 
-# dump('test.mcool',25000, 'pixels', range='chr1', range2='chr1')
+# dump('test.mcool', 25000, 'pixels', range='chr1', range2='chr1')

@@ -1,100 +1,222 @@
 #!/usr/bin/env python
 
-import os
 import sys
-from tqdm import tqdm as progressbar
-from StripeCaller.caller import cmd as commands
+import argparse
+# from tqdm import tqdm as progressbar
+from StripeCaller.caller import stripe_caller
 
 import logging
 logger = logging.getLogger('')
 
 
-class Chess(object):
-    def __init__(self):
-        parser = commands.stripe_parser()
-
-        flag_increments = {
-            '-l': 2, '--log-file': 2,
-        }
-
-        option_ix = 1
-        while (option_ix < len(sys.argv) and
-               sys.argv[option_ix].startswith('-')):
-            if sys.argv[option_ix] in flag_increments:
-                option_ix += flag_increments[sys.argv[option_ix]]
-            else:
-                option_ix += 1
-
-        # parse_args defaults to [1:] for args, but you need to
-        # exclude the rest of the args too, or validation will fail
-        args = parser.parse_args(sys.argv[1:option_ix+1])
-
-        # configure logger
-        if args.verbosity == 1:
-            log_level = logging.WARN
-        elif args.verbosity == 2:
-            log_level = logging.INFO
-        elif args.verbosity > 2:
-            log_level = logging.DEBUG
-        else:
-            log_level = logging.INFO
-        logger.setLevel(log_level)
-
-        if args.log_file is None:
-            sh = logging.StreamHandler()
-            sh_formatter = logging.Formatter(
-                "%(asctime)s %(levelname)s %(message)s")
-            sh.setFormatter(sh_formatter)
-            sh.setLevel(log_level)
-            logger.addHandler(sh)
-        else:
-            log_file = os.path.expanduser(args.log_file)
-            fh = logging.FileHandler(log_file, mode='a')
-            formatter = logging.Formatter(
-                "%(asctime)s %(levelname)s %(message)s")
-            fh.setFormatter(formatter)
-            fh.setLevel(log_level)
-            logger.addHandler(fh)
-
-        if args.command is None or not hasattr(self, args.command):
-            print('Unrecognized command')
-            parser.print_help()
-            exit(1)
-
-        # echo parameters back to user
-        command = " ".join(sys.argv)
-        logger.info("Running '{}'".format(command))
-
-        import chess
-        import fanc
-        logger.info("CHESS version: {}".format(chess.__version__))
-        logger.info("FAN-C version: {}".format(fanc.__version__))
-
-        # use dispatch pattern to invoke method with same name
-        getattr(self, args.command)([sys.argv[0]] + sys.argv[option_ix:])
-
-        # echo parameters back to user
-        logger.info("Finished '{}'".format(" ".join(sys.argv)))
-
-    def oe(self, argv):
-        parser = commands.oe_parser()
-
-        args = parser.parse_args(argv[2:])
-
-        import gzip
-        from chess.oe import observed_expected
-        from chess.helpers import is_gzipped
-
-        output_regions, output_edges = observed_expected(
-            args.regions, args.input_matrix)
-        if is_gzipped(args.output_matrix):
-            with gzip.open(args.output_matrix, 'w') as o:
-                for source, sink, weight in output_edges:
-                    line = "{}\t{}\t{:.6e}\n".format(source, sink, weight)
-                    o.write(line.encode('utf-8'))
-        else:
-            with open(args.output_matrix, 'w') as o:
-                for source, sink, weight in output_edges:
-                    o.write("{}\t{}\t{:.6e}\n".format(source, sink, weight))
+class MyParser(argparse.ArgumentParser):
+    def error(self, message):
+        sys.stderr.write('error: %s\n' % message)
+        self.print_help()
+        sys.exit(2)
 
 
+def stripe_parser():
+    parser = MyParser(
+            description='Call stripes',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument(
+        '--hic',
+        type=str,
+        help='Hi-C file path')
+
+    parser.add_argument(
+        '--rg', dest="reference_genome",
+        type=str,
+        help='reference_genome name (e.g., hg38)')
+
+    parser.add_argument(
+        '--chrs',
+        nargs="+",
+        default = [],
+        help='which chromosomes to calculate, seperated by comma')
+
+    parser.add_argument(
+        '--output', dest="output_file",
+        type=str,
+        help='output bedpe path')
+
+    parser.add_argument(
+        '--centromere_file',
+        type=str,
+        default=None,
+        help='centromere bed files for removing some regions')
+
+    parser.add_argument(
+        '--norm',
+        type=str,
+        default="balanced",
+        help='Hi-C normalization. Recommend: "balanced", can also be "none"')
+
+    parser.add_argument(
+        '--thr', dest='threshold',
+        type=float,
+        default=0.10,
+        help='P value threshold')
+
+    parser.add_argument(
+        '--max_range',
+        type=int,
+        default=2000000,
+        help='max distance off the diagonal to be calculated')
+
+    parser.add_argument(
+        '--resolution',
+        type=int,
+        default=5000,
+        help='resolution')
+
+    parser.add_argument(
+        '--min_length',
+        type=int,
+        default=30000,
+        help='minimum length of stripes')
+
+    parser.add_argument(
+        '--min_distance',
+        default=50000,
+        type=int,
+        help='threshold for removing stripes too far away from the diagonal')
+
+    parser.add_argument(
+        '--merge',
+        type=int,
+        default=3,
+        help='merge stripes which are close to each other (# of bins)')
+
+    parser.add_argument(
+        '--window_size',
+        type=int,
+        default=8,
+        help='size of the window for calculating enrichment score')
+
+    parser.add_argument(
+        '--centromere_file',
+        type=str,
+        default=None,
+        help='file for centromere region exclusion')
+
+    parser.add_argument(
+        '--nstrata_blank',
+        type=int,
+        default=0,
+        help='bins from main diagonal that are ignored for detection',
+        )
+
+    parser.add_argument(
+        '--step',
+        type=int,
+        default=400,
+        help='bin-window size on matrix, resolution and HiC or MicroC dependent'
+        )
+
+    parser.add_argument(
+        '--sigma',
+        type=float,
+        default=12,
+        help='Sigma for determining relative peaks in 1D edge detection'
+    )
+
+    parser.add_argument(
+        '--rel_height',
+        type=float,
+        default=0.3,
+        help='height relative to 1D peak width for stripe width detection'
+        )
+
+    parser.add_argument(
+        '--presets',
+        type=str,
+        default='none',
+        choices=['none', 'hiC', 'miC'],
+        help='set preset to \"hiC\" for Hi-C or \"miC\" for micro-C for preset parameter args'
+        )
+
+    parser.add_argument(
+        '--N_cores',
+        type=int,
+        default=1,
+        help='choose number of CPU cores'
+        )
+    args, unknown = parser.parse_known_args()
+
+    print(' The following args are not recognized:', unknown)
+    return args
+
+
+def parser2caller(args):
+    if args.presets != 'none':
+        print('--presets is set. All other arguments will be ignored.')
+        if args.presets == 'hiC':
+            # Modify this part!
+            stripe_caller(
+                hic_file=args.hic,
+                reference_genome=args.reference_genome,
+                chromosomes=args.chrs,
+                output_file=args.output_file,
+                norm=args.norm,
+                threshold=0.15,
+                max_range=2000000, resolution=5000,
+                min_length=300000, min_distance=300000,
+                merge=3, window_size=10,
+                centromere_file=args.centromere_file,
+                N_threads=args.N_cores,
+
+                nstrata_blank=1,
+                step=80,
+                sigma=2,
+                rel_height=0.3
+            )
+        elif args.presets == 'miC':
+            # Modify this part!
+            stripe_caller(
+                hic_file=args.hic,
+                reference_genome=args.reference_genome,
+                chromosomes=args.chrs,
+                output_file=args.output_file,
+                norm=args.norm,
+                threshold=0.15,
+                max_range=250000, resolution=1000,
+                min_length=50000, min_distance=50000,
+                merge=3, window_size=8,
+                centromere_file=args.centromere_file,
+                N_threads=args.N_cores,
+
+                nstrata_blank=50,
+                step=600,
+                sigma=12,
+                rel_height=0.3
+            )
+    else:
+        stripe_caller(
+            hic_file=args.hic,
+            reference_genome=args.reference_genome,
+            chromosomes=args.chrs,
+            output_file=args.output_file,
+            norm=args.norm,
+            threshold=args.threshold,
+            max_range=args.max_range, resolution=args.resolution,
+            min_length=args.min_length, min_distance=args.min_distance,
+            merge=args.merge, window_size=args.window_size,
+            centromere_file=args.centromere_file,
+            N_threads=args.N_cores,
+
+            nstrata_blank=args.nstrata_blank,
+            step=args.step,
+            sigma=args.sigma,
+            rel_height=args.rel_height
+        )
+
+
+if __name__ == '__main__':
+    print('console start!')
+    parser2caller(
+        stripe_parser()
+    )
+    #  ./stripe_caller --hic /nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic --rg hg38 --chrs chr1 --output test.bedpe
