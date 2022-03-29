@@ -28,7 +28,7 @@ def stripe_parser():
     parser.add_argument(
         '--chrs',
         nargs="+",
-        default = [],
+        default = ["chr1"],
         help='which chromosomes to calculate, seperated by comma')
 
     parser.add_argument(
@@ -116,7 +116,7 @@ def stripe_parser():
         '--presets',
         type=str,
         default="",
-        choices=['hiC', 'miC'],
+        choices=['HiC_5000', 'MiC_5000'],
         help='set preset to \"hiC\" for Hi-C or \"miC\" for micro-C for preset parameter args'
         )
 

@@ -6,7 +6,7 @@ from scipy.stats import poisson
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from .mat_ops import subsetNpMatrix
-from ..utils.AVL_tree import AVLTree
+from utils.AVL_tree import AVLTree
 
 
 # _calculated_values = {}

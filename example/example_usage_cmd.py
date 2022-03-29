@@ -1,3 +1,4 @@
+import json
 import sys
 sys.path.append("../StripeCaller/")
 from caller.StripeCaller import stripe_caller_all # stripe_caller
@@ -5,20 +6,13 @@ from caller.buildarg import stripe_parser
 
 
 if __name__ == "__main__":
-    args = stripe_parser().parse_args()
+    args = stripe_parser()
+    
     if args.presets != "":
-        if args.presets == "miC":
-            print("Using Micro-C presets:")
-            args.nstrata_blank = 50
-            args.step = 600
-            args.sigma = 12
-            args.rel_height = 0.3
-        else:
-            print("Using hi-C presets:")
-            args.nstrata_blank = 1
-            args.step = 80
-            args.sigma = 2
-            args.rel_height = 0.3
+        jfile = open('presets.json')
+        data = json.load(jfile)[args.presets]
+        for key in data:
+            args.__dict__[key] = data[key]         
 
     print(vars(args))
     
@@ -33,7 +27,7 @@ if __name__ == "__main__":
         min_length=args.min_length, min_distance=args.min_distance,
         merge=args.merge, window_size=args.window_size,
         centromere_file=args.centromere_file,
-        N_threads=args.N_threads,
+        N_threads=args.N_cores,
 
         nstrata_blank=args.nstrata_blank,
         step=args.step,
