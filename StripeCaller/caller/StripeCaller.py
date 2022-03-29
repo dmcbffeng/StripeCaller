@@ -42,7 +42,7 @@ def _stripe_caller(
         with Pool(N) as pool:
             # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
             arr = pool.starmap(enrichment_score2,
-                               zip(repeat(mat), lst, wtd, repeat(targeted_range), repeat(window_size)))
+                               zip(repeat(mat), lst, wtd, repeat(norm_factors), repeat(targeted_range), repeat(window_size)))
         arr += np.log10(threshold)
 
         with Pool(N) as pool:
