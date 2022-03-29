@@ -25,7 +25,7 @@ if __name__ == "__main__":
         min_length=args.min_length, min_distance=args.min_distance,
         merge=args.merge, window_size=args.window_size,
         centromere_file=args.centromere_file,
-        N_threads=args.N_threads,
+        N_threads=args.N_cores,
 
         nstrata_blank=args.nstrata_blank,
         step=args.step,
