@@ -14,6 +14,7 @@ if __name__ == "__main__":
         for key in data:
             args.__dict__[key] = data[key]         
 
+
     print(vars(args))
     
     stripe_caller_all(
