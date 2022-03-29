@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from ..utils.load_HiC import *
+from utils.load_HiC import *
 from .functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths
 from .mat_ops import strata2vertical, strata2horizontal, strata2triu, blank_diagonal
 
@@ -38,6 +38,7 @@ def _stripe_caller(
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
         wtd = [max(int(positions[idx]), 1) for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]
+
 
         with Pool(N) as pool:
             # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
@@ -226,8 +227,4 @@ def stripe_caller_all(
             if not in_centro:
                 f.write(f'{ch}\t{(st-tl)*resolution}\t{min((ed-hd), st)*resolution}\t{ch}\t{st*resolution}\t{ed*resolution}\t{sc}\n')
     f.close()
-
-    print(_poisson_stats.keys())
-    print(_calculated_values.keys())
-
 

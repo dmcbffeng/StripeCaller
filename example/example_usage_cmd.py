@@ -1,3 +1,4 @@
+import json
 import sys
 sys.path.append("../StripeCaller/")
 from caller.StripeCaller import stripe_caller_all # stripe_caller
@@ -5,12 +6,14 @@ from caller.buildarg import stripe_parser
 
 
 if __name__ == "__main__":
-    args = stripe_parser().parse_args()
+    args = stripe_parser()
+    
     if args.presets != "":
         jfile = open('presets.json')
         data = json.load(jfile)[args.presets]
         for key in data:
-            args.__dict__[key] = data[key]
+            args.__dict__[key] = data[key]         
+
 
     print(vars(args))
     
