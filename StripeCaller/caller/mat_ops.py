@@ -53,4 +53,28 @@ def blank_diagonal(mat, nstrata=0):
     return np.triu(mat, nstrata) if nstrata > 0 else mat
 
 
+def blank_diagonal_sparse_from_strata(strata, nstrata=0):
+    """
+    # >>> strata = [np.array([1, 2, 3, 4]), np.array([5, 6, 7]), np.array([8, 9])]
+    # >>> blank_diagonal_sparse_from_strata(strata, nstrata=1)
+    """
+    size = len(strata[0])
+    padded_strata = [
+        np.concatenate([np.zeros(shape=(i,)), strata[i]]) for i in range(len(strata))
+    ]
+    for i in range(nstrata):
+        padded_strata[i] = np.zeros((size,))
+    diags = np.arange(len(strata))
+    return sp.spdiags(padded_strata, diags, size, size, format='csr')
+
+
+if __name__ == '__main__':
+    strata = [np.array([1, 2, 3, 4]), np.array([5, 6, 7]), np.array([8, 9])]
+    mat = blank_diagonal_sparse_from_strata(strata, nstrata=1)
+    print(mat.toarray())
+    # [[0. 5. 8. 0.]
+    #  [0. 0. 6. 9.]
+    #  [0. 0. 0. 7.]
+    #  [0. 0. 0. 0.]]
+
 

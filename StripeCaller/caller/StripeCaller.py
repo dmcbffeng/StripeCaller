@@ -2,7 +2,7 @@ import sys
 sys.path.append("..")
 from utils.load_HiC import *
 from .functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths
-from .mat_ops import strata2vertical, strata2horizontal, strata2triu, blank_diagonal
+from .mat_ops import strata2vertical, strata2horizontal, blank_diagonal_sparse_from_strata, blank_diagonal
 
 import numpy as np
 from multiprocessing import Pool, cpu_count
@@ -175,8 +175,7 @@ def stripe_caller_all(
 
         # full mat for calling candidate stripes
         print(' Finding candidate peaks:')
-        mat = strata2triu(strata)
-        mat = blank_diagonal(mat, nstrata_blank)
+        mat = blank_diagonal_sparse_from_strata(strata, nstrata_blank)
         h_Peaks, v_Peaks = get_stripe_and_widths(
             mat, step=step, sigma=sigma, rel_height=rel_height
         )
@@ -194,12 +193,15 @@ def stripe_caller_all(
         # horizontal
         print(' Horizontal:')
         mat = strata2horizontal(strata)
-        results = _stripe_caller(mat, positions=h_Peaks, threshold=threshold,
-                                 max_range=max_range, resolution=resolution,
-                                 min_length=min_length, closeness=min_distance,
-                                 merge=merge, window_size=window_size, N=N_threads,
-                                 norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
-                                 )
+        if h_Peaks:
+            results = _stripe_caller(mat, positions=h_Peaks, threshold=threshold,
+                                     max_range=max_range, resolution=resolution,
+                                     min_length=min_length, closeness=min_distance,
+                                     merge=merge, window_size=window_size, N=N_threads,
+                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
+                                     )
+        else:
+            results = []
         for (st, ed, hd, tl, sc) in results:
             in_centro = False
             if ch in centro:
@@ -212,12 +214,15 @@ def stripe_caller_all(
         # vertical
         print(' Vertical:')
         mat = strata2vertical(strata)
-        results = _stripe_caller(mat, positions=v_Peaks, threshold=threshold,
-                                 max_range=max_range, resolution=resolution,
-                                 min_length=min_length, closeness=min_distance,
-                                 merge=merge, window_size=window_size, N=N_threads,
-                                 norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
-                                 )
+        if v_Peaks:
+            results = _stripe_caller(mat, positions=v_Peaks, threshold=threshold,
+                                     max_range=max_range, resolution=resolution,
+                                     min_length=min_length, closeness=min_distance,
+                                     merge=merge, window_size=window_size, N=N_threads,
+                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
+                                     )
+        else:
+            results = []
         for (st, ed, hd, tl, sc) in results:
             in_centro = False
             if ch in centro:
