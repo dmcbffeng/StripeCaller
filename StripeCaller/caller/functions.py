@@ -7,7 +7,7 @@ from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from .mat_ops import subsetNpMatrix
 from utils.AVL_tree import AVLTree
-
+import math
 
 # _calculated_values = {}
 # _poisson_stats = {}
@@ -146,8 +146,9 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
         _outer_neighbor = subsetNpMatrix(mat, (x2 + 1, idx + half + window_size + 1),
                                          (j - window_size - half, j + window_size + half + 1))
 
-        # if _outer_neighbor == "Empty" or _inner_neighbor == "Empty":
-        #     continue
+        if _outer_neighbor.size == 0 or _inner_neighbor.size == 0:
+            continue
+            
         neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
 
         # There should be a lower bound for the expected value,
@@ -228,12 +229,12 @@ def find_max_slice(arr):
     return head, tail, _max
 
 
-def phased_max_slice_arr(idx, arr_parallel):
+def phased_max_slice_arr(idx, arr_parallel, width):
     head, tail, _max = find_max_slice(arr_parallel)
-    return (idx, head, tail, _max)
+    return (idx, head, tail, _max, width)
 
 
-def merge_positions(lst, merge_range):
+def merge_positions(lst):#, merge_range):
     def _merge(small_lst):
         st = min([elm[0] for elm in small_lst])
         ed = max([elm[1] for elm in small_lst])
@@ -244,10 +245,10 @@ def merge_positions(lst, merge_range):
 
     new_lst = []
     temp = []
-    for i, (idx, head, tail, score) in enumerate(lst):
+    for i, (idx, head, tail, score, width) in enumerate(lst):
         if i == 0:
             temp.append([idx, idx, head, tail, score])
-        elif idx - temp[-1][1] <= merge_range:
+        elif idx - temp[-1][1] <= math.ceil(width):
             temp.append([idx, idx, head, tail, score])
         else:
             new_lst.append(_merge(temp))

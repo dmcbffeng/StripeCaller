@@ -5,6 +5,8 @@ import scipy.sparse as sp
 def subsetNpMatrix(matrix, row_bounds, column_bounds):
     rows = np.array([x for x in range(row_bounds[0], row_bounds[1]) if 0 <= int(x) < matrix.shape[0]])
     cols = np.array([y for y in range(column_bounds[0], column_bounds[1]) if 0 <= int(y) < matrix.shape[1]])
+    if len(rows)==0 or len(cols)==0:
+        return np.empty(0)
     subset = (matrix.ravel()[(cols + (rows * matrix.shape[1]).reshape((-1, 1))).ravel()]).reshape(rows.size, cols.size)
     return subset
 

@@ -47,7 +47,7 @@ def _stripe_caller(
         arr += np.log10(threshold)
 
         with Pool(N) as pool:
-            all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr)))
+            all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr, wtd)))
 
     else:
         # f2 = open(f'peaks_enrichment.txt', 'w')
@@ -68,7 +68,7 @@ def _stripe_caller(
 
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
-            all_positions.append((idx, head, tail, _max))
+            all_positions.append((idx, head, tail, _max, wtd[i]))
 
         #     f2.write(f'{i} {idx * resolution} {head} {tail} {_max}\n')
         # f2.close()
@@ -78,7 +78,7 @@ def _stripe_caller(
     if not all_positions:
         raise ValueError("No statistically significant candidate stripes found(enrichment_score()). "
                          "Try different args: stripe_width, max_range, resolution, window_size")
-    all_positions = merge_positions(all_positions, merge)
+    all_positions = merge_positions(all_positions)#, merge)
     print(len(all_positions))
 
     print(' Filtering by distance and length ...')
