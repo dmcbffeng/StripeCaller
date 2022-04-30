@@ -146,8 +146,9 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
         _outer_neighbor = subsetNpMatrix(mat, (x2 + 1, idx + half + window_size + 1),
                                          (j - window_size - half, j + window_size + half + 1))
 
-        # if _outer_neighbor == "Empty" or _inner_neighbor == "Empty":
-        #     continue
+        if _outer_neighbor.size == 0 or _inner_neighbor.size == 0:
+            continue
+            
         neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
 
         # There should be a lower bound for the expected value,
