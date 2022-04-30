@@ -228,12 +228,12 @@ def find_max_slice(arr):
     return head, tail, _max
 
 
-def phased_max_slice_arr(idx, arr_parallel):
+def phased_max_slice_arr(idx, arr_parallel, width):
     head, tail, _max = find_max_slice(arr_parallel)
-    return (idx, head, tail, _max)
+    return (idx, head, tail, _max, width)
 
 
-def merge_positions(lst, merge_range):
+def merge_positions(lst):#, merge_range):
     def _merge(small_lst):
         st = min([elm[0] for elm in small_lst])
         ed = max([elm[1] for elm in small_lst])
@@ -244,10 +244,10 @@ def merge_positions(lst, merge_range):
 
     new_lst = []
     temp = []
-    for i, (idx, head, tail, score) in enumerate(lst):
+    for i, (idx, head, tail, score, width) in enumerate(lst):
         if i == 0:
             temp.append([idx, idx, head, tail, score])
-        elif idx - temp[-1][1] <= merge_range:
+        elif idx - temp[-1][1] <= math.ceil(width):
             temp.append([idx, idx, head, tail, score])
         else:
             new_lst.append(_merge(temp))
