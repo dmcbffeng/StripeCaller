@@ -13,6 +13,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - Python (version >= 3.6)
   - numpy (version >= 1.15.4)
   - scipy (version >= 1.0)
+  - pandas (version >= 1.0.0)
   - simplejson
   - six
   - h5py

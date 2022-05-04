@@ -139,7 +139,7 @@ def stripe_parser():
         )
 
     parser.add_argument(
-        '--N_cores',
+        '--N_threads',
         type=int,
         default=1,
         help='choose number of CPU cores'
@@ -166,7 +166,7 @@ def parser2caller(args):
                 min_length=300000, min_distance=300000,
                 merge=3, window_size=10,
                 centromere_file=args.centromere_file,
-                N_threads=args.N_cores,
+                N_threads=args.N_threads,
 
                 nstrata_blank=1,
                 step=80,
@@ -186,7 +186,7 @@ def parser2caller(args):
                 min_length=50000, min_distance=50000,
                 merge=3, window_size=8,
                 centromere_file=args.centromere_file,
-                N_threads=args.N_cores,
+                N_threads=args.N_threads,
 
                 nstrata_blank=50,
                 step=600,
