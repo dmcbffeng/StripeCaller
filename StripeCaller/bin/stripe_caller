@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import json
 # from tqdm import tqdm as progressbar
 from StripeCaller.caller import stripe_caller
 
@@ -139,7 +140,7 @@ def stripe_parser():
         )
 
     parser.add_argument(
-        '--N_cores',
+        '--N_threads',
         type=int,
         default=1,
         help='choose number of CPU cores'
@@ -151,48 +152,12 @@ def stripe_parser():
 
 
 def parser2caller(args):
-    if args.presets != 'none':
-        print('--presets is set. All other arguments will be ignored.')
-        if args.presets == 'hiC':
-            # Modify this part!
-            stripe_caller(
-                hic_file=args.hic,
-                reference_genome=args.reference_genome,
-                chromosomes=args.chrs,
-                output_file=args.output_file,
-                norm=args.norm,
-                threshold=0.15,
-                max_range=2000000, resolution=5000,
-                min_length=300000, min_distance=300000,
-                merge=3, window_size=10,
-                centromere_file=args.centromere_file,
-                N_threads=args.N_cores,
-
-                nstrata_blank=1,
-                step=80,
-                sigma=2,
-                rel_height=0.3
-            )
-        elif args.presets == 'miC':
-            # Modify this part!
-            stripe_caller(
-                hic_file=args.hic,
-                reference_genome=args.reference_genome,
-                chromosomes=args.chrs,
-                output_file=args.output_file,
-                norm=args.norm,
-                threshold=0.15,
-                max_range=250000, resolution=1000,
-                min_length=50000, min_distance=50000,
-                merge=3, window_size=8,
-                centromere_file=args.centromere_file,
-                N_threads=args.N_cores,
-
-                nstrata_blank=50,
-                step=600,
-                sigma=12,
-                rel_height=0.3
-            )
+        if args.presets != "":
+        jfile = open('presets.json')
+        data = json.load(jfile)[args.presets]
+        for key in data:
+            args.__dict__[key] = data[key]  
+            
     else:
         stripe_caller(
             hic_file=args.hic,

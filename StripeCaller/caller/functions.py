@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
 import numpy as np
-from scipy.signal import find_peaks
+import scipy.sparse as sp
 from scipy.stats import poisson
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
@@ -14,6 +14,29 @@ import math
 
 
 def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
+    """
+    From the sparse contact map, generate candidate vertical / horizontal stripes.
+
+    Parameters
+    ----------
+    mat: sp.csr_matrix
+        Contact matrix
+
+    step: int
+        Step length, i.e., the size of a sub-matrix for finding stripes
+
+    sigma: float
+
+
+    rel_height: float
+
+
+    Returns
+    ----------
+    h_Peaks, v_Peaks: dict
+        The dictionaries for horizontal / vertical stripes {location: width}
+
+    """
     v_Peaks = {}
     h_Peaks = {}
 
@@ -73,59 +96,41 @@ def getPeakAndWidths(matrix_in, gap=600, sigma=12., rel_height=0.3):
     return hMax, hwidths, vMax, vwidths
 
 
-def enrichment_score_strict(mat, idx, line_width=1, distance_range=(20, 40), window_size=10):
-    # st, ed = max(distance_range[0], window_size), min(distance_range[1], mat.shape[1] - window_size)
-    half = int(line_width // 2)
-    x1, x2 = idx - half, idx - half + line_width
-
-    new_mat = np.zeros((distance_range[1] - distance_range[0],))
-    for j in range(distance_range[0], distance_range[1]):
-        if j < window_size + half or j >= mat.shape[1] - window_size - half:
-            continue
-        y = j - distance_range[0]
-        line_min = min(np.mean(mat[x1:x2, j-window_size-half:j-half]),
-                       np.mean(mat[x1:x2, j+1+half:j+window_size+half+1]))
-        neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
-                            np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
-        new_mat[y] = line_min - neighbor_mean
-    return new_mat
-
-
-def enrichment_score(mat, idx, line_width=1, distance_range=(5, 100), window_size=10):
-    # st, ed = max(distance_range[0], window_size), min(distance_range[1], mat.shape[1] - window_size)
-    half = int(line_width // 2)
-    x1, x2 = idx - half, idx - half + line_width
-
-    new_mat = np.zeros((distance_range[1] - distance_range[0],))
-    for j in range(distance_range[0], distance_range[1]):
-        # print(j)
-        if j < window_size + half or j >= mat.shape[1] - window_size - half:
-            continue
-        y = j - distance_range[0]
-        # line_min = np.median(np.concatenate(
-        #     [mat[x1:x2, j-window_size-half:j-half], mat[x1:x2, j+1+half:j+window_size+half+1]]
-        # ))
-        line_min = np.median(
-            [mat[x1:x2, j - window_size - half:j + window_size + half + 1]]
-        )
-        neighbor_mean = max(np.mean(mat[idx-window_size:x1, j-window_size-half:j+window_size+half+1]),
-                            np.mean(mat[x2+1:idx+window_size+1, j-window_size-half:j+window_size+half+1]))
-
-        ###################
-        # NEED A LOWER BOUND FOR EXPECTED VAL!
-        ###################
-        lower_b = 0
-        upper_mlogp = 10
-        _exp = max(neighbor_mean, lower_b)
-
-        Poiss = poisson(_exp)
-        p_val = 1 - Poiss.cdf(line_min)
-        new_mat[y] = min(- np.log10(p_val), upper_mlogp) if p_val > 0 else upper_mlogp
-    return new_mat
-
-
 def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
                       stats_test_log=({}, {})):
+    """
+    Calculate the enrichment score of a stripe given its location, width and the contact matrix
+
+    Parameters:
+    ----------
+    mat: np.array (2D)
+        Contact matrix generated with strata2horizontal() or strata2vertical()
+
+    idx: int
+        The location (index) of the candidate stripe
+
+    line_width: int
+        Stripe width (# of bins)
+
+    norm_factors: np.array (1D)
+        The vector of normalization factors of the contact map.
+
+    distance_range: tuple
+        The distance range (# of bins) for the diagonal for calculating the scores
+
+    window_size: int
+        Window size (# of bins)
+
+    stats_test_log: tuple of dict
+        Previous log for accelerating statistical tests
+
+
+    Returns
+    ----------
+    new_mat: np.array (1D)
+        The enrichment score of each pixel along the candidate stripe
+
+    """
     _calculated_values, _poisson_stats = stats_test_log
 
     half = int(line_width // 2)
@@ -213,6 +218,27 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
 
 
 def find_max_slice(arr):
+    """
+    Given the enrichment score of each pixel along the candidate stripe,
+    find the slice with the largest sum as a called stripe.
+
+    Parameters
+    ----------
+    arr: np.array (1D)
+        Enrichment score
+
+    Returns
+    ----------
+    head: int
+        The start location of the slice
+
+    tail: int
+        The end location of the slice
+
+    _max: float
+        The sum of scores of the slice
+
+    """
     _max, head, tail = 0, 0, 0
     _max_ending, h, t = 0, 0, 0
     i = 0
@@ -233,8 +259,23 @@ def phased_max_slice_arr(idx, arr_parallel, width):
     head, tail, _max = find_max_slice(arr_parallel)
     return (idx, head, tail, _max, width)
 
-
+  
 def merge_positions(lst):#, merge_range):
+    """
+    Merge stripes that are too close to each other
+
+
+    Parameters
+    ----------
+    lst: list
+        The stripe list
+
+    Returns
+    ----------
+    new_lst: list
+        The stripe list after merging
+    """
+    
     def _merge(small_lst):
         st = min([elm[0] for elm in small_lst])
         ed = max([elm[1] for elm in small_lst])

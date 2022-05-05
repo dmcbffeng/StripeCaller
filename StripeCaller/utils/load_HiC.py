@@ -7,7 +7,7 @@ import numpy as np
 from gzip import open as gopen
 import os.path
 from .hic_straw import straw
-from .cool import dump
+from .cooler_api import dump
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 
@@ -114,7 +114,7 @@ def file_line_generator(file, format=None, chrom=None, header=0, resolution=1,
         else:
             raise ValueError('Wrong custom format!')
 
-        yield p1, p2, v
+        yield p1, p2, v, 1.0, 1.0
     f.close()
 
 
@@ -148,9 +148,9 @@ def load_HiC(file, ref_genome, format=None,
             raise ValueError('Unrecognized norm: ' + norm)
     elif format in ['mcool', 'cool', '.cool', '.mcool']:
         if norm in ['kr', 'balanced', 'balance']:
-            gen = dump(file, resolution=resolution, range=chromosome, range2=chromosome, balanced=True)
+            gen = dump(cool_uri=file, resolution=resolution, chrloc1=chromosome, chrloc2=chromosome, norm=True)
         elif norm in ['none']:
-            gen = dump(file, resolution=resolution, range=chromosome, range2=chromosome)
+            gen = dump(cool_uri=file, resolution=resolution, chrloc1=chromosome, chrloc2=chromosome, norm=False)
         else:
             raise ValueError('Unrecognized norm: ' + norm)
     elif format in ['pairs', 'pair', '.pair', '.pairs']:
