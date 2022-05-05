@@ -259,10 +259,11 @@ def phased_max_slice_arr(idx, arr_parallel, width):
     head, tail, _max = find_max_slice(arr_parallel)
     return (idx, head, tail, _max, width)
 
-
+  
 def merge_positions(lst):#, merge_range):
     """
     Merge stripes that are too close to each other
+
 
     Parameters
     ----------
@@ -274,6 +275,7 @@ def merge_positions(lst):#, merge_range):
     new_lst: list
         The stripe list after merging
     """
+    
     def _merge(small_lst):
         st = min([elm[0] for elm in small_lst])
         ed = max([elm[1] for elm in small_lst])
