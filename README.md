@@ -77,10 +77,10 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - window_size (int): size of the window for calculating enrichment score
   - centromere_file (str): the bed file for centromere regions in which will be removed during calculation
   - N_threads (int): the number of threads
-  - nstrata_blank (int):
-  - step (int): 
-  - sigma (float): 
-  - rel_height (float): 
+  - nstrata_blank (int): cells from main diagonal of contact matrix to set to zero
+  - step (int): windowing size in calculating peaks from file-summed spectrograms
+  - sigma (float): Threshold of peak detection of file-summation spectrogram
+  - rel_height (float): Relative proportional height from peak of file-summation spectrogram to measure peak's width
   
   **Recommended Parameter settings**
   - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, merge=8, window_size=35, step=1, sigma=0.3
