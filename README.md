@@ -50,15 +50,14 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
     threshold=0.15,
     resolution=5000,
     max_range=2000000,
-    min_length=300000,
-    min_distance=300000,
-    merge=3,
-    window_size=10,
+    min_length=200000,
+    min_distance=200000,
+    max_width=25000,
+    window_size=35,
     centromere_file='removed_regions.bed',
     N_threads=1,
-    nstrata_blank=1,
-    step=80,
-    sigma=2,
+    nstrata_blank=10,
+    sigma=3,
     rel_height=0.3
   )
   ```
@@ -73,18 +72,17 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - min_length (int): minimum length of stripes
   - min_distance (int): threshold for removing stripes too far away from the diagonal
   - stripe_width (int): stripe width (# of bins at the given resolution)
-  - merge (int): merge stripes which are close to each other (# of bins)
+  - max_width (int): maximum width of stripes
   - window_size (int): size of the window for calculating enrichment score
   - centromere_file (str): the bed file for centromere regions in which will be removed during calculation
   - N_threads (int): the number of threads
   - nstrata_blank (int): cells from main diagonal of contact matrix to set to zero
-  - step (int): windowing size in calculating peaks from file-summed spectrograms
   - sigma (float): Threshold of peak detection of file-summation spectrogram
   - rel_height (float): Relative proportional height from peak of file-summation spectrogram to measure peak's width
   
   **Recommended Parameter settings**
-  - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, merge=8, window_size=35, step=1, sigma=0.3
-  - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, merge=8, window_size=600, step=12, sigma=0.3
+  - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, max_width=25000, window_size=35, step=1, sigma=0.3
+  - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, max_width=5000, window_size=600, step=12, sigma=0.3
 
 
 ### Output

@@ -184,11 +184,13 @@ def load_HiC(file, ref_genome, format=None,
             #     print(p1, p2, c, nx, ny)
             strata[abs(p1 - p2)][min(p1, p2)] += val
             if p1 not in recorded:
-                norm_factors[p1] = nx
+                if not np.isnan(nx):
+                    norm_factors[p1] = nx
                 recorded.add(p1)
                 # print(p1, nx)
             if p2 not in recorded:
-                norm_factors[p2] = ny
+                if not np.isnan(ny):
+                    norm_factors[p2] = ny
                 recorded.add(p2)
                 # print(p2, ny)
 

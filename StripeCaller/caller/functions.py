@@ -6,11 +6,50 @@ from scipy.stats import poisson
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from .mat_ops import subsetNpMatrix
-from utils.AVL_tree import AVLTree
+from ..utils.AVL_tree import AVLTree
 import math
 
 # _calculated_values = {}
 # _poisson_stats = {}
+
+
+def get_stripe_and_widths_new(mat, nstrata_gap=400, nstrata_blank=10, sigma=12., rel_height=0.3, max_width=5):
+    """
+    From the sparse contact map, generate candidate vertical / horizontal stripes.
+
+    Parameters
+    ----------
+    mat: np.array
+        Contact matrix from "strata2horizontal()" or "strata2vertical()"
+
+    nstrata_gap: int
+        Max distance from the diagonal to calculate candidate peaks
+
+    nstrata_blank: int
+        Number of strata near the diagonal to blank out to calculate candidate peaks
+
+    sigma: float
+        Gaussian filter std
+
+    rel_height: float
+        Relative peak height for width calling
+
+    Returns
+    ----------
+    peaks: dict
+        Peak locations and peak widths
+
+    """
+    # print(mat.shape, nstrata_blank, nstrata_gap)
+    # print(np.sum(mat))
+    mat_sum = np.sum(mat[:, nstrata_blank:nstrata_gap], axis=1)
+    # np.save('K562.npy', mat_sum)
+    s_filtered = gaussian_filter1d(mat_sum, sigma=sigma)
+    s_max = signal.argrelmax(s_filtered)[0]
+    # np.savetxt('s_max.txt', s_max)
+    s_widths = signal.peak_widths(s_filtered, peaks=s_max, rel_height=rel_height)[0]
+    s_widths[s_widths > max_width] = max_width
+    return {i: j for (i, j) in zip(s_max, s_widths)}
 
 
 def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
@@ -46,6 +85,7 @@ def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
         lower = ind - step
         # print(lower, upper)
         mat_slice = mat[lower:upper, lower:upper]
+        print(mat.shape, lower, upper)
         hM, hW, vM, vW = getPeakAndWidths(
             mat_slice, step // 12, sigma=sigma, rel_height=rel_height
         )
@@ -62,7 +102,7 @@ def get_stripe_and_widths(mat, step=1800, sigma=12., rel_height=0.3):
         upper = ind
         lower = ind - step
         mat_slice = mat[lower:upper, lower:upper]
-        # print(lower, upper)
+        print(mat.shape, lower, upper)
         hM, hW, vM, vW = getPeakAndWidths(mat_slice, step // 12, sigma=sigma, rel_height=rel_height)
         hM += lower
         vM += lower
@@ -142,8 +182,6 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
     for j in range(distance_range[0], distance_range[1]):
         y = j - distance_range[0]
         _min_temp = subsetNpMatrix(mat, (x1, x2), (j - window_size - half, j + window_size + half + 1))
-        # if _min_temp == "Empty":
-        #     continue
         line_min = np.median([_min_temp])
         # print(_min_temp, line_min)
         _inner_neighbor = subsetNpMatrix(mat, (idx - half - window_size, x1),
@@ -260,7 +298,7 @@ def phased_max_slice_arr(idx, arr_parallel, width):
     return (idx, head, tail, _max, width)
 
   
-def merge_positions(lst):#, merge_range):
+def merge_positions(lst):
     """
     Merge stripes that are too close to each other
 
@@ -288,9 +326,9 @@ def merge_positions(lst):#, merge_range):
     temp = []
     for i, (idx, head, tail, score, width) in enumerate(lst):
         if i == 0:
-            temp.append([idx, idx, head, tail, score])
+            temp.append([idx - width // 2, idx + width // 2 + 1, head, tail, score])
         elif idx - temp[-1][1] <= math.ceil(width):
-            temp.append([idx, idx, head, tail, score])
+            temp.append([idx - width // 2, idx + width // 2 + 1, head, tail, score])
         else:
             new_lst.append(_merge(temp))
             temp = [[idx, idx, head, tail, score]]

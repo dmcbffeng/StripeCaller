@@ -4,7 +4,8 @@ import sys
 payload = {}
 presets = ["HiC_5000","MiC_5000"]
 
-prekeys = ['reference_genome', 'nstrata_blank', 'chrs', 'norm', 'threshold', 'max_range', 'resolution', 'min_length', 'min_distance', 'merge', 'window_size', 'step', 'sigma', 'rel_height']
+prekeys = ['reference_genome', 'nstrata_blank', 'chrs', 'norm', 'threshold', 'max_range', 'resolution', 'min_length',
+           'min_distance', 'merge', 'window_size', 'step', 'sigma', 'rel_height']
 
 prevals = [
 ['hg38', 1, ['chr1','chr5','chr8'], "balanced", 0.15, 2000000, 5000, 300000, 2, 8, 35, 1, 0.3],
