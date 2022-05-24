@@ -1,7 +1,3 @@
 command line: stripe caller --version
 
-.mcool file loading (I need a test mcool file)
-
-min _exp value (1 / KR_factor)
-
-test
+.mcool file test

@@ -152,7 +152,7 @@ def stripe_parser():
 
 
 def parser2caller(args):
-        if args.presets != "":
+    if args.presets != "":
         jfile = open('presets.json')
         data = json.load(jfile)[args.presets]
         for key in data:
