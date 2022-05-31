@@ -6,6 +6,7 @@ import sys
 script_dir = os.path.dirname(os.path.abspath(__file__))
 quagga_dir = os.path.dirname(script_dir)
 sys.path.append(quagga_dir)
+print(sys.path)
 
 import json
 from caller.buildarg import stripe_parser
