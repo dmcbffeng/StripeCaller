@@ -36,7 +36,7 @@ def stripe_parser():
         '--chrs',
         nargs="+",
         default = [],
-        help='which chromosomes to calculate, seperated by comma')
+        help='which chromosomes to calculate, separated by comma')
 
     parser.add_argument(
         '--output', dest="output_file",

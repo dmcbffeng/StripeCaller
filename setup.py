@@ -15,6 +15,7 @@ def get_requirements(path):
         if req != '' and not req.startswith('#')
     ]
 
+
 install_requires = get_requirements('requirements.txt')
 
 setuptools.setup(
@@ -29,7 +30,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=install_requires,
     include_package_data=True,
-    scripts=['bin/stripe_caller'],  # call from command line
+    scripts=['StripeCaller/bin/stripe_caller'],  # call from command line
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
