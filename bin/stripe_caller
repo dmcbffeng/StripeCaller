@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
 import os
-import sys
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-quagga_dir = os.path.dirname(script_dir)
-sys.path.append(quagga_dir)
-print(sys.path)
+# import sys
+#
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# quagga_dir = os.path.dirname(script_dir)
+# sys.path.append(quagga_dir)
+# print(sys.path)
 
 import json
-from caller.buildarg import stripe_parser
-from caller.StripeCaller import stripe_caller_all
+from Quagga.caller import stripe_parser
+from Quagga import stripe_caller
 
 import logging
 logger = logging.getLogger('')
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # print(vars(args))
 
-    stripe_caller_all(
+    stripe_caller(
         hic_file=args.hic,
         reference_genome=args.reference_genome,
         chromosomes=args.chrs,

@@ -30,7 +30,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=install_requires,
     include_package_data=True,
-    scripts=['Quagga/bin/stripe_caller'],  # call from command line
+    scripts=['bin/stripe_caller'],  # call from command line
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
