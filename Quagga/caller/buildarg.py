@@ -1,13 +1,6 @@
-#!/usr/bin/env python
-
-import sys
 import argparse
-import json
-# from tqdm import tqdm as progressbar
-from StripeCaller.caller import stripe_caller
-
-import logging
-logger = logging.getLogger('')
+import textwrap
+import sys
 
 
 class MyParser(argparse.ArgumentParser):
@@ -35,8 +28,8 @@ def stripe_parser():
     parser.add_argument(
         '--chrs',
         nargs="+",
-        default = [],
-        help='which chromosomes to calculate, separated by comma')
+        default = ["chr1"],
+        help='which chromosomes to calculate, seperated by comma')
 
     parser.add_argument(
         '--output', dest="output_file",
@@ -44,57 +37,43 @@ def stripe_parser():
         help='output bedpe path')
 
     parser.add_argument(
-        '--centromere_file',
-        type=str,
-        default=None,
-        help='centromere bed files for removing some regions')
-
-    parser.add_argument(
         '--norm',
         type=str,
-        default="balanced",
         help='Hi-C normalization. Recommend: "balanced", can also be "none"')
 
     parser.add_argument(
         '--thr', dest='threshold',
         type=float,
-        default=0.10,
         help='P value threshold')
 
     parser.add_argument(
         '--max_range',
         type=int,
-        default=2000000,
         help='max distance off the diagonal to be calculated')
 
     parser.add_argument(
         '--resolution',
         type=int,
-        default=5000,
         help='resolution')
 
     parser.add_argument(
         '--min_length',
         type=int,
-        default=30000,
         help='minimum length of stripes')
 
     parser.add_argument(
         '--min_distance',
-        default=50000,
         type=int,
         help='threshold for removing stripes too far away from the diagonal')
 
     parser.add_argument(
-        '--merge',
+        '--max_width',
         type=int,
-        default=3,
         help='merge stripes which are close to each other (# of bins)')
 
     parser.add_argument(
         '--window_size',
         type=int,
-        default=8,
         help='size of the window for calculating enrichment score')
 
     parser.add_argument(
@@ -108,13 +87,6 @@ def stripe_parser():
         type=int,
         default=0,
         help='bins from main diagonal that are ignored for detection',
-        )
-
-    parser.add_argument(
-        '--step',
-        type=int,
-        default=400,
-        help='bin-window size on matrix, resolution and HiC or MicroC dependent'
         )
 
     parser.add_argument(
@@ -134,13 +106,13 @@ def stripe_parser():
     parser.add_argument(
         '--presets',
         type=str,
-        default='none',
-        choices=['none', 'hiC', 'miC'],
+        default="",
+        choices=['HiC_5000', 'MiC_5000'],
         help='set preset to \"hiC\" for Hi-C or \"miC\" for micro-C for preset parameter args'
         )
 
     parser.add_argument(
-        '--N_threads',
+        '--N_cores',
         type=int,
         default=1,
         help='choose number of CPU cores'
@@ -151,37 +123,5 @@ def stripe_parser():
     return args
 
 
-def parser2caller(args):
-    if args.presets != "":
-        jfile = open('presets.json')
-        data = json.load(jfile)[args.presets]
-        for key in data:
-            args.__dict__[key] = data[key]  
-            
-    else:
-        stripe_caller(
-            hic_file=args.hic,
-            reference_genome=args.reference_genome,
-            chromosomes=args.chrs,
-            output_file=args.output_file,
-            norm=args.norm,
-            threshold=args.threshold,
-            max_range=args.max_range, resolution=args.resolution,
-            min_length=args.min_length, min_distance=args.min_distance,
-            merge=args.merge, window_size=args.window_size,
-            centromere_file=args.centromere_file,
-            N_threads=args.N_cores,
-
-            nstrata_blank=args.nstrata_blank,
-            step=args.step,
-            sigma=args.sigma,
-            rel_height=args.rel_height
-        )
 
 
-if __name__ == '__main__':
-    print('console start!')
-    parser2caller(
-        stripe_parser()
-    )
-    #  ./stripe_caller --hic /nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic --rg hg38 --chrs chr1 --output test.bedpe

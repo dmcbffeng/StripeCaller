@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath("../"))
 for p in sys.path:
     print(p)
 # from caller.StripeCaller import stripe_caller_all as stripe_caller
-from StripeCaller import stripe_caller
+from Quagga import stripe_caller
 
 
 stripe_caller(
@@ -19,7 +19,6 @@ stripe_caller(
     max_range=2000000,
     min_length=300000,
     min_distance=300000,
-    merge=3,
     window_size=10,
     centromere_file='removed_regions.bed',
     N_threads=1,
