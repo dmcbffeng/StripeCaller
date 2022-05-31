@@ -4,3 +4,4 @@ pandas >=1.0.0
 simplejson
 six
 h5py
+requests

@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95f774e4-37dd-423c-8962-25b357ef77b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/caller/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/caller/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/utils/buildpreset.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/utils/buildpreset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" beforeDir="false" afterPath="$PROJECT_DIR$/StripeCaller/utils/load_HiC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_chr2.bedpe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_biorep.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_biorep.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,43 +10,24 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/peaks_chr1.txt">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="386">
-                    <caret line="1741" column="29" selection-start-line="1741" selection-start-column="29" selection-end-line="1741" selection-end-column="29" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
+        <entry file="file://$PROJECT_DIR$/Quagga/caller/StripeCaller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-141">
-              <caret line="230" selection-start-line="230" selection-end-line="230" />
+            <state relative-caret-position="3925">
+              <caret line="157" column="9" lean-forward="true" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
+        <entry file="file://$PROJECT_DIR$/Quagga/bin/stripe_caller">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="191" column="36" selection-start-line="191" selection-start-column="36" selection-end-line="191" selection-end-column="36" />
+            <state relative-caret-position="900">
+              <caret line="36" column="41" lean-forward="true" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
               <folding>
-                <element signature="e#112#130#0" expanded="true" />
+                <element signature="e#23#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,8 +37,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-1068">
-                <caret line="54" column="20" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+              <first_editor relative-caret-position="486">
+                <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
               </first_editor>
               <second_editor />
             </state>
@@ -74,10 +46,55 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_biorep.py">
+        <entry file="file://$PROJECT_DIR$/Quagga/caller/buildarg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="38" column="22" lean-forward="true" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+            <state relative-caret-position="183">
+              <caret line="114" column="18" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/example_usage_cmd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="50">
+              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="800">
+              <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/requirements.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/example_usage_script.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -86,48 +103,17 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
+        <entry file="file://$PROJECT_DIR$/todo.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Quagga/utils/hic_straw.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="400">
-              <caret line="92" column="34" selection-start-line="92" selection-start-column="34" selection-end-line="92" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+              <caret line="28" column="15" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="15" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/stat_test_part.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="217" column="86" selection-start-line="217" selection-start-column="86" selection-end-line="217" selection-end-column="86" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/norm_factors.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-884430" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="51" column="52" lean-forward="true" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/s_max.txt">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -149,6 +135,7 @@
       <find>blank_diagonal</find>
       <find>list_coolers</find>
       <find>parse_region</find>
+      <find>util</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,8 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/previous_versions/version3/tst.py" />
-        <option value="$PROJECT_DIR$/previous_versions/version3/v4.py" />
         <option value="$PROJECT_DIR$/previous_versions/version3/previous_no_optimization/v3.py" />
         <option value="$PROJECT_DIR$/previous_versions/version3/stripe_caller_improved_v3.py" />
         <option value="$PROJECT_DIR$/previous_versions/load_hic/try_load_HiC.py" />
@@ -170,26 +155,21 @@
         <option value="$PROJECT_DIR$/StripeCaller/caller/cmd.py" />
         <option value="$PROJECT_DIR$/StripeCaller/bin/quagga.py" />
         <option value="$PROJECT_DIR$/StripeCaller/__init__.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/StripeCaller/utils/cool.py" />
         <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/StripeCaller/bin/test_file.py" />
         <option value="$PROJECT_DIR$/example/example_usage.py" />
         <option value="$PROJECT_DIR$/example/example_usaga_script.py" />
-        <option value="$PROJECT_DIR$/example/example_usage_script.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/functions.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/load_HiC.py" />
         <option value="$PROJECT_DIR$/previous_versions/version3_Fan_debug/vis.py" />
         <option value="$PROJECT_DIR$/previous_versions/version5/StripeCaller.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/caller/buildarg.py" />
         <option value="$PROJECT_DIR$/previous_versions/un_used_functions/functions.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/mat_ops.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/StripeCaller/utils/cooler_core.py" />
         <option value="$PROJECT_DIR$/StripeCaller/utils/cooler_utils.py" />
         <option value="$PROJECT_DIR$/previous_versions/un_used_functions/cool.py" />
         <option value="$PROJECT_DIR$/StripeCaller/utils/cooler_api.py" />
-        <option value="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" />
         <option value="$PROJECT_DIR$/StripeCaller/utils/buildpreset.py" />
         <option value="$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_biorep.py" />
         <option value="$PROJECT_DIR$/experiments/biorep/MicroC2/call_stripe_biorep.py" />
@@ -206,7 +186,14 @@
         <option value="$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_biorep.py" />
         <option value="$PROJECT_DIR$/experiments/biorep/MicroC3/stat_test_part.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/functions.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/example/example_usage_script.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/caller/buildarg.py" />
         <option value="$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py" />
+        <option value="$PROJECT_DIR$/StripeCaller/bin/presets.json" />
+        <option value="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/example/example_usage_cmd.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -233,42 +220,29 @@
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="experiments" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="experiments" type="462c0819:PsiDirectoryNode" />
-              <item name="biorep" type="462c0819:PsiDirectoryNode" />
+              <item name="Quagga" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="experiments" type="462c0819:PsiDirectoryNode" />
-              <item name="biorep" type="462c0819:PsiDirectoryNode" />
-              <item name="MicroC3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="Quagga" type="462c0819:PsiDirectoryNode" />
               <item name="bin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="Quagga" type="462c0819:PsiDirectoryNode" />
               <item name="caller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="StripeCaller" type="b2602c69:ProjectViewProjectNode" />
               <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
-              <item name="StripeCaller" type="462c0819:PsiDirectoryNode" />
+              <item name="Quagga" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -299,7 +273,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.stat_test_part">
+  <component name="RunManager" selected="Python.stripe_caller">
     <configuration name="call_stripe_biorep" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="StripeCaller" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -363,6 +337,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="stripe_caller" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="StripeCaller" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/StripeCaller/bin" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StripeCaller/bin/stripe_caller" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="vis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="StripeCaller" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -384,31 +379,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in mat_ops" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="StripeCaller" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/StripeCaller/caller" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StripeCaller/caller/mat_ops.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.stripe_caller" />
         <item itemvalue="Python.stat_test_part" />
         <item itemvalue="Python.vis" />
         <item itemvalue="Python.call_stripe_biorep" />
         <item itemvalue="Python.mat_ops" />
-        <item itemvalue="Python tests.Doctests in mat_ops" />
       </list>
     </recent_temporary>
   </component>
@@ -434,15 +411,15 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28082192" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28089887" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969603" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32719395" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.16997167" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -457,315 +434,43 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cooler_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19925">
-          <caret line="809" column="30" selection-start-line="809" selection-start-column="30" selection-end-line="809" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/cooler_core.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="72" selection-start-line="1" selection-start-column="72" selection-end-line="1" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/bin/test_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/example_usage_cmd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/buildpreset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/presets.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="27" selection-start-column="27" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/bin/stripe_caller">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="160" column="9" selection-start-line="160" selection-start-column="9" selection-end-line="160" selection-end-column="9" />
-          <folding>
-            <element signature="e#23#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/presets.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/log.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_rep1.bedpe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="60" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_rep2.bedpe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3075">
-          <caret line="123" selection-start-line="123" selection-end-line="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_rep1.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_rep2.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/buildarg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3025">
-          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_rep1.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_rep2.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_biorep.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/call_stripe_biorep.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="38" column="26" selection-start-line="23" selection-start-column="12" selection-end-line="38" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/call_stripe_biorep.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/call_stripe_original.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/log2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1502" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/K562_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5177" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/log.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/call_stripe_original.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/K562_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/K562_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/log.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_rep1.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_rep2.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_rep1.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_rep2.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_rep1.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_rep2.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_biorep.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/call_stripe_biorep.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/call_stripe_biorep.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/call_stripe_original.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/GM12878_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/log2.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/K562_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/log.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/log.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC4/call_stripe_original.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/K562_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/K562_All.bedpe" />
     <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/straw.py" />
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/hic_straw.py">
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/log.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_original.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_K562.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/peaks_chr1.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/vis.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/GM12878_All.bedpe" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/norm_factors.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/s_max.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/mat_peak_0.3.png" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/peaks_chr1.txt" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/stat_test_part.py" />
+    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_biorep.py" />
+    <entry file="file://$PROJECT_DIR$/Quagga/utils/load_HiC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17100">
-          <caret line="684" column="31" selection-start-line="684" selection-start-column="31" selection-end-line="684" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC2/GM12878_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/K562_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC/call_stripe_original.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="26" column="23" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_K562.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/peaks_chr1.bedpe">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/vis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/GM12878_All.bedpe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/norm_factors.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-884430" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/s_max.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/mat_peak_0.3.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/mat_ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="92" column="34" selection-start-line="92" selection-start-column="34" selection-end-line="92" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/peaks_chr1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="1741" column="29" selection-start-line="1741" selection-start-column="29" selection-end-line="1741" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/stat_test_part.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="217" column="86" selection-start-line="217" selection-start-column="86" selection-end-line="217" selection-end-column="86" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="51" column="52" lean-forward="true" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/caller/StripeCaller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-141">
-          <caret line="230" selection-start-line="230" selection-end-line="230" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StripeCaller/utils/load_HiC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
+        <state relative-caret-position="4675">
           <caret line="191" column="36" selection-start-line="191" selection-start-column="36" selection-end-line="191" selection-end-column="36" />
           <folding>
             <element signature="e#112#130#0" expanded="true" />
@@ -773,12 +478,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/biorep/MicroC3/call_stripe_biorep.py">
+    <entry file="file://$PROJECT_DIR$/Quagga/caller/mat_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="38" column="22" lean-forward="true" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+        <state relative-caret-position="2275">
+          <caret line="92" column="34" selection-start-line="92" selection-start-column="34" selection-end-line="92" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/caller/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/utils/hic_straw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="28" column="15" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/caller/StripeCaller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3925">
+          <caret line="157" column="9" lean-forward="true" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/bin/presets.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="562" selection-start-column="562" selection-end-column="562" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/presets.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="562" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/caller/buildarg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="114" column="18" selection-start-line="114" selection-start-column="11" selection-end-line="114" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StripeCaller/bin/test_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/utils/presets.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/example_usage_cmd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/example_usage_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/todo.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Quagga/bin/stripe_caller">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="36" column="41" lean-forward="true" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -786,8 +596,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-1068">
-            <caret line="54" column="20" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+          <first_editor relative-caret-position="486">
+            <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
           </first_editor>
           <second_editor />
         </state>

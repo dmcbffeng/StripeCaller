@@ -17,6 +17,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - simplejson
   - six
   - h5py
+  - requests
 
   **Install from GitHub**
 
@@ -35,7 +36,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
 
   **Import Package**
   ```console
-  >>>from StripeCaller import stripe_caller
+  >>>from Quagga import stripe_caller
   ```
 
   **Call Stripes**
@@ -74,15 +75,15 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - stripe_width (int): stripe width (# of bins at the given resolution)
   - max_width (int): maximum width of stripes
   - window_size (int): size of the window for calculating enrichment score
-  - centromere_file (str): the bed file for centromere regions in which will be removed during calculation
+  - centromere_file (str): the bed file for centromere regions in which will be removed during calculation (can be None)
   - N_threads (int): the number of threads
   - nstrata_blank (int): cells from main diagonal of contact matrix to set to zero
   - sigma (float): Threshold of peak detection of file-summation spectrogram
   - rel_height (float): Relative proportional height from peak of file-summation spectrogram to measure peak's width
   
   **Recommended Parameter settings**
-  - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, max_width=25000, window_size=35, step=1, sigma=0.3
-  - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, max_width=5000, window_size=600, step=12, sigma=0.3
+  - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, max_width=25000, window_size=35, sigma=1, rel_height=0.3
+  - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, max_width=5000, window_size=600, sigma=12, rel_height=0.3
 
 
 ### Output

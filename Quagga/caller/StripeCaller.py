@@ -102,7 +102,6 @@ def stripe_caller_all(
         centromere_file=None,
         N_threads=1,
         nstrata_blank=0,
-        step=36,
         sigma=12.,
         rel_height=0.3
 ):
@@ -155,7 +154,7 @@ def stripe_caller_all(
         strata, norm_factors = load_HiC(
             file=hic_file, ref_genome=reference_genome, format=_format,
             chromosome=ch, resolution=resolution, norm=norm,
-            max_distance=max(max_range + min_length, resolution * step)
+            max_distance=max_range + min_length
         )
         # np.savetxt('norm_factors.txt', norm_factors)
         print(' Finish loading contact matrix...')
