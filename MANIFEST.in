@@ -1,1 +1,1 @@
-include StripeCaller/utils/reference_genome/*
+include Quagga/utils/reference_genome/*
