@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+import os
+# import sys
+#
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# quagga_dir = os.path.dirname(script_dir)
+# sys.path.append(quagga_dir)
+# print(sys.path)
+
+import json
+from Quagga.caller import stripe_parser
+from Quagga import stripe_caller
+
+import logging
+logger = logging.getLogger('')
+
+
+if __name__ == "__main__":
+    my_path = os.path.dirname(os.path.abspath(__file__))
+    # print(my_path)
+    args = stripe_parser()
+
+    if args.presets != "":
+        jfile = open(f'{my_path}/presets.json')
+        data = json.load(jfile)[args.presets]
+        for key in data:
+            args.__dict__[key] = data[key]
+
+    # print(vars(args))
+
+    stripe_caller(
+        hic_file=args.hic,
+        reference_genome=args.reference_genome,
+        chromosomes=args.chrs,
+        output_file=args.output_file,
+        norm=args.norm,
+        threshold=args.threshold,
+        max_range=args.max_range, resolution=args.resolution,
+        min_length=args.min_length, min_distance=args.min_distance,
+        max_width=args.max_width, window_size=args.window_size,
+        centromere_file=args.centromere_file,
+        N_threads=args.N_cores,
+        nstrata_blank=args.nstrata_blank,
+        sigma=args.sigma,
+        rel_height=args.rel_height
+    )
+
+
