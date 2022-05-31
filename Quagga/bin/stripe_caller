@@ -1,21 +1,27 @@
 #!/usr/bin/env python
 
 import os
+import sys
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+quagga_dir = os.path.dirname(script_dir)
+sys.path.append(quagga_dir)
+
 import json
-from ..caller.buildarg import stripe_parser
-from ..caller.StripeCaller import stripe_caller_all
+from caller.buildarg import stripe_parser
+from caller.StripeCaller import stripe_caller_all
 
 import logging
 logger = logging.getLogger('')
 
 
 if __name__ == "__main__":
-    my_path = os.path.abspath(os.path.dirname(__file__))
+    my_path = os.path.dirname(os.path.abspath(__file__))
     # print(my_path)
     args = stripe_parser()
 
     if args.presets != "":
-        jfile = open('presets.json')
+        jfile = open(f'{my_path}/presets.json')
         data = json.load(jfile)[args.presets]
         for key in data:
             args.__dict__[key] = data[key]
