@@ -62,6 +62,15 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
     rel_height=0.3
   )
   ```
+   **Call stripes through command line interface**
+   ```console
+   stripe_caller --hic /path/to/microC/file/HFFc6.hic --output HFFc6_chr1.bedpe --chr 'chr1' --rg 'hg38' --max_range 2000000\
+   --resolution 5000 --min_length 200000 --min_distance 500000 --window_size 35 --sigma 12 --N_cores 26  --rel_height 0.3\
+   --norm balanced --thr 0.15 --centromere_file removed_regions.bed --nstrata_blank 10
+   
+   ```
+  
+  
   - hic_file (str): file path
   - reference_genome (str): reference genome
   - chromosomes (list): which chromosomes to calculate
