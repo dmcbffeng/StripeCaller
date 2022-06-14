@@ -5,7 +5,8 @@ import scipy.sparse as sp
 from scipy.stats import poisson
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
-from .mat_ops import subsetNpMatrix
+from skimage.filters import gabor_kernel
+from .mat_ops import subsetNpMatrix, power
 from ..utils.AVL_tree import AVLTree
 import math
 
@@ -13,7 +14,7 @@ import math
 # _poisson_stats = {}
 
 
-def get_stripe_and_widths_new(mat, nstrata_gap=400, nstrata_blank=10, sigma=12., rel_height=0.3, max_width=5):
+def get_stripe_and_widths_new(mat, nstrata_gap=400, nstrata_blank=10, sigma=12., rel_height=0.3, max_width=5, gabor_freq=0.1, gabor_theta=0):
     """
     From the sparse contact map, generate candidate vertical / horizontal stripes.
 
@@ -42,6 +43,9 @@ def get_stripe_and_widths_new(mat, nstrata_gap=400, nstrata_blank=10, sigma=12.,
     """
     # print(mat.shape, nstrata_blank, nstrata_gap)
     # print(np.sum(mat))
+    theta=gabor_theta*np.pi/2
+    kernel = gabor_kernel(gabor_freq, theta=theta)
+    mat = power(mat, kernel)
     mat_sum = np.sum(mat[:, nstrata_blank:nstrata_gap], axis=1)
     # np.save('K562.npy', mat_sum)
     s_filtered = gaussian_filter1d(mat_sum, sigma=sigma)
