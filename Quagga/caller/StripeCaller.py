@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")
-from utils.load_HiC import *
+from ..utils.load_HiC import *
 from .functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths, get_stripe_and_widths_new
 from .mat_ops import strata2vertical, strata2horizontal, blank_diagonal_sparse_from_strata
 

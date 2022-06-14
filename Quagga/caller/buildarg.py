@@ -69,6 +69,7 @@ def stripe_parser():
     parser.add_argument(
         '--max_width',
         type=int,
+        default=10000000000,
         help='merge stripes which are close to each other (# of bins)')
 
     parser.add_argument(
