@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.sparse as sp
-
+import scipy.ndimage as ndi
 
 def subsetNpMatrix(matrix, row_bounds, column_bounds):
     """
@@ -117,6 +117,11 @@ def blank_diagonal_sparse_from_strata(strata, nstrata=0):
     res = sp.spdiags(padded_strata, diags, size, size, format='csr')
     return res
 
+def power(image, kernel):
+    # Normalize images for better comparison.
+    image = (image - image.mean()) / image.std()
+    return np.sqrt(ndi.convolve(image, np.real(kernel), mode='wrap')**2 +
+                   ndi.convolve(image, np.imag(kernel), mode='wrap')**2)
 
 if __name__ == '__main__':
     strata = [np.array([1, 2, 3, 4]), np.array([5, 6, 7]), np.array([8, 9])]

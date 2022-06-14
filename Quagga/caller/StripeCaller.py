@@ -103,7 +103,8 @@ def stripe_caller_all(
         N_threads=1,
         nstrata_blank=0,
         sigma=12.,
-        rel_height=0.3
+        rel_height=0.3,
+        gabor_freq=0.1
 ):
     """
     The main function for calling stripes
@@ -166,7 +167,7 @@ def stripe_caller_all(
         #     mat, step=step, sigma=sigma, rel_height=rel_height
         # )
         # print('  H:', len(h_Peaks), ', V:', len(v_Peaks))
-
+        
         # horizontal
         print(' Horizontal:')
         mat = strata2horizontal(strata)
@@ -175,7 +176,8 @@ def stripe_caller_all(
         print(' Finding candidate peaks:')
         h_Peaks = get_stripe_and_widths_new(
             mat, (max_range + min_length) // resolution, nstrata_blank,
-            sigma=sigma, rel_height=rel_height, max_width=max_width // resolution
+            sigma=sigma, rel_height=rel_height, max_width=max_width // resolution,
+            gabor_freq=gabor_freq, gabor_theta=1
         )
         print(f' {len(h_Peaks)} identified')
 
@@ -205,7 +207,8 @@ def stripe_caller_all(
         print(' Finding candidate peaks:')
         v_Peaks = get_stripe_and_widths_new(
             mat, (max_range + min_length) // resolution, nstrata_blank,
-            sigma=sigma, rel_height=rel_height, max_width=max_width // resolution
+            sigma=sigma, rel_height=rel_height, max_width=max_width // resolution,
+            gabor_freq=gabor_freq, gabor_theta=0
         )
         print(f' {len(v_Peaks)} identified')
 
