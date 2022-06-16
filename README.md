@@ -13,6 +13,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - Python (version >= 3.6)
   - numpy (version >= 1.15.4)
   - scipy (version >= 1.0)
+  - scikit-image
   - pandas (version >= 1.0.0)
   - simplejson
   - six
@@ -59,7 +60,8 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
     N_threads=1,
     nstrata_blank=10,
     sigma=3,
-    rel_height=0.3
+    rel_height=0.3,
+    gabor_freq=0.1
   )
   ```
    **Call stripes through command line interface**
@@ -89,7 +91,8 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - nstrata_blank (int): cells from main diagonal of contact matrix to set to zero
   - sigma (float): Threshold of peak detection of file-summation spectrogram
   - rel_height (float): Relative proportional height from peak of file-summation spectrogram to measure peak's width
-  
+  - gabor_freq (float): Frequency for the gabor kernel applied to matrix image, directionally filters for lines  
+
   **Recommended Parameter settings**
   - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, max_width=25000, window_size=35, sigma=1, rel_height=0.3
   - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, max_width=5000, window_size=600, sigma=12, rel_height=0.3
