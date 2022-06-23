@@ -43,7 +43,7 @@ def get_stripe_and_widths_new(mat, nstrata_gap=400, nstrata_blank=10, sigma=12.,
     """
     # print(mat.shape, nstrata_blank, nstrata_gap)
     # print(np.sum(mat))
-    theta=gabor_theta*np.pi/2
+    theta = gabor_theta*np.pi/2
     kernel = gabor_kernel(gabor_freq, theta=theta)
     mat = power(mat, kernel)
     mat_sum = np.sum(mat[:, nstrata_blank:nstrata_gap], axis=1)
@@ -330,12 +330,12 @@ def merge_positions(lst):
     temp = []
     for i, (idx, head, tail, score, width) in enumerate(lst):
         if i == 0:
-            temp.append([idx - width // 2, idx + width // 2 + 1, head, tail, score])
-        elif idx - temp[-1][1] <= math.ceil(width):
+            temp = [[idx - width // 2, idx + width // 2 + 1, head, tail, score]]
+        elif idx - temp[-1][1] <= math.ceil(width / 2):
             temp.append([idx - width // 2, idx + width // 2 + 1, head, tail, score])
         else:
             new_lst.append(_merge(temp))
-            temp = [[idx, idx, head, tail, score]]
+            temp = [[idx - width // 2, idx + width // 2 + 1, head, tail, score]]
     new_lst.append(_merge(temp))
     return new_lst
 

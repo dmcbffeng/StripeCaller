@@ -73,7 +73,7 @@ def _stripe_caller(
         raise ValueError("No statistically significant candidate stripes found(enrichment_score()). "
                          "Try different args: stripe_width, max_range, resolution, window_size")
     all_positions = merge_positions(all_positions)
-    print(len(all_positions))
+    print(len(all_positions))  # [st, ed, head, tail, score]
 
     # Step 5: filter by length
     print(' Filtering by distance and length ...')
