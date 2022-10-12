@@ -12,14 +12,15 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   **Required Python Packages**
   - Python (version >= 3.6)
   - numpy (version >= 1.15.4)
-  - scipy (version >= 1.0)
-  - scikit-image
+  - scipy (version == 1.7.3)
+  - scikit-image (version == 0.19.2)
   - pandas (version >= 1.0.0)
   - simplejson
   - six
   - h5py
   - requests
-
+  
+  
   **Install from GitHub**
 
   You can install the package with following command:
