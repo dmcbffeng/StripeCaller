@@ -160,6 +160,12 @@ def stripe_caller_all(
         # np.savetxt('norm_factors.txt', norm_factors)
         print(' Finish loading contact matrix...')
 
+        # check whether the chromosome is empty
+        _sum = sum([np.sum(elm) for elm in strata])
+        if _sum < 1e-5:
+            print(f' Warning: The matrix for {ch} with {norm} normalization is empty. Skipping the chromosome.')
+            continue
+
         # full mat for calling candidate stripes
         # print(' Finding candidate peaks:')
         # mat = blank_diagonal_sparse_from_strata(strata, nstrata_blank)
