@@ -2,7 +2,7 @@
 Adapted from https://github.com/open2c/cooler/blob/master/cooler/core.py
 """
 from __future__ import absolute_import, print_function, division
-from pandas.api.types import is_categorical
+from pandas.api.types import is_categorical_dtype
 import pandas as pd
 import numpy as np
 import h5py
@@ -113,7 +113,7 @@ def put(grp, df, lo=0, store_categories=True, h5opts=None):
             data = np.array([data])
             dtype = data.dtype
             fillvalue = None
-        elif is_categorical(data):
+        elif is_categorical_dtype(data):
             if store_categories:
                 cats = data.cat.categories
                 enum = (data.cat.codes.dtype, dict(zip(cats, range(len(cats)))))
