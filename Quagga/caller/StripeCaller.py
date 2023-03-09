@@ -183,7 +183,7 @@ def stripe_caller_all(
         h_Peaks = get_stripe_and_widths_new(
             mat, (max_range + min_length) // resolution, nstrata_blank,
             sigma=sigma, rel_height=rel_height, max_width=max_width // resolution,
-            gabor_freq=gabor_freq, gabor_theta=0
+            gabor_freq=gabor_freq, gabor_theta=1
         )
         print(f' {len(h_Peaks)} identified')
 
@@ -214,7 +214,7 @@ def stripe_caller_all(
         v_Peaks = get_stripe_and_widths_new(
             mat, (max_range + min_length) // resolution, nstrata_blank,
             sigma=sigma, rel_height=rel_height, max_width=max_width // resolution,
-            gabor_freq=gabor_freq, gabor_theta=0
+            gabor_freq=gabor_freq, gabor_theta=1
         )
         print(f' {len(v_Peaks)} identified')
 
