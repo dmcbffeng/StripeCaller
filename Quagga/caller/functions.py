@@ -233,7 +233,7 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
                 _exp_idx = _calculated_values[_obs].insert(_exp)  # insert to the binary tree and return an index
                 Poiss = poisson(_exp)
                 p_val = 1 - Poiss.cdf(_obs)
-                if 0 < p_val < 1:
+                if 0 < p_val:
                     mlog_p_val = - np.log10(p_val)
                 else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
                     mlog_p_val = -1
@@ -245,7 +245,7 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
             # calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
             Poiss = poisson(_exp)
             p_val = 1 - Poiss.cdf(_obs)
-            if 0 < p_val < 1:
+            if 0 < p_val:
                 mlog_p_val = - np.log10(p_val)
             else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
                 mlog_p_val = -1
