@@ -1,3 +1,4 @@
+import os
 import argparse
 import textwrap
 import sys
@@ -28,7 +29,7 @@ def stripe_parser():
     parser.add_argument(
         '--chrs',
         nargs="+",
-        default = ["chr1"],
+        default=["chr1"],
         help='which chromosomes to calculate, seperated by comma')
 
     parser.add_argument(
@@ -69,8 +70,8 @@ def stripe_parser():
     parser.add_argument(
         '--max_width',
         type=int,
-        default=10000000000,
-        help='merge stripes which are close to each other (# of bins)')
+        default=50000,
+        help='maximum stripe width')
 
     parser.add_argument(
         '--window_size',
@@ -118,11 +119,54 @@ def stripe_parser():
         default=1,
         help='choose number of CPU cores'
         )
+
+    parser.add_argument(
+        '--log_path',
+        type=str,
+        default='test.txt',
+        help='choose number of CPU cores'
+    )
+
     args, unknown = parser.parse_known_args()
 
-    print(' The following args are not recognized:', unknown)
+    if args.log_path is not None and len(args.log_path) > 0:
+        if os.path.exists(args.log_path):
+            f = open(args.log_path, 'a')
+        else:
+            f = open(args.log_path, 'w')
+        f.write('Program started with command line...\n')
+        f.write('===============\n')
+        f.write('#Args passed from command line:\n')
+        f.write('#Arg_name Arg_value Arg_PythonReference\n')
+        f.write(f'hic {args.hic} {id(args.hic)}\n')
+        f.write(f'reference_genome {args.reference_genome} {id(args.reference_genome)}\n')
+        f.write(f'chrs {args.chrs} {id(args.chrs)}\n')
+        f.write(f'output_file {args.output_file} {id(args.output_file)}\n')
+        f.write(f'norm {args.norm} {id(args.norm)}\n')
+        f.write(f'threshold {args.threshold} {id(args.threshold)}\n')
+        f.write(f'max_range {args.max_range} {id(args.max_range)}\n')
+        f.write(f'resolution {args.resolution} {id(args.resolution)}\n')
+        f.write(f'min_length {args.min_length} {id(args.min_length)}\n')
+        f.write(f'min_distance {args.min_distance} {id(args.min_distance)}\n')
+        f.write(f'max_width {args.max_width} {id(args.max_width)}\n')
+        f.write(f'window_size {args.window_size} {id(args.window_size)}\n')
+        f.write(f'N_cores {args.N_cores} {id(args.N_cores)}\n')
+        f.write(f'nstrata_blank {args.nstrata_blank} {id(args.nstrata_blank)}\n')
+        f.write(f'sigma {args.sigma} {id(args.sigma)}\n')
+        f.write(f'rel_height {args.rel_height} {id(args.rel_height)}\n')
+        f.write(f'centromere_file {args.centromere_file} {id(args.centromere_file)}\n')
+        if len(unknown):
+            f.write(f'The following args are not recognized:{unknown}')
+        f.write('===============\n\n')
+        f.close()
+
+    if len(unknown):
+        print(' The following args are not recognized:', unknown)
     return args
 
+
+if __name__ == '__main__':
+    stripe_parser()
 
 
 

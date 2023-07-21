@@ -183,6 +183,7 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
         x2 += 1
 
     new_mat = np.zeros((distance_range[1] - distance_range[0],))
+    all_exp, all_obs = np.zeros((distance_range[1] - distance_range[0],)), np.zeros((distance_range[1] - distance_range[0],))
     for j in range(distance_range[0], distance_range[1]):
         y = j - distance_range[0]
         _min_temp = subsetNpMatrix(mat, (x1, x2), (j - window_size - half, j + window_size + half + 1))
@@ -254,9 +255,11 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
 
         # Store enrichment score in new_mat
         new_mat[y] = mlog_p_val
+        all_exp[y] = _exp
+        all_obs[y] = _obs
     new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
 
-    return new_mat
+    return new_mat, all_exp, all_obs
 
 
 def find_max_slice(arr):

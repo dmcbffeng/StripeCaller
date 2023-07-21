@@ -19,7 +19,8 @@ def _stripe_caller(
         min_length=30000, closeness=50000,
         window_size=8, threshold=0.01,
         N=1,
-        norm_factors=None, stats_test_log=({}, {})
+        norm_factors=None, stats_test_log=({}, {}),
+        log_path=None
 ):
     assert max_range % resolution == 0
     assert min_length % resolution == 0
@@ -43,8 +44,9 @@ def _stripe_caller(
 
         with Pool(N) as pool:
             # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
-            arr = pool.starmap(enrichment_score2,
-                               zip(repeat(mat), lst, wtd, repeat(norm_factors), repeat(targeted_range), repeat(window_size)))
+            arr, all_exp, all_obs = pool.starmap(enrichment_score2,
+                               zip(repeat(mat), lst, wtd, repeat(norm_factors),
+                                   repeat(targeted_range), repeat(window_size)))
         arr += np.log10(threshold)
 
         with Pool(N) as pool:
@@ -59,7 +61,8 @@ def _stripe_caller(
         for i, idx in enumerate(lst):
             if idx <= window_size or idx >= mat.shape[0] - window_size:
                 continue
-            arr = enrichment_score2(mat, idx, int(wtd[i]),
+
+            arr, all_exp, all_obs = enrichment_score2(mat, idx, int(wtd[i]),
                                     distance_range=targeted_range,
                                     window_size=window_size,
                                     norm_factors=norm_factors, stats_test_log=stats_test_log
@@ -68,6 +71,16 @@ def _stripe_caller(
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
             all_positions.append((idx, head, tail, _max, wtd[i]))
+
+            if log_path is not None and len(log_path) > 0:
+                f = open(log_path, 'a')
+                f.write(f'Anchor: {idx * resolution}, Width: {int(wtd[i])}\n')
+                f.write(f'Observed: {list(all_obs)}\n')
+                f.write(f'Expected: {list(all_exp)}\n')
+                f.write(f'-logPval: {list(arr)}\n')
+                f.write(f'Head and tail: {head} {tail}\n')
+                f.write('===============\n')
+                f.close()
 
     if not all_positions:
         raise ValueError("No statistically significant candidate stripes found(enrichment_score()). "
@@ -104,7 +117,8 @@ def stripe_caller_all(
         nstrata_blank=0,
         sigma=12.,
         rel_height=0.3,
-        gabor_freq=0.1
+        gabor_freq=0.1,
+        log_path=None
 ):
     """
     The main function for calling stripes
@@ -123,6 +137,36 @@ def stripe_caller_all(
         window_size (int): size of the window for calculating enrichment score
 
     """
+
+    if log_path is not None and len(log_path) > 0:
+        if os.path.exists(log_path):
+            f2 = open(log_path, 'a')
+        else:
+            f2 = open(log_path, 'w')
+        f2.write('Program started with the stripe_caller_all() function...\n')
+        f2.write('===============\n')
+        f2.write('#Args received by the function:\n')
+        f2.write('#Arg_name Arg_value Arg_PythonReference\n')
+        f2.write(f'hic {hic_file} {id(hic_file)}\n')
+        f2.write(f'reference_genome {reference_genome} {id(reference_genome)}\n')
+        f2.write(f'chrs {chromosomes} {id(chromosomes)}\n')
+        f2.write(f'output_file {output_file} {id(output_file)}\n')
+        f2.write(f'norm {norm} {id(norm)}\n')
+        f2.write(f'threshold {threshold} {id(threshold)}\n')
+        f2.write(f'max_range {max_range} {id(max_range)}\n')
+        f2.write(f'resolution {resolution} {id(resolution)}\n')
+        f2.write(f'min_length {min_length} {id(min_length)}\n')
+        f2.write(f'min_distance {min_distance} {id(min_distance)}\n')
+        f2.write(f'max_width {max_width} {id(max_width)}\n')
+        f2.write(f'window_size {window_size} {id(window_size)}\n')
+        f2.write(f'N_cores {N_threads} {id(N_threads)}\n')
+        f2.write(f'nstrata_blank {nstrata_blank} {id(nstrata_blank)}\n')
+        f2.write(f'sigma {sigma} {id(sigma)}\n')
+        f2.write(f'rel_height {rel_height} {id(rel_height)}\n')
+        f2.write(f'centromere_file {centromere_file} {id(centromere_file)}\n')
+        f2.write('===============\n\n')
+        f2.close()
+
     centro = {}
     if centromere_file is not None:
         for line in open(centromere_file):
@@ -166,6 +210,13 @@ def stripe_caller_all(
             print(f' Warning: The matrix for {ch} with {norm} normalization is empty. Skipping the chromosome.')
             continue
 
+        if log_path is not None and len(log_path) > 0:
+            f2 = open(log_path, 'a')
+            f2.write('===============\n')
+            f2.write(f'Loaded the chromosome: {ch}, sum of contacts: {_sum}\n')
+            f2.write('===============\n')
+            f2.close()
+
         # full mat for calling candidate stripes
         # print(' Finding candidate peaks:')
         # mat = blank_diagonal_sparse_from_strata(strata, nstrata_blank)
@@ -187,12 +238,22 @@ def stripe_caller_all(
         )
         print(f' {len(h_Peaks)} identified')
 
+        if log_path is not None and len(log_path) > 0:
+            f2 = open(log_path, 'a')
+            f2.write('===============\n')
+            f2.write('Horizontal:')
+            f2.write(f'{len(h_Peaks)} candidate stripes identified with Gabor filtering and peak calling\n')
+            f2.write('Starting the statistical test for each candidate stripe')
+            f2.write('===============\n')
+            f2.close()
+
         if h_Peaks:
             results = _stripe_caller(mat, positions=h_Peaks, threshold=threshold,
                                      max_range=max_range, resolution=resolution,
                                      min_length=min_length, closeness=min_distance,
                                      window_size=window_size, N=N_threads,
-                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
+                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats),
+                                     log_path=log_path
                                      )
         else:
             results = []
@@ -218,12 +279,22 @@ def stripe_caller_all(
         )
         print(f' {len(v_Peaks)} identified')
 
+        if log_path is not None and len(log_path) > 0:
+            f2 = open(log_path, 'a')
+            f2.write('===============\n')
+            f2.write('Vertical:')
+            f2.write(f'{len(h_Peaks)} candidate stripes identified with Gabor filtering and peak calling\n')
+            f2.write('Starting the statistical test for each candidate stripe')
+            f2.write('===============\n')
+            f2.close()
+
         if v_Peaks:
             results = _stripe_caller(mat, positions=v_Peaks, threshold=threshold,
                                      max_range=max_range, resolution=resolution,
                                      min_length=min_length, closeness=min_distance,
                                      window_size=window_size, N=N_threads,
-                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats)
+                                     norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats),
+                                     log_path=log_path
                                      )
         else:
             results = []

@@ -43,7 +43,8 @@ if __name__ == "__main__":
         N_threads=args.N_cores,
         nstrata_blank=args.nstrata_blank,
         sigma=args.sigma,
-        rel_height=args.rel_height
+        rel_height=args.rel_height,
+        log_path=args.log_path
     )
 
 

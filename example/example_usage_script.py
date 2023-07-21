@@ -8,24 +8,24 @@ from Quagga import stripe_caller
 
 
 stripe_caller(
-    # hic_file='../../GM12878.hic',
-    hic_file='/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic',
-    reference_genome='hg38',
-    output_file='GM12878_chr2.bedpe',
-    chromosomes=['chr2'],
+    hic_file='../../O3.hic',
+    # hic_file='/nfs/turbo/umms-drjieliu/proj/4dn/data/bulkHiC/GM12878/GM12878.hic',
+    reference_genome='hg19',
+    output_file='O3_chr1.bedpe',
+    chromosomes=['chr1'],
     norm='balanced',
     threshold=0.15,
-    resolution=5000,
+    resolution=25000,
     max_range=2000000,
     min_length=300000,
     min_distance=300000,
-    window_size=10,
+    window_size=5,
     centromere_file='removed_regions.bed',
     N_threads=1,
     nstrata_blank=1,
-    step=80,
     sigma=2,
-    rel_height=0.3
+    rel_height=0.2,
+    log_path='O3_example_log.txt'
 )
 
 
