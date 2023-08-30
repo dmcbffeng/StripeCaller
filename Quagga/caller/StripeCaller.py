@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
 from ..utils.load_HiC import *
-from .functions import enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths, get_stripe_and_widths_new
+from .functions import enrichment_score2, phased_enrichment_score2, find_max_slice, phased_max_slice_arr, merge_positions, get_stripe_and_widths, get_stripe_and_widths_new
 from .mat_ops import strata2vertical, strata2horizontal, blank_diagonal_sparse_from_strata
 
 import numpy as np
@@ -44,14 +44,39 @@ def _stripe_caller(
 
         with Pool(N) as pool:
             # arr = pool.starmap(enrichment_score2, zip(lst, wtd, len(lst)*[targeted_range], len(lst)*[window_size]))
-            arr, all_exp, all_obs = pool.starmap(enrichment_score2,
-                               zip(repeat(mat), lst, wtd, repeat(norm_factors),
-                                   repeat(targeted_range), repeat(window_size)))
+            phased_outputs = pool.starmap(phased_enrichment_score2,
+                               zip(repeat(mat), lst, wtd,
+                                   repeat(norm_factors),
+                                   repeat(targeted_range),
+                                   repeat(window_size)))
+
+        arr, all_exp, all_obs, loggerhash = [], [], [], {}
+        ctr=0
+        for out in phased_outputs:
+            arr0, all_exp0, all_obs0, stat_log0 = out
+            arr += [arr0]
+            all_exp += [all_exp0]
+            all_obs += [all_obs0]
+            stats_test_log[0].update(stat_log0[0])
+            stats_test_log[1].update(stat_log0[1])
+            loggerhash[lst[ctr]]={"arr": arr0,"exp": all_exp0,"obs": all_obs0}
+            ctr+=1            
         arr += np.log10(threshold)
 
         with Pool(N) as pool:
             all_positions = (pool.starmap(phased_max_slice_arr, zip(lst, arr, wtd)))
 
+        if log_path is not None and len(log_path) > 0:
+            f = open(log_path, 'a')
+            for idx, head, tail, _max, width in all_positions:
+                f.write(f'Anchor: {idx * resolution}, Width: {int(width)}\n')
+                f.write(f'Observed: {list(loggerhash[idx]["obs"])}\n')
+                f.write(f'Expected: {list(loggerhash[idx]["exp"])}\n')
+                f.write(f'-logPval: {list(loggerhash[idx]["arr"])}\n')
+                f.write(f'Head and tail: {head} {tail}\n')
+                f.write('===============\n')
+            f.close()
+                
     else:
         lst = [idx for idx in list(sorted(positions.keys())) if
                not idx <= window_size or not idx >= mat.shape[0] - window_size]

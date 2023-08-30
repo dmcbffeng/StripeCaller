@@ -140,6 +140,124 @@ def getPeakAndWidths(matrix_in, gap=600, sigma=12., rel_height=0.3):
     return hMax, hwidths, vMax, vwidths
 
 
+def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
+                      phased_stests=({}, {})):
+    """
+    Calculate the enrichment score of a stripe given its location, width and the contact matrix
+
+    Parameters:
+    ----------
+    mat: np.array (2D)
+        Contact matrix generated with strata2horizontal() or strata2vertical()
+
+    idx: int
+        The location (index) of the candidate stripe
+
+    line_width: int
+        Stripe width (# of bins)
+
+    norm_factors: np.array (1D)
+        The vector of normalization factors of the contact map.
+
+    distance_range: tuple
+        The distance range (# of bins) for the diagonal for calculating the scores
+
+    window_size: int
+        Window size (# of bins)
+
+    stats_test_log: tuple of dict
+        Previous log for accelerating statistical tests
+
+
+    Returns
+    ----------
+    new_mat: np.array (1D)
+        The enrichment score of each pixel along the candidate stripe
+
+    """
+    _calculated_values, _poisson_stats = phased_stests
+
+    half = int(line_width // 2)
+    x1, x2 = idx - half, idx - half + line_width
+    if x1 == x2:
+        x2 += 1
+
+    new_mat = np.zeros((distance_range[1] - distance_range[0],))
+    all_exp, all_obs = np.zeros((distance_range[1] - distance_range[0],)), np.zeros((distance_range[1] - distance_range[0],))
+    for j in range(distance_range[0], distance_range[1]):
+        y = j - distance_range[0]
+        _min_temp = subsetNpMatrix(mat, (x1, x2), (j - window_size - half, j + window_size + half + 1))
+        line_min = np.median([_min_temp])
+        _inner_neighbor = subsetNpMatrix(mat, (idx - half - window_size, x1),
+                                         (j - window_size - half, j + window_size + half + 1))
+        _outer_neighbor = subsetNpMatrix(mat, (x2 + 1, idx + half + window_size + 1),
+                                         (j - window_size - half, j + window_size + half + 1))
+
+        if _outer_neighbor.size == 0 or _inner_neighbor.size == 0:
+            continue
+
+        neighbor_mean = max(np.mean(_inner_neighbor), np.mean(_outer_neighbor))
+
+        # There should be a lower bound for the expected value,
+        # otherwise situations like (exp=0.01 and obs=0.02) would also be significant
+        # Currently we can set this to 0 until KR norm factors can be loaded
+        lower_b = 1 / norm_factors[idx]  # This should be (1 / KR_norm_factors) if we refer to JuiceTools HICCUPS
+        _exp = max(neighbor_mean, lower_b)
+        _obs = int(line_min)  # the same as floor function when line_min > 0
+        # _calculated_values: store all calculated exp-obs pairs in dictionary, in which keys are obs since
+        #     they are always integers. Each _calculated_values[obs] is a binary tree for quick searching,
+        #     and each tree leaf is a exp value corresponding to the obs value. Since exp values are float,
+        #     there is also an integer index attached for searching the exp-obs in dictionary _poisson_stats
+        #     (float cannot be dict keys).
+        # _poisson_stats: record all calculated result in a dict. It should be
+        #     _poisson_stats[(_exp, _obs)] = -log10(p). But _exp is a float and cannot be a dict key, we give
+        #     each _exp a unique index and use the index.
+        # stats_log: record all p value calculation. Just for benchmarking. Delete this when publishing.
+
+        # global _calculated_values, _poisson_stats  # , stats_log
+        tolerance = 0.02
+
+        # check if obs is a value calculated before
+        if _obs in _calculated_values:
+            # Find the nearest _exp values which were calculated before
+            # One larger, one smaller
+            (_upper, _lower) = _calculated_values[_obs].search(_exp)
+            # If _upper is close enough to _exp, directly use the p value from (_upper-_obs) pair
+            if _upper is not None and (_upper.key - _exp) < tolerance * _exp:
+                _exp = _upper.key
+                _exp_idx = _upper.val  # The integer index for _upper (float cannot be dict keys!)
+                mlog_p_val = _poisson_stats[(_exp_idx, _obs)]
+            else:
+                # Else, calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
+                _exp_idx = _calculated_values[_obs].insert(_exp)  # insert to the binary tree and return an index
+                Poiss = poisson(_exp)
+                p_val = 1 - Poiss.cdf(_obs)
+                if 0 < p_val:
+                    mlog_p_val = - np.log10(p_val)
+                else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
+                    mlog_p_val = -1
+                _poisson_stats[(_exp_idx, _obs)] = mlog_p_val
+                # stats_log.append([_exp, _obs, mlog_p_val])
+        else:  # If _obs is not used before, generate a new binary tree _calculated_values[_obs]
+            _calculated_values[_obs] = AVLTree()
+            _exp_idx = _calculated_values[_obs].insert(_exp)
+            # calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
+            Poiss = poisson(_exp)
+            p_val = 1 - Poiss.cdf(_obs)
+            if 0 < p_val:
+                mlog_p_val = - np.log10(p_val)
+            else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
+                mlog_p_val = -1
+            _poisson_stats[(_exp_idx, _obs)] = mlog_p_val
+
+        # Store enrichment score in new_mat
+        new_mat[y] = mlog_p_val
+        all_exp[y] = _exp
+        all_obs[y] = _obs
+    new_mat[new_mat < 0] = np.max(new_mat)  # Replace all "-1"s with the largest -log(p)
+    return new_mat, all_exp, all_obs, phased_stests
+
+
 def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
                       stats_test_log=({}, {})):
     """
