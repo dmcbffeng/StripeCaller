@@ -159,7 +159,15 @@ def stripe_parser():
             f.write(f'The following args are not recognized:{unknown}')
         f.write('===============\n\n')
         f.close()
-
+        
+    try:
+        assert isinstance(args.hic, str)
+        #assert isinstance(args.reference_genome, str)
+    except:
+        print("\n\n***\nError: invalid hic path\n***\n\n")
+        parser.print_help(sys.stderr)
+        exit()
+        
     if len(unknown):
         print(' The following args are not recognized:', unknown)
     return args
