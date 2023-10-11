@@ -123,8 +123,8 @@ def stripe_parser():
     parser.add_argument(
         '--log_path',
         type=str,
-        default='test.txt',
-        help='choose number of CPU cores'
+        default="",
+        help='write logger to file'
     )
 
     args, unknown = parser.parse_known_args()
