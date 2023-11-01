@@ -52,7 +52,8 @@ def strata2horizontal(strata):
     hmat = np.zeros((len(strata[0]), len(strata)))
     for i in range(len(strata)):
         hmat[:len(strata[i]), i] = strata[i]
-    return hmat
+    # print('divide by 60')
+    return hmat  # / 60
 
 
 def strata2vertical(strata):
@@ -77,7 +78,8 @@ def strata2vertical(strata):
     vmat = np.zeros((len(strata[0]), len(strata)))
     for i in range(len(strata)):
         vmat[i:, i] = strata[i]
-    return vmat
+    # print('divide by 60')
+    return vmat  # / 60
 
 
 def blank_diagonal_sparse_from_strata(strata, nstrata=0):

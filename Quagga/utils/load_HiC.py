@@ -172,12 +172,15 @@ def load_HiC(file, ref_genome, format=None,
     strata = [np.zeros((length - i,)) for i in range(n_strata)]
     norm_factors = np.ones((length,))
     recorded = set()
+    sum_before, sum_after = 0, 0
 
     for p1, p2, c, nx, ny in gen:
         # print(p1, p2, c, nx, ny)
         if abs(p1 - p2) < n_strata:
             if nx * ny > 0:
                 val = c / nx / ny
+                sum_before += c
+                sum_after += val
             else:
                 val = 0
             # if not 0 <= val < 10000:
@@ -194,5 +197,12 @@ def load_HiC(file, ref_genome, format=None,
                 recorded.add(p2)
                 # print(p2, ny)
 
+    if not (0.95 < sum_before / sum_after < 1.05):
+        # This means normalization changed the scale of contact values
+        # Usually happens in mcool + ICED normalization
+        fold_change = sum_before / sum_after
+        for i in range(len(strata)):
+            strata[i] = strata[i] * fold_change
+        norm_factors = norm_factors / np.sqrt(fold_change)
     return strata, norm_factors
 

@@ -1,3 +1,13 @@
 command line: stripe caller --version
 
 .mcool file test
+
+CTCF KO maps from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE98671
+untreated rep1 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644945&format=file&file=GSM2644945%5FUntreated%2DR1%2E20000%2Ecool%2Egz
+untreated rep2 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644946&format=file&file=GSM2644946%5FUntreated%2DR2%2E20000%2Ecool%2Egz
+auxin rep1 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644947&format=file&file=GSM2644947%5FAuxin2days%2DR1%2E20000%2Ecool%2Egz
+auxin rep2 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644948&format=file&file=GSM2644948%5FAuxin2days%2DR2%2E20000%2Ecool%2Egz
+washoff rep1 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644949&format=file&file=GSM2644949%5FWashoff2days%2DR1%2E20000%2Ecool%2Egz
+washoff rep2 https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM2644950&format=file&file=GSM2644950%5FWashoff2days%2DR2%2E20000%2Ecool%2Egz
+
+
