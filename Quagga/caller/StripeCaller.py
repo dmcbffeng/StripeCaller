@@ -95,7 +95,9 @@ def _stripe_caller(
 
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
-            all_positions.append((idx, head, tail, _max, wtd[i]))
+            if tail - head > 0:
+                _max = _max / (tail - head) - np.log10(threshold)
+                all_positions.append((idx, head, tail, _max, wtd[i]))
 
             if log_path is not None and len(log_path) > 0:
                 f = open(log_path, 'a')
@@ -212,7 +214,7 @@ def stripe_caller_all(
         raise ValueError('Unrecognized format for: ' + hic_file)
 
     f = open(output_file, 'w')
-    f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tenrichment\n')
+    f.write('#chr1\tx1\tx2\tchr2\ty1\ty2\tP_val\n')
 
     # Stats test record
     _calculated_values = {}
@@ -289,7 +291,7 @@ def stripe_caller_all(
                     if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
                         in_centro = True
             if not in_centro:
-                f.write(f'{ch}\t{st*resolution}\t{ed*resolution}\t{ch}\t{max((st+hd), ed)*resolution}\t{(ed+tl)*resolution}\t{sc}\n')
+                f.write(f'{ch}\t{st*resolution}\t{ed*resolution}\t{ch}\t{max((st+hd), ed)*resolution}\t{(ed+tl)*resolution}\t{10 ** (- sc)}\n')
 
         # vertical
         print(' Vertical:')
@@ -351,6 +353,6 @@ def stripe_caller_all(
                     if centro_st <= st * resolution <= centro_ed or centro_st <= ed * resolution <= centro_ed:
                         in_centro = True
             if not in_centro:
-                f.write(f'{ch}\t{(st-tl)*resolution}\t{min((ed-hd), st)*resolution}\t{ch}\t{st*resolution}\t{ed*resolution}\t{sc}\n')
+                f.write(f'{ch}\t{(st-tl)*resolution}\t{min((ed-hd), st)*resolution}\t{ch}\t{st*resolution}\t{ed*resolution}\t{10 ** (- sc)}\n')
     f.close()
 
