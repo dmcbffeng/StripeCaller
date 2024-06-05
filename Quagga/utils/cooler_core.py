@@ -182,7 +182,10 @@ def delete(grp, fields=None):
 
 def _region_to_extent(h5, chrom_ids, region, binsize):
     chrom, start, end = region
-    cid = chrom_ids[chrom]
+    if "chr" not in chrom:
+        cid = chrom_ids["chr"+chrom]
+    else:
+        cid = chrom_ids[chrom]
     if binsize is not None:
         chrom_offset = h5["indexes"]["chrom_offset"][cid]
         yield chrom_offset + int(np.floor(start / binsize))
