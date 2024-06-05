@@ -19,6 +19,7 @@ logger = logging.getLogger('')
 if __name__ == "__main__":
     my_path = os.path.dirname(os.path.abspath(__file__))
     # print(my_path)
+    __spec__ = None
     args = stripe_parser()
 
     if args.presets != "":
