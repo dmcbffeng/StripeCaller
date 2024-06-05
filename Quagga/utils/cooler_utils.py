@@ -159,12 +159,11 @@ def parse_region(reg, chromsizes=None):
         end = int(end) if end is not None else end
 
     try:
-
-        if "chr" not in chrom:
-            _chrom="chr"+chrom
+        key_check = list(chromsizes.keys())[0]
+        if key_check.startswith("chr"):
+            clen = chromsizes["chr"+chrom] if chromsizes is not None else None
         else:
-            _chrom=chrom
-        clen = chromsizes[_chrom] if chromsizes is not None else None
+            clen = chromsizes[chrom] if chromsizes is not None else None
         #clen = chromsizes[chrom] if chromsizes is not None else None
     except KeyError:
         raise ValueError("Unknown sequence label: {}".format(chrom))
