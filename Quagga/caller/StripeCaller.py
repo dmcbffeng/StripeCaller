@@ -95,9 +95,10 @@ def _stripe_caller(
 
             arr = arr + np.log10(threshold)
             head, tail, _max = find_max_slice(arr)
-            if tail - head > 0:
-                _max = _max / (tail - head) - np.log10(threshold)
-                all_positions.append((idx, head, tail, _max, wtd[i]))
+            # if tail - head > 0:
+            #     _max = _max / (tail - head) - np.log10(threshold)
+            #     all_positions.append((idx, head, tail, _max, wtd[i]))
+            all_positions.append((idx, head, tail, _max, wtd[i]))
 
             if log_path is not None and len(log_path) > 0:
                 f = open(log_path, 'a')
