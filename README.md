@@ -88,15 +88,15 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - max_width (int): maximum width of stripes
   - window_size (int): size of the window for calculating enrichment score
   - centromere_file (str): the bed file for centromere regions in which will be removed during calculation (can be None)
-  - N_threads (int): the number of threads
-  - nstrata_blank (int): cells from main diagonal of contact matrix to set to zero
-  - sigma (float): Threshold of peak detection of file-summation spectrogram
+  - N_threads (int): the number of threads, when greater than 1 this activates multiprocessing
+  - nstrata_blank (int): cells off main diagonal of contact matrix to set to zero/ignore
+  - sigma (float): standard deviation for Gaussian kernel for blurring row/column sums before peak detection
   - rel_height (float): Relative proportional height from peak of file-summation spectrogram to measure peak's width
   - gabor_freq (float): Frequency for the gabor kernel applied to matrix image, directionally filters for lines  
 
   **Recommended Parameter settings**
-  - HiC: nstrata_blank=1, norm="balanced", threshold=0.15, max_range=2000000, resolution=5000, min_length=300000, min_distance=2, max_width=25000, window_size=35, sigma=1, rel_height=0.3
-  - Micro-C: nstrata_blank=50, norm="balanced", threshold=0.15, max_range=2000000, resolution=1000, min_length=300000, min_distance=2, max_width=5000, window_size=600, sigma=12, rel_height=0.3
+  - HiC: nstrata_blank=10, norm="balanced", threshold=0.15, max_range=7500000, resolution=5000, min_length=500000, min_distance=500000, max_width=50000, window_size=7, sigma=1, rel_height=0.3
+  - Micro-C: nstrata_blank=10, norm="balanced", threshold=0.15, max_range=5000000, resolution=5000, min_length=500000, min_distance=500000, max_width=50000, window_size=20, sigma=6, rel_height=0.1
 
 
 ### Output
