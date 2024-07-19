@@ -45,6 +45,7 @@ def stripe_parser():
     parser.add_argument(
         '--thr', dest='threshold',
         type=float,
+        default=0.15,
         help='P value threshold')
 
     parser.add_argument(
