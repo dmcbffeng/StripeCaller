@@ -699,7 +699,8 @@ def matrix(
 
 
 def dump(cool_uri, resolution, chrloc1, chrloc2, norm):
-    cool_uri = cool_uri + '::resolutions/' + str(resolution)
+    if cool_uri.endswith(".mcool"):
+        cool_uri = cool_uri + '::resolutions/' + str(resolution)
     c = Cooler(cool_uri)
 
     h5 = c.open("r")
