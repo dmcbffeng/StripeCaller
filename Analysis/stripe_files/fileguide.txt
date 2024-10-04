@@ -1,0 +1,3 @@
+zebra: GM12878.bedpe
+stripenn: results_filtered.tsv
+quagga: 5000nt_MR10000000_ML50000_MD7000000_MW50000_WS7_SG1RH0.3_NSTR10_ALL_hg38GM12878_completedfiltered.txt
