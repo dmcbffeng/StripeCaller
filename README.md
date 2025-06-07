@@ -111,7 +111,7 @@ On the top left corner, by choosing "View - Show annotation panel - 2D annotatio
 users can import the called stripes to a pre-loaded Hi-C contact map.
 Here is an example region:
 
-![GitHub Logo](/example/JuiceBox_example_region.png)
+![GitHub Logo](JuiceBox_example_region.png)
 
 
 ### Citation
