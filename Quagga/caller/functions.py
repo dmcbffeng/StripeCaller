@@ -2,7 +2,7 @@ import sys
 sys.path.append("..")
 import numpy as np
 import scipy.sparse as sp
-from scipy.stats import poisson
+from scipy.stats import poisson, nbinom
 from scipy import signal
 from scipy.ndimage.filters import gaussian_filter1d
 from skimage.filters import gabor_kernel
@@ -140,7 +140,7 @@ def getPeakAndWidths(matrix_in, gap=600, sigma=12., rel_height=0.3):
     return hMax, hwidths, vMax, vwidths
 
 
-def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
+def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10, nbinom_p=None,
                       phased_stests=({}, {})):
     """
     Calculate the enrichment score of a stripe given its location, width and the contact matrix
@@ -230,8 +230,11 @@ def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=
             else:
                 # Else, calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
                 _exp_idx = _calculated_values[_obs].insert(_exp)  # insert to the binary tree and return an index
-                Poiss = poisson(_exp)
-                p_val = 1 - Poiss.cdf(_obs)
+                if nbinom_p is None:
+                    Poiss = poisson(_exp)
+                    p_val = 1 - Poiss.cdf(_obs)
+                else:
+                    p_val = 1 - nbinom_p(_obs, _exp, nbinom_p)
                 if 0 < p_val:
                     mlog_p_val = - np.log10(p_val)
                 else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
@@ -242,8 +245,11 @@ def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=
             _calculated_values[_obs] = AVLTree()
             _exp_idx = _calculated_values[_obs].insert(_exp)
             # calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
-            Poiss = poisson(_exp)
-            p_val = 1 - Poiss.cdf(_obs)
+            if nbinom_p is None:
+                Poiss = poisson(_exp)
+                p_val = 1 - Poiss.cdf(_obs)
+            else:
+                p_val = 1 - nbinom_p(_obs, _exp, nbinom_p)
             if 0 < p_val:
                 mlog_p_val = - np.log10(p_val)
             else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
@@ -258,7 +264,8 @@ def phased_enrichment_score2(mat, idx, line_width, norm_factors, distance_range=
     return new_mat, all_exp, all_obs, phased_stests
 
 
-def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40), window_size=10,
+def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40),
+                      window_size=10, nbinom_p=None,
                       stats_test_log=({}, {})):
     """
     Calculate the enrichment score of a stripe given its location, width and the contact matrix
@@ -350,8 +357,11 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
             else:
                 # Else, calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
                 _exp_idx = _calculated_values[_obs].insert(_exp)  # insert to the binary tree and return an index
-                Poiss = poisson(_exp)
-                p_val = 1 - Poiss.cdf(_obs)
+                if nbinom_p is None:
+                    Poiss = poisson(_exp)
+                    p_val = 1 - Poiss.cdf(_obs)
+                else:
+                    p_val = 1 - nbinom_p(_obs, _exp, nbinom_p)
                 if 0 < p_val:
                     mlog_p_val = - np.log10(p_val)
                 else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace
@@ -362,8 +372,11 @@ def enrichment_score2(mat, idx, line_width, norm_factors, distance_range=(20, 40
             _calculated_values[_obs] = AVLTree()
             _exp_idx = _calculated_values[_obs].insert(_exp)
             # calculate p value for _obs-_exp pair and store them in _calculated_values and _poisson_stats
-            Poiss = poisson(_exp)
-            p_val = 1 - Poiss.cdf(_obs)
+            if nbinom_p is None:
+                Poiss = poisson(_exp)
+                p_val = 1 - Poiss.cdf(_obs)
+            else:
+                p_val = 1 - nbinom_p(_obs, _exp, nbinom_p)
             if 0 < p_val:
                 mlog_p_val = - np.log10(p_val)
             else:  # Some p values are too small, -log(0) will return an error, so we use -1 to temporarily replace

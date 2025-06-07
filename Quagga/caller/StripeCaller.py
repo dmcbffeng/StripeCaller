@@ -20,7 +20,7 @@ def _stripe_caller(
         window_size=8, threshold=0.01,
         N=1,
         norm_factors=None, stats_test_log=({}, {}),
-        log_path=None
+        log_path=None, nbinom_p=None
 ):
     assert max_range % resolution == 0
     assert min_length % resolution == 0
@@ -48,7 +48,8 @@ def _stripe_caller(
                                zip(repeat(mat), lst, wtd,
                                    repeat(norm_factors),
                                    repeat(targeted_range),
-                                   repeat(window_size)))
+                                   repeat(window_size),
+                                   repeat(nbinom_p)))
 
         arr, all_exp, all_obs, loggerhash = [], [], [], {}
         ctr=0
@@ -89,7 +90,7 @@ def _stripe_caller(
 
             arr, all_exp, all_obs = enrichment_score2(mat, idx, int(wtd[i]),
                                     distance_range=targeted_range,
-                                    window_size=window_size,
+                                    window_size=window_size, nbinom_p=nbinom_p,
                                     norm_factors=norm_factors, stats_test_log=stats_test_log
                                     )
 
@@ -146,7 +147,8 @@ def stripe_caller_all(
         sigma=12.,
         rel_height=0.3,
         gabor_freq=0.1,
-        log_path=None
+        log_path=None,
+        nbinom_p=None
 ):
     """
     The main function for calling stripes
@@ -281,7 +283,7 @@ def stripe_caller_all(
                                      min_length=min_length, closeness=min_distance,
                                      window_size=window_size, N=N_threads,
                                      norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats),
-                                     log_path=log_path
+                                     log_path=log_path, nbinom_p=nbinom_p
                                      )
         else:
             results = []
@@ -322,7 +324,7 @@ def stripe_caller_all(
                                      min_length=min_length, closeness=min_distance,
                                      window_size=window_size, N=N_threads,
                                      norm_factors=norm_factors, stats_test_log=(_calculated_values, _poisson_stats),
-                                     log_path=log_path
+                                     log_path=log_path, nbinom_p=nbinom_p
                                      )
         else:
             results = []

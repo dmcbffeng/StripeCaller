@@ -72,8 +72,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
    --norm balanced --thr 0.15 --centromere_file removed_regions.bed --nstrata_blank 10
    
    ```
-  
-  
+
   - hic_file (str): file path
   - reference_genome (str): reference genome
   - chromosomes (list): which chromosomes to calculate
@@ -81,7 +80,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - norm (str): Hi-C normalization method. Recommend: "balanced", can also be "none"
   - threshold (float): p value threshold
   - resolution (int): resolution
-  - max_range (int): max distance off the diagonal to be calculated
+  - max_range (int): max distance off the diagonal to be considered in stripe calls
   - min_length (int): minimum length of stripes
   - min_distance (int): threshold for removing stripes too far away from the diagonal
   - stripe_width (int): stripe width (# of bins at the given resolution)
@@ -98,6 +97,7 @@ To this end, we developed Quagga, a tool for detection and statistical verificat
   - HiC: nstrata_blank=10, norm="balanced", threshold=0.15, max_range=7500000, resolution=5000, min_length=500000, min_distance=500000, max_width=50000, window_size=7, sigma=1, rel_height=0.3
   - Micro-C: nstrata_blank=10, norm="balanced", threshold=0.15, max_range=5000000, resolution=5000, min_length=500000, min_distance=500000, max_width=50000, window_size=20, sigma=6, rel_height=0.1
 
+[*] If you wish to use negative binomial statistics instead of Poisson statistics, include one additional "nbinom_p=0.8" to specify the p value (success probability) of negative binomial distribution. Quagga will automatically switch to negative binomial mode.
 
 ### Output
 
