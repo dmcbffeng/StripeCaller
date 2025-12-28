@@ -6,3 +6,4 @@ simplejson
 six
 h5py
 requests
+hic-straw
